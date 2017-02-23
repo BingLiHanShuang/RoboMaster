@@ -141,24 +141,24 @@ class PosPoint : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // double x = 1;
+  // float x = 1;
   void clear_x();
   static const int kXFieldNumber = 1;
-  double x() const;
-  void set_x(double value);
+  float x() const;
+  void set_x(float value);
 
-  // double y = 2;
+  // float y = 2;
   void clear_y();
   static const int kYFieldNumber = 2;
-  double y() const;
-  void set_y(double value);
+  float y() const;
+  void set_y(float value);
 
   // @@protoc_insertion_point(class_scope:PosPoint)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  double x_;
-  double y_;
+  float x_;
+  float y_;
   mutable int _cached_size_;
   friend struct  protobuf_protocol_2eproto::TableStruct;
 };
@@ -266,11 +266,11 @@ class ScanResult : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::PosPoint* release_picrutesize();
   void set_allocated_picrutesize(::PosPoint* picrutesize);
 
-  // double angle = 3;
+  // float angle = 3;
   void clear_angle();
   static const int kAngleFieldNumber = 3;
-  double angle() const;
-  void set_angle(double value);
+  float angle() const;
+  void set_angle(float value);
 
   // @@protoc_insertion_point(class_scope:ScanResult)
  private:
@@ -279,7 +279,7 @@ class ScanResult : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::RepeatedPtrField< ::PosPoint > position_;
   ::google::protobuf::internal::ArenaStringPtr result_;
   ::PosPoint* picrutesize_;
-  double angle_;
+  float angle_;
   mutable int _cached_size_;
   friend struct  protobuf_protocol_2eproto::TableStruct;
 };
@@ -415,29 +415,29 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // PosPoint
 
-// double x = 1;
+// float x = 1;
 inline void PosPoint::clear_x() {
   x_ = 0;
 }
-inline double PosPoint::x() const {
+inline float PosPoint::x() const {
   // @@protoc_insertion_point(field_get:PosPoint.x)
   return x_;
 }
-inline void PosPoint::set_x(double value) {
+inline void PosPoint::set_x(float value) {
   
   x_ = value;
   // @@protoc_insertion_point(field_set:PosPoint.x)
 }
 
-// double y = 2;
+// float y = 2;
 inline void PosPoint::clear_y() {
   y_ = 0;
 }
-inline double PosPoint::y() const {
+inline float PosPoint::y() const {
   // @@protoc_insertion_point(field_get:PosPoint.y)
   return y_;
 }
-inline void PosPoint::set_y(double value) {
+inline void PosPoint::set_y(float value) {
   
   y_ = value;
   // @@protoc_insertion_point(field_set:PosPoint.y)
@@ -568,15 +568,15 @@ inline void ScanResult::set_allocated_result(::std::string* result) {
   // @@protoc_insertion_point(field_set_allocated:ScanResult.result)
 }
 
-// double angle = 3;
+// float angle = 3;
 inline void ScanResult::clear_angle() {
   angle_ = 0;
 }
-inline double ScanResult::angle() const {
+inline float ScanResult::angle() const {
   // @@protoc_insertion_point(field_get:ScanResult.angle)
   return angle_;
 }
-inline void ScanResult::set_angle(double value) {
+inline void ScanResult::set_angle(float value) {
   
   angle_ = value;
   // @@protoc_insertion_point(field_set:ScanResult.angle)

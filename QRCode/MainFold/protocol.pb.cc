@@ -118,10 +118,10 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\016protocol.proto\" \n\010PosPoint\022\t\n\001x\030\001 \001(\001\022"
-      "\t\n\001y\030\002 \001(\001\"h\n\nScanResult\022\033\n\010position\030\001 \003"
+      "\n\016protocol.proto\" \n\010PosPoint\022\t\n\001x\030\001 \001(\002\022"
+      "\t\n\001y\030\002 \001(\002\"h\n\nScanResult\022\033\n\010position\030\001 \003"
       "(\0132\t.PosPoint\022\036\n\013picrutesize\030\004 \001(\0132\t.Pos"
-      "Point\022\016\n\006result\030\002 \001(\t\022\r\n\005angle\030\003 \001(\001\"k\n\007"
+      "Point\022\016\n\006result\030\002 \001(\t\022\r\n\005angle\030\003 \001(\002\"k\n\007"
       "Message\022)\n\013messagetype\030\001 \001(\0162\024.Message.M"
       "essageType\022\014\n\004data\030\002 \001(\014\"\'\n\013MessageType\022"
       "\010\n\004NULL\020\000\022\016\n\nScanResult\020\001b\006proto3"
@@ -247,12 +247,12 @@ bool PosPoint::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // double x = 1;
+      // float x = 1;
       case 1: {
-        if (tag == 9u) {
+        if (tag == 13u) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &x_)));
         } else {
           goto handle_unusual;
@@ -260,12 +260,12 @@ bool PosPoint::MergePartialFromCodedStream(
         break;
       }
 
-      // double y = 2;
+      // float y = 2;
       case 2: {
-        if (tag == 17u) {
+        if (tag == 21u) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &y_)));
         } else {
           goto handle_unusual;
@@ -297,14 +297,14 @@ failure:
 void PosPoint::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:PosPoint)
-  // double x = 1;
+  // float x = 1;
   if (this->x() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->x(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->x(), output);
   }
 
-  // double y = 2;
+  // float y = 2;
   if (this->y() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->y(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->y(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:PosPoint)
@@ -314,14 +314,14 @@ void PosPoint::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:PosPoint)
-  // double x = 1;
+  // float x = 1;
   if (this->x() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->x(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->x(), target);
   }
 
-  // double y = 2;
+  // float y = 2;
   if (this->y() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->y(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->y(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:PosPoint)
@@ -332,14 +332,14 @@ size_t PosPoint::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PosPoint)
   size_t total_size = 0;
 
-  // double x = 1;
+  // float x = 1;
   if (this->x() != 0) {
-    total_size += 1 + 8;
+    total_size += 1 + 4;
   }
 
-  // double y = 2;
+  // float y = 2;
   if (this->y() != 0) {
-    total_size += 1 + 8;
+    total_size += 1 + 4;
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -412,29 +412,29 @@ void PosPoint::InternalSwap(PosPoint* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PosPoint
 
-// double x = 1;
+// float x = 1;
 void PosPoint::clear_x() {
   x_ = 0;
 }
-double PosPoint::x() const {
+float PosPoint::x() const {
   // @@protoc_insertion_point(field_get:PosPoint.x)
   return x_;
 }
-void PosPoint::set_x(double value) {
+void PosPoint::set_x(float value) {
   
   x_ = value;
   // @@protoc_insertion_point(field_set:PosPoint.x)
 }
 
-// double y = 2;
+// float y = 2;
 void PosPoint::clear_y() {
   y_ = 0;
 }
-double PosPoint::y() const {
+float PosPoint::y() const {
   // @@protoc_insertion_point(field_get:PosPoint.y)
   return y_;
 }
-void PosPoint::set_y(double value) {
+void PosPoint::set_y(float value) {
   
   y_ = value;
   // @@protoc_insertion_point(field_set:PosPoint.y)
@@ -569,12 +569,12 @@ bool ScanResult::MergePartialFromCodedStream(
         break;
       }
 
-      // double angle = 3;
+      // float angle = 3;
       case 3: {
-        if (tag == 25u) {
+        if (tag == 29u) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &angle_)));
         } else {
           goto handle_unusual;
@@ -633,9 +633,9 @@ void ScanResult::SerializeWithCachedSizes(
       2, this->result(), output);
   }
 
-  // double angle = 3;
+  // float angle = 3;
   if (this->angle() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->angle(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->angle(), output);
   }
 
   // .PosPoint picrutesize = 4;
@@ -669,9 +669,9 @@ void ScanResult::SerializeWithCachedSizes(
         2, this->result(), target);
   }
 
-  // double angle = 3;
+  // float angle = 3;
   if (this->angle() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->angle(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->angle(), target);
   }
 
   // .PosPoint picrutesize = 4;
@@ -714,9 +714,9 @@ size_t ScanResult::ByteSizeLong() const {
         *this->picrutesize_);
   }
 
-  // double angle = 3;
+  // float angle = 3;
   if (this->angle() != 0) {
-    total_size += 1 + 8;
+    total_size += 1 + 4;
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -917,15 +917,15 @@ void ScanResult::set_allocated_result(::std::string* result) {
   // @@protoc_insertion_point(field_set_allocated:ScanResult.result)
 }
 
-// double angle = 3;
+// float angle = 3;
 void ScanResult::clear_angle() {
   angle_ = 0;
 }
-double ScanResult::angle() const {
+float ScanResult::angle() const {
   // @@protoc_insertion_point(field_get:ScanResult.angle)
   return angle_;
 }
-void ScanResult::set_angle(double value) {
+void ScanResult::set_angle(float value) {
   
   angle_ = value;
   // @@protoc_insertion_point(field_set:ScanResult.angle)

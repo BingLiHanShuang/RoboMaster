@@ -3,7 +3,7 @@ project(QRCode)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp protocol.pb.cc protocol.cpp protocol.h protocol.pb.h)
+set(SOURCE_FILES main.cpp protocol.pb.cc protocol.cpp protocol.h protocol.pb.h Serial.cpp Serial.h)
 find_package(OpenCV REQUIRED)
 find_package(ZBar)
 find_package(Protobuf REQUIRED)

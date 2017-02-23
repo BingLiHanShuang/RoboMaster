@@ -4,11 +4,15 @@
 #include <iostream>
 #include "protocol.pb.h"
 #include "protocol.h"
+#include "Serial.h"
 using namespace cv;
 using namespace std;
 using namespace zbar;
+Serial *serial;
 
 int main() {
+    serial=new Serial("/dev/ttyUSB0");
+
     VideoCapture cap(0); // open the video camera no. 0
     if (!cap.isOpened()) // if not success, exit program
     {
@@ -56,12 +60,13 @@ int main() {
             for(int i=0;i<4;i++){
                 line(frame,pts[i],pts[(i+1)%4],Scalar(255,0,0),3);
             }
-            protocol_send_result(pts,r.angle,symbol->get_data(),dWidth,dHeight);
+
+            PROTOCOL::send_result(pts,r.angle,symbol->get_data(),dWidth,dHeight);
 
 
 
 
-            cout<<"Angle: "<<r.angle<<endl;
+            //cout<<"Angle: "<<r.angle<<endl;
         }
         imshow("MyVideo", frame); //show the frame in "MyVideo" window
         if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
@@ -69,7 +74,10 @@ int main() {
             cout << "esc key is pressed by user" << endl;
             break;
         }
+
+
     }
+    delete serial;
     return 0;
 
 }

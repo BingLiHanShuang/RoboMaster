@@ -20,10 +20,10 @@ public static partial class ProtocolReflection {
   static ProtocolReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Cg5wcm90b2NvbC5wcm90byIgCghQb3NQb2ludBIJCgF4GAEgASgBEgkKAXkY",
-          "AiABKAEiaAoKU2NhblJlc3VsdBIbCghwb3NpdGlvbhgBIAMoCzIJLlBvc1Bv",
+          "Cg5wcm90b2NvbC5wcm90byIgCghQb3NQb2ludBIJCgF4GAEgASgCEgkKAXkY",
+          "AiABKAIiaAoKU2NhblJlc3VsdBIbCghwb3NpdGlvbhgBIAMoCzIJLlBvc1Bv",
           "aW50Eh4KC3BpY3J1dGVzaXplGAQgASgLMgkuUG9zUG9pbnQSDgoGcmVzdWx0",
-          "GAIgASgJEg0KBWFuZ2xlGAMgASgBImsKB01lc3NhZ2USKQoLbWVzc2FnZXR5",
+          "GAIgASgJEg0KBWFuZ2xlGAMgASgCImsKB01lc3NhZ2USKQoLbWVzc2FnZXR5",
           "cGUYASABKA4yFC5NZXNzYWdlLk1lc3NhZ2VUeXBlEgwKBGRhdGEYAiABKAwi",
           "JwoLTWVzc2FnZVR5cGUSCAoETlVMTBAAEg4KClNjYW5SZXN1bHQQAWIGcHJv",
           "dG8z"));
@@ -74,9 +74,9 @@ public sealed partial class PosPoint : pb::IMessage<PosPoint> {
 
   /// <summary>Field number for the "x" field.</summary>
   public const int XFieldNumber = 1;
-  private double x_;
+  private float x_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public double X {
+  public float X {
     get { return x_; }
     set {
       x_ = value;
@@ -85,9 +85,9 @@ public sealed partial class PosPoint : pb::IMessage<PosPoint> {
 
   /// <summary>Field number for the "y" field.</summary>
   public const int YFieldNumber = 2;
-  private double y_;
+  private float y_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public double Y {
+  public float Y {
     get { return y_; }
     set {
       y_ = value;
@@ -115,8 +115,8 @@ public sealed partial class PosPoint : pb::IMessage<PosPoint> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (X != 0D) hash ^= X.GetHashCode();
-    if (Y != 0D) hash ^= Y.GetHashCode();
+    if (X != 0F) hash ^= X.GetHashCode();
+    if (Y != 0F) hash ^= Y.GetHashCode();
     return hash;
   }
 
@@ -127,24 +127,24 @@ public sealed partial class PosPoint : pb::IMessage<PosPoint> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (X != 0D) {
-      output.WriteRawTag(9);
-      output.WriteDouble(X);
+    if (X != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(X);
     }
-    if (Y != 0D) {
-      output.WriteRawTag(17);
-      output.WriteDouble(Y);
+    if (Y != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Y);
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (X != 0D) {
-      size += 1 + 8;
+    if (X != 0F) {
+      size += 1 + 4;
     }
-    if (Y != 0D) {
-      size += 1 + 8;
+    if (Y != 0F) {
+      size += 1 + 4;
     }
     return size;
   }
@@ -154,10 +154,10 @@ public sealed partial class PosPoint : pb::IMessage<PosPoint> {
     if (other == null) {
       return;
     }
-    if (other.X != 0D) {
+    if (other.X != 0F) {
       X = other.X;
     }
-    if (other.Y != 0D) {
+    if (other.Y != 0F) {
       Y = other.Y;
     }
   }
@@ -170,12 +170,12 @@ public sealed partial class PosPoint : pb::IMessage<PosPoint> {
         default:
           input.SkipLastField();
           break;
-        case 9: {
-          X = input.ReadDouble();
+        case 13: {
+          X = input.ReadFloat();
           break;
         }
-        case 17: {
-          Y = input.ReadDouble();
+        case 21: {
+          Y = input.ReadFloat();
           break;
         }
       }
@@ -253,9 +253,9 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
 
   /// <summary>Field number for the "angle" field.</summary>
   public const int AngleFieldNumber = 3;
-  private double angle_;
+  private float angle_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public double Angle {
+  public float Angle {
     get { return angle_; }
     set {
       angle_ = value;
@@ -288,7 +288,7 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     hash ^= position_.GetHashCode();
     if (picrutesize_ != null) hash ^= Picrutesize.GetHashCode();
     if (Result.Length != 0) hash ^= Result.GetHashCode();
-    if (Angle != 0D) hash ^= Angle.GetHashCode();
+    if (Angle != 0F) hash ^= Angle.GetHashCode();
     return hash;
   }
 
@@ -304,9 +304,9 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
       output.WriteRawTag(18);
       output.WriteString(Result);
     }
-    if (Angle != 0D) {
-      output.WriteRawTag(25);
-      output.WriteDouble(Angle);
+    if (Angle != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(Angle);
     }
     if (picrutesize_ != null) {
       output.WriteRawTag(34);
@@ -324,8 +324,8 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     if (Result.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Result);
     }
-    if (Angle != 0D) {
-      size += 1 + 8;
+    if (Angle != 0F) {
+      size += 1 + 4;
     }
     return size;
   }
@@ -345,7 +345,7 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     if (other.Result.Length != 0) {
       Result = other.Result;
     }
-    if (other.Angle != 0D) {
+    if (other.Angle != 0F) {
       Angle = other.Angle;
     }
   }
@@ -366,8 +366,8 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
           Result = input.ReadString();
           break;
         }
-        case 25: {
-          Angle = input.ReadDouble();
+        case 29: {
+          Angle = input.ReadFloat();
           break;
         }
         case 34: {
