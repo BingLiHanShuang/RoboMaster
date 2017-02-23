@@ -34,9 +34,9 @@ struct  _PosPoint
 {
   ProtobufCMessage base;
   protobuf_c_boolean has_x;
-  double x;
+  float x;
   protobuf_c_boolean has_y;
-  double y;
+  float y;
 };
 #define POS_POINT__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&pos_point__descriptor) \
@@ -51,7 +51,7 @@ struct  _ScanResult
   PosPoint *picrutesize;
   char *result;
   protobuf_c_boolean has_angle;
-  double angle;
+  float angle;
 };
 #define SCAN_RESULT__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&scan_result__descriptor) \
