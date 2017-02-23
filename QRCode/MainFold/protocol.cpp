@@ -12,11 +12,11 @@ using namespace cv;
 using namespace std;
 extern Serial *serial;
 /*
- * FF //start
+ * FE //start
  * 00 00 00 00//packet size
  * 00 00 00 00//CRC32
  * ...........//payload
- * FE //end
+ * FF //end
  */
 namespace PROTOCOL{
 
@@ -94,7 +94,7 @@ namespace PROTOCOL{
 
         uint32_t crc=CRC32((const unsigned char *) payload, size);
 
-        result_temp.push(0xff);
+        result_temp.push(0xfe);
         enque_int(result_temp,size);
         enque_int(result_temp,crc);
 
@@ -102,7 +102,7 @@ namespace PROTOCOL{
         for (int i = 0; i < size; ++i) {
             enque_safe(result_temp,payload_ptr[i]);
         }
-        result_temp.push(0xfe);
+        result_temp.push(0xff);
 
         int result_len=result_temp.size();
         char *result=new char[result_len];
