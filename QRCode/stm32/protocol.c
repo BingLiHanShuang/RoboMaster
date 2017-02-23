@@ -2,6 +2,8 @@
 // Created by wzq on 23/02/2017.
 //
 #include <string.h>
+#include <stdlib.h>
+#include <printf.h>
 #include "protocol.h"
 #include "protocol.pb-c.h"
 
@@ -13,7 +15,7 @@
  * FF //end
  */
 
-int CRC32(const unsigned char *buf, unsigned int size) {
+int CRC32(const uint8_t *buf, unsigned int size) {
     unsigned int i, crc;
     crc = 0xFFFFFFFF;
     for (i = 0; i < size; i++)
@@ -21,20 +23,20 @@ int CRC32(const unsigned char *buf, unsigned int size) {
     return crc ^ 0xFFFFFFFF;
 }
 
-void GetMessage(char data) {
+void GetMessage(uint8_t data) {
     uart_buffer_1[uart_buffer_index_1++] = data;
     if (data == 0xff) {
         DispatchMessage();
     }
 }
 
-int DeserializeInt(char *data) {
+int DeserializeInt(uint8_t *data) {
     int result = 0;
     result = data[0] | data[1] << 8 | data[2] << 16 | data[3] << 24;
     return result;
 }
 
-int ExtractRaw(char *original, char *output) {
+int ExtractRaw(uint8_t *original,uint8_t *output) {
 
     int i = 0, j = 0;
     while (original[i] != 0xff) {
@@ -74,9 +76,13 @@ void SaveScanResult(ScanResult *scanResult) {
 
 
 };
-
+void print(uint8_t * data,int len){
+    for (int i = 0; i < len; ++i) {
+        printf("%02x ",data[i]);
+    }
+}
 void DispatchMessage() {
-    char raw_data[256];
+    uint8_t raw_data[256];
     memset(raw_data, 0, sizeof(raw_data));
 
     int raw_data_size_real = ExtractRaw(uart_buffer_1 + 1, raw_data);//to ommit package start 0xff
@@ -86,11 +92,16 @@ void DispatchMessage() {
 
     int raw_data_size_from_protocol = DeserializeInt(raw_data);
     int raw_data_crc32_from_protocol = DeserializeInt(raw_data + 4);
-    if (raw_data_size_from_protocol != raw_data_size_real)return;//Drop this package due to package loss
-    int raw_data_crc32_real = CRC32(raw_data + 9, raw_data_size_real);
+    if (raw_data_size_from_protocol != raw_data_size_real-8)return;//Drop this package due to package loss
+    int raw_data_crc32_real = CRC32(raw_data + 8, raw_data_size_from_protocol);
     if (raw_data_crc32_real != raw_data_crc32_from_protocol)return;//Drop this package due to CRC32 check failure
 
-    Message *message_temp = message__unpack(NULL, raw_data_size_real, raw_data + 9);
+
+    uint8_t *temp_ptr=raw_data+8;
+    print(temp_ptr,raw_data_size_from_protocol);
+
+    Message *message_temp = message__unpack(NULL, (size_t)raw_data_size_from_protocol, temp_ptr);
+
     if (message_temp->messagetype == MESSAGE__MESSAGE_TYPE__ScanResult) {
         ScanResult *scanResult = scan_result__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
         SaveScanResult(scanResult);

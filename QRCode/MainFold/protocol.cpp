@@ -19,8 +19,12 @@ extern Serial *serial;
  * FF //end
  */
 namespace PROTOCOL{
-
-    uint32_t CRC32(const unsigned char *buf, uint32_t size)
+    void print(uint8_t * data,int len){
+        for (int i = 0; i < len; ++i) {
+            printf("%02x ",data[i]);
+        }
+    }
+    uint32_t CRC32(uint8_t *buf, uint32_t size)
     {
         uint32_t i, crc;
         crc = 0xFFFFFFFF;
@@ -36,6 +40,16 @@ namespace PROTOCOL{
 
         int buffer_size = message->ByteSize();
         void *buffer = malloc(buffer_size);
+
+        message->SerializeToArray(buffer,buffer_size);
+//        uint8_t * buffer_ptr= (uint8_t *) buffer;
+//
+//        Message * test=new Message();
+//        test->ParseFromArray(buffer_ptr,buffer_size);
+
+//        print(buffer_ptr,buffer_size);
+
+
 
         presendtoserial(buffer,buffer_size);
         delete message;
@@ -53,7 +67,9 @@ namespace PROTOCOL{
         }
         scanResult->set_angle(angle);
         scanResult->set_result(data);
-        PosPoint *picture_size = (PosPoint *) (&scanResult->picrutesize());
+
+        PosPoint *picture_size = scanResult->mutable_picrutesize();
+
         picture_size->set_x(width);
         picture_size->set_y(height);
 
@@ -68,7 +84,7 @@ namespace PROTOCOL{
         free(buffer);
 
     }
-    void enque_safe(queue<unsigned char > & res,char data){
+    void enque_safe(queue<uint8_t > & res,uint8_t data){
         if(data==0xff){
             res.push(0xfe);
             res.push(0xfd);
@@ -82,7 +98,7 @@ namespace PROTOCOL{
         res.push(data);
         return;
     }
-    void enque_int(queue<unsigned char > & res,uint32_t data){
+    void enque_int(queue<uint8_t > & res,uint32_t data){
         for (int i = 0; i < 4; ++i) {
             enque_safe(res,data&0xff);
             data>>=8;
@@ -90,29 +106,40 @@ namespace PROTOCOL{
         return;
     }
     void presendtoserial(void *payload, uint32_t size) {
-        queue<unsigned char> result_temp;
+        queue<uint8_t> result_temp;
 
-        uint32_t crc=CRC32((const unsigned char *) payload, size);
+        uint32_t crc=CRC32((uint8_t *) payload, size);
 
         result_temp.push(0xfe);
         enque_int(result_temp,size);
         enque_int(result_temp,crc);
 
-        char *payload_ptr=(char*)payload;
+        uint8_t *payload_ptr=(uint8_t*)payload;
         for (int i = 0; i < size; ++i) {
             enque_safe(result_temp,payload_ptr[i]);
         }
         result_temp.push(0xff);
 
         int result_len=result_temp.size();
-        char *result=new char[result_len];
+        uint8_t *result=new uint8_t[result_len];
         //int index=0;
-        for(int i=0;i<result_len;i++){result[i]=result_temp.back();result_temp.pop();}
+        for(int i=0;i<result_len;i++){result[i]=result_temp.front();result_temp.pop();}
 
         sendtoserial(result,result_len);
 
     }
     void sendtoserial(void *payload, uint32_t size){
-        serial->send((char *) payload, size);
+        writetofile(payload,size);
+        //serial->send((char *) payload, size);
+    }
+    void writetofile(void *payload, uint32_t size){
+        FILE *fp;
+        fp=fopen("/Users/wzq/RoboMaster/QRCode/test/test1.dat", "w");
+        for (int i = 0; i < size; ++i) {
+            uint8_t temp=((uint8_t*)payload)[i];
+            fputc(temp,fp);
+        }
+        fclose(fp);
+
     }
 }

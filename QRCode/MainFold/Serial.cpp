@@ -45,11 +45,11 @@ Serial::Serial(char *name) {
     }
     set_interface_attribs(fd, B115200);
 }
-void Serial::send(char data) {
-    char temp[1]={data};
+void Serial::send(uint8_t data) {
+    uint8_t temp[1]={data};
     int wlen = write(fd, temp, 1);
 }
-void Serial::send(char *data, int size) {
+void Serial::send(uint8_t *data, int size) {
     int wlen = write(fd, data, size);
 
 }
