@@ -20,8 +20,8 @@ public:
     Serial(char * name);
 
     int set_interface_attribs(int fd, int speed);
-    void send(char * data,int size);
-    void send(char data);
+    void send(uint8_t * data,int size);
+    void send(uint8_t data);
 
 };
 

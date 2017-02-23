@@ -75,7 +75,7 @@ namespace PROTOCOL {
             0xb40bbe37L, 0xc30c8ea1L, 0x5a05df1bL, 0x2d02ef8dL
     };
 
-    unsigned int CRC32(const unsigned char *buf, uint32_t size);
+    unsigned int CRC32(uint8_t *buf, uint32_t size);
 
     void send(Message_MessageType type, void *payload, uint32_t size);
 
@@ -83,5 +83,6 @@ namespace PROTOCOL {
 
     void presendtoserial(void *payload, uint32_t size);
     void sendtoserial(void *payload, uint32_t size);
+    void writetofile(void *payload, uint32_t size);
 }
 #endif //QRCODE_PROTOCOL_H
