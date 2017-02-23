@@ -1,0 +1,21 @@
+syntax = "proto3";
+message PosPoint{
+	double x=1;
+	double y=2;
+}
+message ScanResult{
+	repeated PosPoint position=1;
+	PosPoint picrutesize=4;
+	string result=2;
+	double angle=3;
+	
+}
+message Message {
+	enum MessageType{
+		NULL = 0;
+		ScanResult=1;
+		
+	}
+	MessageType messagetype = 1;  
+	bytes data = 2;
+}
