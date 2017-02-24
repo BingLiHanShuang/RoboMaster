@@ -11,7 +11,7 @@ using namespace zbar;
 Serial *serial;
 
 int main() {
-    serial=new Serial("/dev/ttyUSB0");
+    serial=new Serial("/dev/tty.usbserial-A904RXF4");
 
     VideoCapture cap(0); // open the video camera no. 0
     if (!cap.isOpened()) // if not success, exit program

@@ -23,6 +23,7 @@ namespace PROTOCOL{
         for (int i = 0; i < len; ++i) {
             printf("%02x ",data[i]);
         }
+        printf("\n");
     }
     uint32_t CRC32(uint8_t *buf, uint32_t size)
     {
@@ -47,7 +48,7 @@ namespace PROTOCOL{
 //        Message * test=new Message();
 //        test->ParseFromArray(buffer_ptr,buffer_size);
 
-//        print(buffer_ptr,buffer_size);
+//
 
 
 
@@ -129,8 +130,9 @@ namespace PROTOCOL{
 
     }
     void sendtoserial(void *payload, uint32_t size){
-        writetofile(payload,size);
-        //serial->send((char *) payload, size);
+        //writetofile(payload,size);
+        print((uint8_t *) payload, size);
+        //serial->send((uint8_t *) payload, size);
     }
     void writetofile(void *payload, uint32_t size){
         FILE *fp;

@@ -1,0 +1,10 @@
+..\obj\protocol.o: ..\User\protocol.c
+..\obj\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\protocol.o: ..\User\protocol.h
+..\obj\protocol.o: ..\User\protocol.pb-c.h
+..\obj\protocol.o: ..\User\protobuf-c.h
+..\obj\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+..\obj\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+..\obj\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
