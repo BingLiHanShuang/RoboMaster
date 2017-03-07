@@ -22,9 +22,9 @@ def resize(rawimg):  # resize img to 28*28
     outimg[y:y+h, x:x+w] = img
     return outimg
 
-raw_image = cv2.imread("/Users/wzq/Desktop/testcase/h1_201703032009/5_4245597632814.jpg")
+raw_image = cv2.imread("/Users/wzq/Desktop/testcase/h201703032044/73_38256928415637.jpg")
 
-gray = cv2.imread("/Users/wzq/Desktop/testcase/h1_201703032009/5_4245597632814.jpg", cv2.IMREAD_GRAYSCALE)
+gray = cv2.imread("/Users/wzq/Desktop/testcase/h201703032044/73_38256928415637.jpg", cv2.IMREAD_GRAYSCALE)
 bw = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 25, 25)
 
 edge = cv2.Canny(bw.copy(), 500, 2000, apertureSize=5)

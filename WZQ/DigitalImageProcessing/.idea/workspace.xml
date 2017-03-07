@@ -16,8 +16,11 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/DigitalImageProcessing$test1.coverage" NAME="test1 Coverage Results" MODIFIED="1484190558334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DigitalImageProcessing$DigitRecognization2.coverage" NAME="DigitRecognization2 Coverage Results" MODIFIED="1488704533813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DigitalImageProcessing$DigitRecognization1.coverage" NAME="DigitRecognization1 Coverage Results" MODIFIED="1488880198871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Project2" />
+    <SUITE FILE_PATH="coverage/DigitalImageProcessing$PadRecognization.coverage" NAME="PadRecognization Coverage Results" MODIFIED="1488909255817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Project2" />
     <SUITE FILE_PATH="coverage/DigitalImageProcessing$turning.coverage" NAME="turning Coverage Results" MODIFIED="1484113348433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DigitalImageProcessing$template_generate.coverage" NAME="template_generate Coverage Results" MODIFIED="1484113340158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DigitalImageProcessing$PasswordRecognization.coverage" NAME="PasswordRecognization Coverage Results" MODIFIED="1488709305869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Project2" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -43,8 +46,8 @@
       <file leaf-file-name="DigitRecognization1.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DigitRecognization1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="243" column="8" selection-start-line="243" selection-start-column="8" selection-end-line="243" selection-end-column="72" />
+            <state relative-caret-position="675">
+              <caret line="235" column="14" selection-start-line="235" selection-start-column="14" selection-end-line="235" selection-end-column="14" />
               <folding>
                 <element signature="e#26#6476#0" expanded="false" />
                 <element signature="e#6493#12601#0" expanded="false" />
@@ -55,12 +58,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DigitRecognization2.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Project2/DigitRecognization2.py">
+      <file leaf-file-name="DigitRecognization1.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Project2/DigitRecognization1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-              <folding />
+            <state relative-caret-position="297">
+              <caret line="40" column="88" selection-start-line="40" selection-start-column="88" selection-end-line="40" selection-end-column="88" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PadRecognization.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Project2/PadRecognization.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="26" column="82" selection-start-line="26" selection-start-column="82" selection-end-line="26" selection-end-column="82" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PasswordRecognization.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Project2/PasswordRecognization.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="615">
+              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="44" />
+              <folding>
+                <element signature="e#14#24#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,6 +130,9 @@
         <option value="$PROJECT_DIR$/template_generate.py" />
         <option value="$PROJECT_DIR$/test1.py" />
         <option value="$PROJECT_DIR$/DigitRecognization2.py" />
+        <option value="$PROJECT_DIR$/Project2/PasswordRecognization.py" />
+        <option value="$PROJECT_DIR$/Project2/DigitRecognization1.py" />
+        <option value="$PROJECT_DIR$/Project2/PadRecognization.py" />
       </list>
     </option>
   </component>
@@ -111,8 +143,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="115" />
-    <option name="y" value="62" />
+    <option name="x" value="249" />
+    <option name="y" value="52" />
     <option name="width" value="1400" />
     <option name="height" value="949" />
   </component>
@@ -141,7 +173,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -190,6 +221,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -197,7 +229,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../NeuralNetwork" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -212,25 +244,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.DigitRecognization2">
-    <configuration default="false" name="turning" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="DigitalImageProcessing" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.PadRecognization">
     <configuration default="false" name="test1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -249,24 +263,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="template_generate" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="DigitalImageProcessing" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/template_generate.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="DigitRecognization2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -281,6 +277,60 @@
       <module name="DigitalImageProcessing" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DigitRecognization2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="PasswordRecognization" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Project2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DigitalImageProcessing" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Project2/PasswordRecognization.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DigitRecognization1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Project2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DigitalImageProcessing" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Project2/DigitRecognization1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="PadRecognization" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Project2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DigitalImageProcessing" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Project2/PadRecognization.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -493,18 +543,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.turning" />
-      <item index="1" class="java.lang.String" itemvalue="Python.test1" />
-      <item index="2" class="java.lang.String" itemvalue="Python.template_generate" />
-      <item index="3" class="java.lang.String" itemvalue="Python.DigitRecognization2" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Python.test1" />
+      <item index="1" class="java.lang.String" itemvalue="Python.DigitRecognization2" />
+      <item index="2" class="java.lang.String" itemvalue="Python.PasswordRecognization" />
+      <item index="3" class="java.lang.String" itemvalue="Python.DigitRecognization1" />
+      <item index="4" class="java.lang.String" itemvalue="Python.PadRecognization" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.DigitRecognization2" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test1" />
-        <item index="2" class="java.lang.String" itemvalue="Python.turning" />
-        <item index="3" class="java.lang.String" itemvalue="Python.template_generate" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.PadRecognization" />
+        <item index="1" class="java.lang.String" itemvalue="Python.DigitRecognization1" />
+        <item index="2" class="java.lang.String" itemvalue="Python.PasswordRecognization" />
+        <item index="3" class="java.lang.String" itemvalue="Python.DigitRecognization2" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test1" />
       </list>
     </recent_temporary>
   </component>
@@ -525,7 +577,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="115" y="62" width="1400" height="949" extended-state="0" />
+    <frame x="249" y="52" width="1400" height="949" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28142858" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -534,7 +586,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3284091" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3284091" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -575,11 +627,88 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="51" />
+      <option name="time" value="57" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DigitRecognization1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="235" column="14" selection-start-line="235" selection-start-column="14" selection-end-line="235" selection-end-column="14" />
+          <folding>
+            <element signature="e#26#6476#0" expanded="false" />
+            <element signature="e#6493#12601#0" expanded="false" />
+            <element signature="e#12668#12863#0" expanded="false" />
+            <element signature="e#12910#12934#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/DigitRecognization1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="40" column="88" selection-start-line="40" selection-start-column="88" selection-end-line="40" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/PadRecognization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/model.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/PasswordRecognization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="44" />
+          <folding>
+            <element signature="e#14#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template_generate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9915">
+          <caret line="696" column="0" selection-start-line="696" selection-start-column="0" selection-end-line="696" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/demo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -603,14 +732,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DigitRecognization2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/DigitRecognization2.py" />
     <entry file="file://$PROJECT_DIR$/template_generate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -758,6 +880,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9915">
+          <caret line="696" column="0" selection-start-line="696" selection-start-column="0" selection-end-line="696" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DigitRecognization2.py" />
+    <entry file="file://$PROJECT_DIR$/Project2/model.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/demo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -765,14 +904,6 @@
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9915">
-          <caret line="696" column="0" selection-start-line="696" selection-start-column="0" selection-end-line="696" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -784,10 +915,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/PasswordRecognization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="44" />
+          <folding>
+            <element signature="e#14#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DigitRecognization1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="243" column="8" selection-start-line="243" selection-start-column="8" selection-end-line="243" selection-end-column="72" />
+        <state relative-caret-position="675">
+          <caret line="235" column="14" selection-start-line="235" selection-start-column="14" selection-end-line="235" selection-end-column="14" />
           <folding>
             <element signature="e#26#6476#0" expanded="false" />
             <element signature="e#6493#12601#0" expanded="false" />
@@ -797,19 +938,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DigitRecognization2.py">
+    <entry file="file://$PROJECT_DIR$/Project2/DigitRecognization1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="297">
+          <caret line="40" column="88" selection-start-line="40" selection-start-column="88" selection-end-line="40" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Project2/DigitRecognization2.py">
+    <entry file="file://$PROJECT_DIR$/Project2/PadRecognization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-          <folding />
+        <state relative-caret-position="143">
+          <caret line="26" column="82" selection-start-line="26" selection-start-column="82" selection-end-line="26" selection-end-column="82" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
