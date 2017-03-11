@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 from keras.models import model_from_json
 
-with open('model.json', 'r') as f:
+with open('model_pass.json', 'r') as f:
     model = model_from_json(f.read())
-model.load_weights('model.h5')
+model.load_weights('model_pass.h5')
 model.summary()
 
 
@@ -22,17 +22,21 @@ def resize(rawimg):  # resize img to 28*28
     outimg[y:y+h, x:x+w] = img
     return outimg
 
-raw_image = cv2.imread("/Users/wzq/Downloads/testcase1/401_38976561942387.jpg")
+raw_image = cv2.imread("/Users/wzq/Downloads/testcase1/70_64441637259418.jpg")
 
-gray = cv2.imread("/Users/wzq/Downloads/testcase1/401_38976561942387.jpg", cv2.IMREAD_GRAYSCALE)
+gray = cv2.imread("/Users/wzq/Downloads/testcase1/70_64441637259418.jpg", cv2.IMREAD_GRAYSCALE)
 bw = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 25, 25)
-
+temp_x=[]
 edge = cv2.Canny(bw.copy(), 500, 2000, apertureSize=5)
 contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 for i in contours:
     x, y, w, h = cv2.boundingRect(i)
     if w > 30 or h > 40 or h < 25 or w <15:  # give up useless part
         continue
+    if x in temp_x:
+            continue
+    for j in range(x-5,x+5,1):
+        temp_x.append(j)
     roi = gray[y:y + h, x:x + w]
     res = resize(roi)
     res = np.resize(res, (1, 28, 28, 1))
