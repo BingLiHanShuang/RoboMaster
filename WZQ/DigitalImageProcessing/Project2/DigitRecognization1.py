@@ -37,7 +37,27 @@ class image:
         self.result = np.argmax(predictions)
 
 
-raw_image = cv2.imread("/Users/wzq/Desktop/testcase/h3_201703032132/1_95457574329618.jpg")
+raw_image = cv2.imread("/Users/wzq/Downloads/testcase1/363_92785372614985.jpg")
+
+
+def cmp_y(x, y):
+    # print x.result,y.result,x.y - y.y
+    delta = (x.y - y.y)
+    if abs(delta) < 30:
+        return 1
+    if delta > 30:
+        return 0
+    return -1
+
+
+def cmp_x(x, y):
+    # print x.result,y.result,x.x - y.x
+    delta = (x.x - y.x)
+    if delta < 200 and delta > 50:
+        return 1
+    elif delta < -50 and delta > -200:
+        return -1
+    return 0
 def recognize(raw_image):
     image_pass = []
     image_pad = []
@@ -45,26 +65,34 @@ def recognize(raw_image):
 
     edge = cv2.Canny(raw_image, 500, 2000, apertureSize=5)
     contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
+    dict_key=[]
+    x_last=None
+    y_last=None
     for i in contours:
         x, y, w, h = cv2.boundingRect(i)
-        if w > 50 or h > 85 or h < 40:  # give up useless part
-            continue
-
         if x_last == x and y_last == y:
             x_last = x
             y_last = y
             continue
-        x_last = x
-        y_last = y
+
+        if w > 50 or h > 60 or h < 40 or w <15:  # give up useless part
+            continue
+
+
         temp = image(raw_image[y:y + h, x:x + w].copy(), (x, y), (w, h))
         temp.recognize()
         if(temp.result!=10):
+            cv2.rectangle(raw_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.putText(raw_image, '{:.0f}'.format(temp.result), (x, y), cv2.FONT_HERSHEY_DUPLEX, h / 25.0, (255, 0, 0))
+            if temp.result in dict_key:
+                continue
+            dict_key.append(temp.result)
             image_pad.append(temp)
     if(len(image_pad)<9):
         return None
-    image_pad.sort(cmp=lambda x,y:1 if(abs(x.y - y.y) > 50) else -1)
-    image_pad.sort(cmp=lambda x,y:-1 if(abs(x.x - y.x) > 50) else 0)
+
+    image_pad.sort(cmp=cmp_y)
+    image_pad.sort(cmp=cmp_x)
 
 
     #print "password:", map(lambda x: x.result, image_pass)
