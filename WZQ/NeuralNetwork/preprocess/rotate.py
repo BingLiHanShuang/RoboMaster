@@ -14,6 +14,7 @@ def rmdir(path):
 
 
 def resize(rawimg):  # resize img to 28*28
+
     fx = 28.0 / rawimg.shape[0]
     fy = 28.0 / rawimg.shape[1]
     fx = fy = min(fx, fy)
@@ -32,34 +33,33 @@ def convert(img):
     # gray = cv2.imread(imgpath, cv2.IMREAD_GRAYSCALE)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     bw = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 25, 25)
-    img2, ctrs, hier = cv2.findContours(bw.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    ctrs, hier = cv2.findContours(bw.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     rects = [cv2.boundingRect(ctr) for ctr in ctrs]
     x, y, w, h = rects[-1]
     roi = gray[y:y + h, x:x + w]
     return resize(roi)
 
 
-def rotate(img, angle):
+def rotate(image, angle):
     rotated = imutils.rotate(image, angle)
     return convert(rotated)
 
 
-rmdir('train')
-
-for i in range(11):
-    path = '/Users/wzq/Downloads/English/Fnt/Sample%03d/' % (i + 1)
-    trainpath = '/Users/wzq/Downloads/Digit/train/%d/' % i
+for i in range(10, 11):
+    i=10
+    path = '/Users/wzq/Downloads/LED/%d/' % (i )
+    trainpath = '/Users/wzq/Downloads/LED/train/%d/' % i
     mkdir(trainpath)
     j = 0
     for filename in tqdm(os.listdir(path), desc=trainpath):
         try:
             img = cv2.imread(path + filename)
 
-            for angle in np.arange(-20, 21, 1):
-                j += 1
+            # for angle in np.arange(-20, 21, 1):
+            j += 1
                 # print img.shape
-                print("img%03d-%05d.png" % {i, j})
-                cv2.imwrite(path + "img%03d-%05d.png" % {i, j}, rotate(img, angle))
+                # print("img%03d-%05d.png"%{i,j})
+            cv2.imwrite(trainpath + "img%(type)03d-%(num)05d.png" % {'type': i, 'num': j}, convert(img))
 
         except:
-            pass    #cv2.waitKey(0)
+            pass  # cv2.waitKey(0)
