@@ -4,7 +4,7 @@
 #ifndef PROTOBUF_C_protocol_2eproto__INCLUDED
 #define PROTOBUF_C_protocol_2eproto__INCLUDED
 
-#include "protobuf-c.h"
+#include <protobuf-c/protobuf-c.h>
 
 PROTOBUF_C__BEGIN_DECLS
 
@@ -17,6 +17,7 @@ PROTOBUF_C__BEGIN_DECLS
 
 typedef struct _PosPoint PosPoint;
 typedef struct _ScanResult ScanResult;
+typedef struct _PadPass PadPass;
 typedef struct _Message Message;
 
 
@@ -24,7 +25,8 @@ typedef struct _Message Message;
 
 typedef enum _Message__MessageType {
   MESSAGE__MESSAGE_TYPE__NULL = 0,
-  MESSAGE__MESSAGE_TYPE__ScanResult = 1
+  MESSAGE__MESSAGE_TYPE__ScanResult = 1,
+  MESSAGE__MESSAGE_TYPE__PadPass = 2
     PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(MESSAGE__MESSAGE_TYPE)
 } Message__MessageType;
 
@@ -56,6 +58,19 @@ struct  _ScanResult
 #define SCAN_RESULT__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&scan_result__descriptor) \
     , 0,NULL, NULL, NULL, 0,0 }
+
+
+struct  _PadPass
+{
+  ProtobufCMessage base;
+  protobuf_c_boolean has_pad;
+  ProtobufCBinaryData pad;
+  protobuf_c_boolean has_password;
+  ProtobufCBinaryData password;
+};
+#define PAD_PASS__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&pad_pass__descriptor) \
+    , 0,{0,NULL}, 0,{0,NULL} }
 
 
 struct  _Message
@@ -109,6 +124,25 @@ ScanResult *
 void   scan_result__free_unpacked
                      (ScanResult *message,
                       ProtobufCAllocator *allocator);
+/* PadPass methods */
+void   pad_pass__init
+                     (PadPass         *message);
+size_t pad_pass__get_packed_size
+                     (const PadPass   *message);
+size_t pad_pass__pack
+                     (const PadPass   *message,
+                      uint8_t             *out);
+size_t pad_pass__pack_to_buffer
+                     (const PadPass   *message,
+                      ProtobufCBuffer     *buffer);
+PadPass *
+       pad_pass__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   pad_pass__free_unpacked
+                     (PadPass *message,
+                      ProtobufCAllocator *allocator);
 /* Message methods */
 void   message__init
                      (Message         *message);
@@ -136,6 +170,9 @@ typedef void (*PosPoint_Closure)
 typedef void (*ScanResult_Closure)
                  (const ScanResult *message,
                   void *closure_data);
+typedef void (*PadPass_Closure)
+                 (const PadPass *message,
+                  void *closure_data);
 typedef void (*Message_Closure)
                  (const Message *message,
                   void *closure_data);
@@ -147,6 +184,7 @@ typedef void (*Message_Closure)
 
 extern const ProtobufCMessageDescriptor pos_point__descriptor;
 extern const ProtobufCMessageDescriptor scan_result__descriptor;
+extern const ProtobufCMessageDescriptor pad_pass__descriptor;
 extern const ProtobufCMessageDescriptor message__descriptor;
 extern const ProtobufCEnumDescriptor    message__message_type__descriptor;
 
