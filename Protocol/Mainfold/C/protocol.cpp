@@ -16,10 +16,11 @@ using namespace std;
  */
 namespace PROTOCOL{
     void print(uint8_t * data,int len){
+        printf("{");
         for (int i = 0; i < len; ++i) {
-            printf("%02x ",data[i]);
+            printf("0x%02x,",data[i]);
         }
-        printf("\n");
+        printf("}\n");
     }
     uint32_t CRC32(uint8_t *buf, uint32_t size)
     {
