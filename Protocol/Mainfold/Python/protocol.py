@@ -20,4 +20,4 @@ class Protocol:
 
 a=Protocol('192.168.1.107',6000)
 #a.Send(protobuf.Message.PADPASS,"wzq")
-a.SendPadPass("528796413","5897")
+a.SendPadPass("528796413","58971")
