@@ -93,6 +93,49 @@ void   scan_result__free_unpacked
   assert(message->base.descriptor == &scan_result__descriptor);
   protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
 }
+void   pad_pass__init
+                     (PadPass         *message)
+{
+  static PadPass init_value = PAD_PASS__INIT;
+  *message = init_value;
+}
+size_t pad_pass__get_packed_size
+                     (const PadPass *message)
+{
+  assert(message->base.descriptor == &pad_pass__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t pad_pass__pack
+                     (const PadPass *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &pad_pass__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t pad_pass__pack_to_buffer
+                     (const PadPass *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &pad_pass__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+PadPass *
+       pad_pass__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (PadPass *)
+     protobuf_c_message_unpack (&pad_pass__descriptor,
+                                allocator, len, data);
+}
+void   pad_pass__free_unpacked
+                     (PadPass *message,
+                      ProtobufCAllocator *allocator)
+{
+  assert(message->base.descriptor == &pad_pass__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
 void   message__init
                      (Message         *message)
 {
@@ -264,17 +307,70 @@ const ProtobufCMessageDescriptor scan_result__descriptor =
   (ProtobufCMessageInit) scan_result__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCEnumValue message__message_type__enum_values_by_number[2] =
+static const ProtobufCFieldDescriptor pad_pass__field_descriptors[2] =
+{
+  {
+    "pad",
+    1,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_BYTES,
+    offsetof(PadPass, has_pad),
+    offsetof(PadPass, pad),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "password",
+    2,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_BYTES,
+    offsetof(PadPass, has_password),
+    offsetof(PadPass, password),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned pad_pass__field_indices_by_name[] = {
+  0,   /* field[0] = pad */
+  1,   /* field[1] = password */
+};
+static const ProtobufCIntRange pad_pass__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 2 }
+};
+const ProtobufCMessageDescriptor pad_pass__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "PadPass",
+  "PadPass",
+  "PadPass",
+  "",
+  sizeof(PadPass),
+  2,
+  pad_pass__field_descriptors,
+  pad_pass__field_indices_by_name,
+  1,  pad_pass__number_ranges,
+  (ProtobufCMessageInit) pad_pass__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCEnumValue message__message_type__enum_values_by_number[3] =
 {
   { "NULL", "MESSAGE__MESSAGE_TYPE__NULL", 0 },
   { "ScanResult", "MESSAGE__MESSAGE_TYPE__ScanResult", 1 },
+  { "PadPass", "MESSAGE__MESSAGE_TYPE__PadPass", 2 },
 };
 static const ProtobufCIntRange message__message_type__value_ranges[] = {
-{0, 0},{0, 2}
+{0, 0},{0, 3}
 };
-static const ProtobufCEnumValueIndex message__message_type__enum_values_by_name[2] =
+static const ProtobufCEnumValueIndex message__message_type__enum_values_by_name[3] =
 {
   { "NULL", 0 },
+  { "PadPass", 2 },
   { "ScanResult", 1 },
 };
 const ProtobufCEnumDescriptor message__message_type__descriptor =
@@ -284,9 +380,9 @@ const ProtobufCEnumDescriptor message__message_type__descriptor =
   "MessageType",
   "Message__MessageType",
   "",
-  2,
+  3,
   message__message_type__enum_values_by_number,
-  2,
+  3,
   message__message_type__enum_values_by_name,
   1,
   message__message_type__value_ranges,
