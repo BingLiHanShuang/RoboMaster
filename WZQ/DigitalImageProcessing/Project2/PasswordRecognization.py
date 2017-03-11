@@ -25,10 +25,12 @@ boundraries=[([86, 31, 4], [220, 88, 50])]
 #121，49，51
 
 
-raw_image = cv2.imread("/Users/wzq/Desktop/testcase/h201703032044/8_78263219874365.jpg")
+raw_image = cv2.imread("/Users/wzq/Downloads/testcase1/3_32474451867329.jpg")
 hsv = cv2.cvtColor(raw_image, cv2.COLOR_BGR2HSV)
-lower_red = np.array([0,90,50])
-upper_red = np.array([220,200,120])
+sensitivity = 60
+
+lower_red = np.array([0, 200, 0] )
+upper_red = np.array([60, 255, 60])
 
 mask = cv2.inRange(hsv, lower_red, upper_red)
 

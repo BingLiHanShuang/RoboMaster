@@ -22,16 +22,16 @@ def resize(rawimg):  # resize img to 28*28
     outimg[y:y+h, x:x+w] = img
     return outimg
 
-raw_image = cv2.imread("/Users/wzq/Downloads/testcase1/3_32474451867329.jpg")
+raw_image = cv2.imread("/Users/wzq/Downloads/testcase1/401_38976561942387.jpg")
 
-gray = cv2.imread("/Users/wzq/Downloads/testcase1/3_32474451867329.jpg", cv2.IMREAD_GRAYSCALE)
+gray = cv2.imread("/Users/wzq/Downloads/testcase1/401_38976561942387.jpg", cv2.IMREAD_GRAYSCALE)
 bw = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 25, 25)
 
 edge = cv2.Canny(bw.copy(), 500, 2000, apertureSize=5)
 contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 for i in contours:
     x, y, w, h = cv2.boundingRect(i)
-    if w > 50 or h > 85 or h < 40 or w <15:  # give up useless part
+    if w > 30 or h > 40 or h < 25 or w <15:  # give up useless part
         continue
     roi = gray[y:y + h, x:x + w]
     res = resize(roi)
