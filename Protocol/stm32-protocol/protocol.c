@@ -14,8 +14,9 @@
  * ...........//payload
  * FF //end
  */
-
-int CRC32(const uint8_t *buf, unsigned int size) {
+struct ScanData scanData;
+struct PadPass padPass;
+int CRC32(uint8_t *buf, uint8_t size) {
     unsigned int i, crc;
     crc = 0xFFFFFFFF;
     for (i = 0; i < size; i++)
@@ -63,19 +64,27 @@ int ExtractRaw(uint8_t *original,uint8_t *output) {
 
 }
 
-void SaveScanResult(ScanResult *scanResult) {
-    for (int i = 0; i < scanResult->n_position; ++i) {
-        scanData.vertex[i].x=scanResult->position[i]->x;
-        scanData.vertex[i].y=scanResult->position[i]->y;
+void SaveScanResult(ScanResult *mscanResult) {
+    for (int i = 0; i < mscanResult->n_position; ++i) {
+        scanData.vertex[i].x=mscanResult->position[i]->x;
+        scanData.vertex[i].y=mscanResult->position[i]->y;
     }
-    scanData.angle=scanResult->angle;
+    scanData.angle=mscanResult->angle;
     scanData.flag_read=0;
-    scanData.size.x=scanResult->picrutesize->x;
-    scanData.size.y=scanResult->picrutesize->y;
-    strcpy(scanData.text,scanResult->result);
-
-
+    scanData.size.x=mscanResult->picrutesize->x;
+    scanData.size.y=mscanResult->picrutesize->y;
+    strcpy(scanData.text,mscanResult->result);
 };
+void SavePadPass(PadPass * mpadPass){
+    assert(mpadPass->has_password==1&&mpadPass->password.len==5);//密码长度为5位
+    assert(mpadPass->has_pad==1&&mpadPass->pad.len==9);//九宫格中的数字为9个
+    memcpy(padPass.Pad,mpadPass->pad.data,mpadPass->pad.len* sizeof(uint8_t));//将九宫格拷贝至全局变量
+    memcpy(padPass.Pass,mpadPass->password.data,mpadPass->password.len* sizeof(uint8_t));//将密码拷贝至全局变量
+    padPass.flag_read=1;
+
+
+
+}
 void print(uint8_t * data,int len){
     for (int i = 0; i < len; ++i) {
         printf("%02x ",data[i]);
@@ -102,10 +111,16 @@ void DispatchMessage() {
 
     Message *message_temp = message__unpack(NULL, (size_t)raw_data_size_from_protocol, temp_ptr);
 
-    if (message_temp->messagetype == MESSAGE__MESSAGE_TYPE__ScanResult) {
-        ScanResult *scanResult = scan_result__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
-        SaveScanResult(scanResult);
-        scan_result__free_unpacked(scanResult,NULL);
+    if (message_temp->messagetype == MESSAGE__MESSAGE_TYPE__ScanResult) {//读取扫描二维码
+        ScanResult *scanResult_temp = scan_result__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
+        SaveScanResult(scanResult_temp);
+        scan_result__free_unpacked(scanResult_temp,NULL);
+    }
+    if(message_temp->messagetype==MESSAGE__MESSAGE_TYPE__PadPass){//读取九宫格和密码信息
+        PadPass * padPass_temp =pad_pass__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
+        SavePadPass(padPass_temp);
+        pad_pass__free_unpacked(padPass_temp,NULL);
+
     }
 
 
