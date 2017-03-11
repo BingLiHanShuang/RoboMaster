@@ -6,11 +6,13 @@
 #define STM32_PROTOCOL_H
 
 #include "protocol.pb-c.h"
-
-
+#include <stdint.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void DispatchMessage();
-    static const unsigned int crc32tab[] = {
+static const unsigned int crc32tab[] = {
             0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL,
             0x076dc419L, 0x706af48fL, 0xe963a535L, 0x9e6495a3L,
             0x0edb8832L, 0x79dcb8a4L, 0xe0d5e91eL, 0x97d2d988L,
@@ -75,25 +77,35 @@ void DispatchMessage();
             0xbad03605L, 0xcdd70693L, 0x54de5729L, 0x23d967bfL,
             0xb3667a2eL, 0xc4614ab8L, 0x5d681b02L, 0x2a6f2b94L,
             0xb40bbe37L, 0xc30c8ea1L, 0x5a05df1bL, 0x2d02ef8dL
-    };
-    struct Point{
+};
+struct Point{
         float x;
         float y;
-    };
-    struct ScanData{
+};
+struct ScanData{
         char flag_read;//
         struct Point vertex[4];
         struct Point size;
         float angle;
         char text[50];
-    } scanData;
-    int CRC32(const uint8_t *buf, unsigned int  size);
-    uint8_t uart_buffer_1[256];
-    int uart_buffer_index_1;
-    void GetMessage(uint8_t data);
-    int DeserializeInt(uint8_t *data);
-    void SaveScanResult(ScanResult *scanResult);
+};
+struct PadPass{
+    uint8_t Pad[9];//九宫格密码盘
+    uint8_t Pass[5];//密码
+    uint8_t flag_read;//
+};
+int CRC32(uint8_t *buf, uint8_t size);
+uint8_t uart_buffer_1[256];
+int uart_buffer_index_1;
+void GetMessage(uint8_t data);
+int DeserializeInt(uint8_t *data);
+void SaveScanResult(ScanResult *scanResult);
+void SavePadPass(PadPass * mpadPass);
 
-
+extern struct ScanData scanData;
+extern struct PadPass padPass;
+#ifdef __cplusplus
+}
+#endif
 
 #endif //STM32_PROTOCOL_H
