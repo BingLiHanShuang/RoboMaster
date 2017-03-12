@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/C.dir/main.cpp.o CMakeFiles/C.dir/UDPServer.cpp.o CMakeFiles/C.dir/SendQueue.cpp.o CMakeFiles/C.dir/Serial.cpp.o CMakeFiles/C.dir/protocol.cpp.o  -o C -lpthread 
