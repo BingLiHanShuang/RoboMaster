@@ -18,6 +18,6 @@ class Protocol:
         self.Send(protobuf.Message.PadPass,res.SerializeToString())
 
 
-a=Protocol('192.168.1.107',6000)
-#a.Send(protobuf.Message.PADPASS,"wzq")
-a.SendPadPass("528796413","58971")
+# a=Protocol('192.168.1.107',6000)
+# #a.Send(protobuf.Message.PADPASS,"wzq")
+# a.SendPadPass("528796413","58971")
