@@ -42,20 +42,23 @@ class image:
 def cmp_y(x, y):
     # print x.result,y.result,x.y - y.y
     delta = (x.y - y.y)
-    if abs(delta) < 30:
+    #print delta
+    if abs(delta) < 40:
         return 1
-    if delta > 30:
+    if delta > 40:
         return 0
     return -1
 
 
 def cmp_x(x, y):
-    # print x.result,y.result,x.x - y.x
+
     delta = (x.x - y.x)
-    if delta < 200 and delta > 50:
-        return 1
-    elif delta < -50 and delta > -200:
-        return -1
+    deltay = (x.y - y.y)
+    #print x.result, y.result, delta,deltay
+    if (abs(deltay) > 40):
+        return 0
+    if delta >0 : return 1
+    elif delta <0 : return -1
     return 0
 def recognize(raw_image):
     image_pass = []
@@ -74,20 +77,20 @@ def recognize(raw_image):
             y_last = y
             continue
 
-        if w > 50 or h > 60 or h < 40 or w <15:  # give up useless part
+        if w > 50 or h > 60 or h < 30 or w <10:  # give up useless part
             continue
 
 
         temp = image(raw_image[y:y + h, x:x + w].copy(), (x, y), (w, h))
         temp.recognize()
         if(temp.result!=10):
-            cv2.rectangle(raw_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(raw_image, '{:.0f}'.format(temp.result), (x, y), cv2.FONT_HERSHEY_DUPLEX, h / 25.0, (255, 0, 0))
+            #cv2.rectangle(raw_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            #cv2.putText(raw_image, '{:.0f}'.format(temp.result), (x, y), cv2.FONT_HERSHEY_DUPLEX, h / 25.0, (0, 0, 255))
             if temp.result in dict_key:
                 continue
             dict_key.append(temp.result)
             image_pad.append(temp)
-    if(len(image_pad)<9):
+    if(len(image_pad)!=9):
         return None
 
     image_pad.sort(cmp=cmp_y)
@@ -96,10 +99,10 @@ def recognize(raw_image):
     res_pad=map(lambda x: x.result, image_pad)
     res_pad=reduce(lambda x,y:str(x)+str(y),res_pad)
     #print "password:", map(lambda x: x.result, image_pass)
-    print "pad:", str(res_pad)
+    #print "pad:", str(res_pad)
     end = datetime.datetime.now()
-    print(str(end - begin))
+    #print(str(end - begin))
     #print "reflect:", map(lambda x: [i for i,y in enumerate(image_pad) if y.result==x.result][0]+1, image_pass)
-    cv2.imshow("digit recognition", raw_image)
-    cv2.waitKey(0)
+    # cv2.imshow("digit recognition", raw_image)
+    # cv2.waitKey(0)
     return res_pad
