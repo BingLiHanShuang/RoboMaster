@@ -12,7 +12,9 @@ int main() {
         //uint8_t a=fgetc(fp);
         //printf("%02x ",a);
         GetMessage(a[i]);
+
     }
+    
 //    FILE *fp;
 //    fp=fopen("/Users/wzq/RoboMaster/QRCode/test/test1.dat", "r");
 //    //int size=ftell(fp);
