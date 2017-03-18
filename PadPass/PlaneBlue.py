@@ -22,7 +22,7 @@ i=1000
 while True:
 
     success, frame = cap.read()
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/plane/1.jpg")
+    # frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/plane/1.jpg")
     green = np.uint8([[[0,0,255 ]]])
 
     lower_green = np.array([50, 90, 0])
@@ -34,6 +34,9 @@ while True:
 
     mask = cv2.dilate(mask, kernel, iterations=2)
     contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    pict_dict={}
+    pict_array=[]
     for i in contours:
         rect= cv2.minAreaRect(i)
         h,w=rect[1][0],rect[1][1]
@@ -42,7 +45,15 @@ while True:
             continue
         box = cv2.cv.BoxPoints(rect)
         box = np.int0(box)
+
+        area=w * h
+        pict_array.append(area)
+        pict_dict[area]=box
+    if(len(pict_array)>0):
+        box=pict_dict[max(pict_array)]
+
         datainterface.SendQRCode([frame.shape[0],frame.shape[1]],box)
+
         cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
 
     cv2.imshow("",frame)
