@@ -70,6 +70,7 @@ def recognize(raw_image):
     dict_key=[]
     x_last=None
     y_last=None
+    copy=raw_image.copy()
     for i in contours:
         x, y, w, h = cv2.boundingRect(i)
         if x_last == x and y_last == y:
@@ -77,17 +78,21 @@ def recognize(raw_image):
             y_last = y
             continue
 
-        if w > 50 or h > 60 or h < 30 or w <10:  # give up useless part
+        if w > 25 or h > 40 or h < 25 or w <8:  # give up useless part
             continue
 
 
-        temp = image(raw_image[y:y + h, x:x + w].copy(), (x, y), (w, h))
+        temp = image(copy[y:y + h, x:x + w].copy(), (x, y), (w, h))
+        #cv2.rectangle(raw_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+
         temp.recognize()
         if(temp.result!=10):
-            #cv2.rectangle(raw_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-            #cv2.putText(raw_image, '{:.0f}'.format(temp.result), (x, y), cv2.FONT_HERSHEY_DUPLEX, h / 25.0, (0, 0, 255))
+            cv2.rectangle(raw_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.putText(raw_image, '{:.0f}'.format(temp.result), (x, y), cv2.FONT_HERSHEY_DUPLEX, h / 25.0, (0, 0, 255))
+            print w,h
             if temp.result in dict_key:
                 continue
+
             dict_key.append(temp.result)
             image_pad.append(temp)
     if(len(image_pad)!=9):
