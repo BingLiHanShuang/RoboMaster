@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface
 CMAKE_BINARY_DIR = /home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/C.dir
+# Target rules for target CMakeFiles/SerialInterface.dir
 
 # All Build rule for target.
-CMakeFiles/C.dir/all:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/depend
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target C"
-.PHONY : CMakeFiles/C.dir/all
+CMakeFiles/SerialInterface.dir/all:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/depend
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target SerialInterface"
+.PHONY : CMakeFiles/SerialInterface.dir/all
 
 # Include target in all.
-all: CMakeFiles/C.dir/all
+all: CMakeFiles/SerialInterface.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/C.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/cmake-build-debug/CMakeFiles 6
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/C.dir/all
+CMakeFiles/SerialInterface.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/cmake-build-debug/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SerialInterface.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/C.dir/rule
+.PHONY : CMakeFiles/SerialInterface.dir/rule
 
 # Convenience name for target.
-C : CMakeFiles/C.dir/rule
+SerialInterface: CMakeFiles/SerialInterface.dir/rule
 
-.PHONY : C
-
-# clean rule for target.
-CMakeFiles/C.dir/clean:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/clean
-.PHONY : CMakeFiles/C.dir/clean
+.PHONY : SerialInterface
 
 # clean rule for target.
-clean: CMakeFiles/C.dir/clean
+CMakeFiles/SerialInterface.dir/clean:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/clean
+.PHONY : CMakeFiles/SerialInterface.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/SerialInterface.dir/clean
 
 .PHONY : clean
 

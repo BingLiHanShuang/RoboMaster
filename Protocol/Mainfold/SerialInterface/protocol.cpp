@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <queue>
 #include <stdint.h>
+#include "protocol.pb-c.h"
+
 using namespace std;
 uint8_t uart_buffer_1[512];
 size_t uart_buffer_index_1;
@@ -69,6 +71,18 @@ namespace PROTOCOL{
 
 
         uint8_t *temp_ptr = raw_data + 8;
+        Message *message_temp = message__unpack(NULL, (size_t)raw_data_size_from_protocol, temp_ptr);
+        if(message_temp==NULL)return;//drop this package due to undefined type
+        switch (message_temp->messagetype){
+            case MESSAGE__MESSAGE_TYPE__VideoRecord:
+                udpClient->send(temp_ptr,raw_data_size_from_protocol,6001);
+                break;
+            default:
+
+                break;
+        }
+
+        message__free_unpacked(message_temp, NULL);
 
         //print(temp_ptr, raw_data_size_from_protocol);
     }

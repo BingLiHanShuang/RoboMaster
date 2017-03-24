@@ -111,44 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named C
+# Target rules for targets named SerialInterface
 
 # Build rule for target.
-C : cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 C
-.PHONY : C
+SerialInterface: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SerialInterface
+.PHONY : SerialInterface
 
 # fast build rule for target.
-C/fast:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/build
-.PHONY : C/fast
-
-SendQueue.o: SendQueue.cpp.o
-
-.PHONY : SendQueue.o
-
-# target to build an object file
-SendQueue.cpp.o:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/SendQueue.cpp.o
-.PHONY : SendQueue.cpp.o
-
-SendQueue.i: SendQueue.cpp.i
-
-.PHONY : SendQueue.i
-
-# target to preprocess a source file
-SendQueue.cpp.i:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/SendQueue.cpp.i
-.PHONY : SendQueue.cpp.i
-
-SendQueue.s: SendQueue.cpp.s
-
-.PHONY : SendQueue.s
-
-# target to generate assembly for a file
-SendQueue.cpp.s:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/SendQueue.cpp.s
-.PHONY : SendQueue.cpp.s
+SerialInterface/fast:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/build
+.PHONY : SerialInterface/fast
 
 Serial.o: Serial.cpp.o
 
@@ -156,7 +129,7 @@ Serial.o: Serial.cpp.o
 
 # target to build an object file
 Serial.cpp.o:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/Serial.cpp.o
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/Serial.cpp.o
 .PHONY : Serial.cpp.o
 
 Serial.i: Serial.cpp.i
@@ -165,7 +138,7 @@ Serial.i: Serial.cpp.i
 
 # target to preprocess a source file
 Serial.cpp.i:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/Serial.cpp.i
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/Serial.cpp.i
 .PHONY : Serial.cpp.i
 
 Serial.s: Serial.cpp.s
@@ -174,8 +147,89 @@ Serial.s: Serial.cpp.s
 
 # target to generate assembly for a file
 Serial.cpp.s:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/Serial.cpp.s
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/Serial.cpp.s
 .PHONY : Serial.cpp.s
+
+SerialReceive.o: SerialReceive.cpp.o
+
+.PHONY : SerialReceive.o
+
+# target to build an object file
+SerialReceive.cpp.o:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/SerialReceive.cpp.o
+.PHONY : SerialReceive.cpp.o
+
+SerialReceive.i: SerialReceive.cpp.i
+
+.PHONY : SerialReceive.i
+
+# target to preprocess a source file
+SerialReceive.cpp.i:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/SerialReceive.cpp.i
+.PHONY : SerialReceive.cpp.i
+
+SerialReceive.s: SerialReceive.cpp.s
+
+.PHONY : SerialReceive.s
+
+# target to generate assembly for a file
+SerialReceive.cpp.s:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/SerialReceive.cpp.s
+.PHONY : SerialReceive.cpp.s
+
+SerialSendQueue.o: SerialSendQueue.cpp.o
+
+.PHONY : SerialSendQueue.o
+
+# target to build an object file
+SerialSendQueue.cpp.o:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/SerialSendQueue.cpp.o
+.PHONY : SerialSendQueue.cpp.o
+
+SerialSendQueue.i: SerialSendQueue.cpp.i
+
+.PHONY : SerialSendQueue.i
+
+# target to preprocess a source file
+SerialSendQueue.cpp.i:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/SerialSendQueue.cpp.i
+.PHONY : SerialSendQueue.cpp.i
+
+SerialSendQueue.s: SerialSendQueue.cpp.s
+
+.PHONY : SerialSendQueue.s
+
+# target to generate assembly for a file
+SerialSendQueue.cpp.s:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/SerialSendQueue.cpp.s
+.PHONY : SerialSendQueue.cpp.s
+
+UDPClient.o: UDPClient.cpp.o
+
+.PHONY : UDPClient.o
+
+# target to build an object file
+UDPClient.cpp.o:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/UDPClient.cpp.o
+.PHONY : UDPClient.cpp.o
+
+UDPClient.i: UDPClient.cpp.i
+
+.PHONY : UDPClient.i
+
+# target to preprocess a source file
+UDPClient.cpp.i:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/UDPClient.cpp.i
+.PHONY : UDPClient.cpp.i
+
+UDPClient.s: UDPClient.cpp.s
+
+.PHONY : UDPClient.s
+
+# target to generate assembly for a file
+UDPClient.cpp.s:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/UDPClient.cpp.s
+.PHONY : UDPClient.cpp.s
 
 UDPServer.o: UDPServer.cpp.o
 
@@ -183,7 +237,7 @@ UDPServer.o: UDPServer.cpp.o
 
 # target to build an object file
 UDPServer.cpp.o:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/UDPServer.cpp.o
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/UDPServer.cpp.o
 .PHONY : UDPServer.cpp.o
 
 UDPServer.i: UDPServer.cpp.i
@@ -192,7 +246,7 @@ UDPServer.i: UDPServer.cpp.i
 
 # target to preprocess a source file
 UDPServer.cpp.i:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/UDPServer.cpp.i
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/UDPServer.cpp.i
 .PHONY : UDPServer.cpp.i
 
 UDPServer.s: UDPServer.cpp.s
@@ -201,7 +255,7 @@ UDPServer.s: UDPServer.cpp.s
 
 # target to generate assembly for a file
 UDPServer.cpp.s:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/UDPServer.cpp.s
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/UDPServer.cpp.s
 .PHONY : UDPServer.cpp.s
 
 main.o: main.cpp.o
@@ -210,7 +264,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -219,7 +273,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -228,8 +282,35 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+protobuf-c.o: protobuf-c.c.o
+
+.PHONY : protobuf-c.o
+
+# target to build an object file
+protobuf-c.c.o:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protobuf-c.c.o
+.PHONY : protobuf-c.c.o
+
+protobuf-c.i: protobuf-c.c.i
+
+.PHONY : protobuf-c.i
+
+# target to preprocess a source file
+protobuf-c.c.i:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protobuf-c.c.i
+.PHONY : protobuf-c.c.i
+
+protobuf-c.s: protobuf-c.c.s
+
+.PHONY : protobuf-c.s
+
+# target to generate assembly for a file
+protobuf-c.c.s:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protobuf-c.c.s
+.PHONY : protobuf-c.c.s
 
 protocol.o: protocol.cpp.o
 
@@ -237,7 +318,7 @@ protocol.o: protocol.cpp.o
 
 # target to build an object file
 protocol.cpp.o:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/protocol.cpp.o
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protocol.cpp.o
 .PHONY : protocol.cpp.o
 
 protocol.i: protocol.cpp.i
@@ -246,7 +327,7 @@ protocol.i: protocol.cpp.i
 
 # target to preprocess a source file
 protocol.cpp.i:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/protocol.cpp.i
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protocol.cpp.i
 .PHONY : protocol.cpp.i
 
 protocol.s: protocol.cpp.s
@@ -255,8 +336,35 @@ protocol.s: protocol.cpp.s
 
 # target to generate assembly for a file
 protocol.cpp.s:
-	$(MAKE) -f CMakeFiles/C.dir/build.make CMakeFiles/C.dir/protocol.cpp.s
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protocol.cpp.s
 .PHONY : protocol.cpp.s
+
+protocol.pb-c.o: protocol.pb-c.c.o
+
+.PHONY : protocol.pb-c.o
+
+# target to build an object file
+protocol.pb-c.c.o:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protocol.pb-c.c.o
+.PHONY : protocol.pb-c.c.o
+
+protocol.pb-c.i: protocol.pb-c.c.i
+
+.PHONY : protocol.pb-c.i
+
+# target to preprocess a source file
+protocol.pb-c.c.i:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protocol.pb-c.c.i
+.PHONY : protocol.pb-c.c.i
+
+protocol.pb-c.s: protocol.pb-c.c.s
+
+.PHONY : protocol.pb-c.s
+
+# target to generate assembly for a file
+protocol.pb-c.c.s:
+	$(MAKE) -f CMakeFiles/SerialInterface.dir/build.make CMakeFiles/SerialInterface.dir/protocol.pb-c.c.s
+.PHONY : protocol.pb-c.c.s
 
 # Help Target
 help:
@@ -266,22 +374,34 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... C"
-	@echo "... SendQueue.o"
-	@echo "... SendQueue.i"
-	@echo "... SendQueue.s"
+	@echo "... SerialInterface"
 	@echo "... Serial.o"
 	@echo "... Serial.i"
 	@echo "... Serial.s"
+	@echo "... SerialReceive.o"
+	@echo "... SerialReceive.i"
+	@echo "... SerialReceive.s"
+	@echo "... SerialSendQueue.o"
+	@echo "... SerialSendQueue.i"
+	@echo "... SerialSendQueue.s"
+	@echo "... UDPClient.o"
+	@echo "... UDPClient.i"
+	@echo "... UDPClient.s"
 	@echo "... UDPServer.o"
 	@echo "... UDPServer.i"
 	@echo "... UDPServer.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... protobuf-c.o"
+	@echo "... protobuf-c.i"
+	@echo "... protobuf-c.s"
 	@echo "... protocol.o"
 	@echo "... protocol.i"
 	@echo "... protocol.s"
+	@echo "... protocol.pb-c.o"
+	@echo "... protocol.pb-c.i"
+	@echo "... protocol.pb-c.s"
 .PHONY : help
 
 

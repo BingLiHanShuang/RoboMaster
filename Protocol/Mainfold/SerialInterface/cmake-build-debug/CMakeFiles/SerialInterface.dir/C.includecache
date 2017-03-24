@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/protobuf-c.c
+stdlib.h
+-
+string.h
+-
+protobuf-c.h
+/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/protobuf-c.h
+
+/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/protobuf-c.h
+assert.h
+-
+limits.h
+-
+stddef.h
+-
+stdint.h
+-
+
+/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/protocol.pb-c.c
+protocol.pb-c.h
+/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/protocol.pb-c.h
+
+/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/protocol.pb-c.h
+protobuf-c.h
+/home/parallels/RoboMaster/Protocol/Mainfold/SerialInterface/protobuf-c.h
+
