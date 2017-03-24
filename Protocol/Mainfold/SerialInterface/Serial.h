@@ -9,9 +9,13 @@
 #include <termios.h>
 #include <unistd.h>
 #include <stdint.h>
+#include "UDPClient.h"
 #ifndef QRCODE_SERIAL_H
 #define QRCODE_SERIAL_H
-
+struct BufferData{
+    uint8_t * data;
+    size_t len;
+};
 
 class Serial {
 private:
@@ -22,6 +26,8 @@ public:
     int set_interface_attribs(int fd, int speed);
     void send(uint8_t * data,int size);
     void send(uint8_t data);
+    BufferData* Read();
+    ~Serial();
 
 };
 

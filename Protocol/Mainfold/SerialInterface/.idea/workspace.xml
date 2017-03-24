@@ -3,6 +3,7 @@
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" buildAllGenerated="true">
     <generated>
       <config projectName="C" targetName="C" />
+      <config projectName="SerialInterface" targetName="SerialInterface" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -13,6 +14,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6573085f-7805-4208-a9a6-d07d3b122c5e" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,22 +31,9 @@
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="126">
+              <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="protocol.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protocol.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="82" column="27" lean-forward="false" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
-              <folding>
-                <marker date="1490316070190" expanded="false" signature="48:76" ph="..." />
-                <marker date="1490316070190" expanded="true" signature="172:4637" ph="{...}" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -52,23 +41,22 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="16" />
+            <state relative-caret-position="468">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding>
-                <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-                <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+                <element signature="e#1#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pthread.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/include/pthread.h">
+      <file leaf-file-name="protocol.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protocol.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+            <state relative-caret-position="144">
+              <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
               <folding>
-                <element signature="e#830#851#0" expanded="true" />
+                <element signature="e#39#56#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,65 +65,66 @@
       <file leaf-file-name="UDPServer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="61" column="9" lean-forward="false" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+            <state relative-caret-position="86">
+              <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SerialReceive.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SerialReceive.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SerialReceive.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SerialReceive.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="20" />
               <folding>
-                <marker date="1490283799590" expanded="true" signature="52:88" ph="..." />
-                <marker date="1490283799590" expanded="true" signature="120:775" ph="{...}" />
-                <marker date="1490283799590" expanded="true" signature="801:2186" ph="{...}" />
-                <marker date="1490283799590" expanded="true" signature="2217:2275" ph="{...}" />
+                <element signature="e#134#153#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SendQueue.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SendQueue.cpp">
+      <file leaf-file-name="UDPClient.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UDPClient.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="22" column="34" lean-forward="false" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+            <state relative-caret-position="328">
+              <caret line="27" column="55" lean-forward="false" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="55" />
               <folding>
-                <marker date="1490335774576" expanded="true" signature="290:882" ph="{...}" />
+                <marker date="1490340452932" expanded="true" signature="89:388" ph="{...}" />
+                <marker date="1490340452932" expanded="true" signature="425:728" ph="{...}" />
+                <marker date="1490340452932" expanded="true" signature="790:928" ph="{...}" />
+                <marker date="1490340452932" expanded="true" signature="953:985" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SendQueue.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SendQueue.h">
+      <file leaf-file-name="UDPClient.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UDPClient.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding>
-                <element signature="e#42#58#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="292">
+              <caret line="28" column="48" lean-forward="false" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Serial.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Serial.cpp">
+      <file leaf-file-name="Serial.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Serial.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-              <folding>
-                <marker date="1489293666245" expanded="true" signature="130:1146" ph="{...}" />
-                <marker date="1489293666245" expanded="true" signature="1175:1389" ph="{...}" />
-                <marker date="1489293666245" expanded="true" signature="1422:1488" ph="{...}" />
-                <marker date="1489293666245" expanded="true" signature="1532:1574" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UDPServer.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UDPServer.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="31" />
-              <folding>
-                <element signature="e#42#64#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="22">
+              <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -143,22 +132,10 @@
       <file leaf-file-name="protocol.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protocol.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="562">
-              <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <state relative-caret-position="346">
+              <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="31" />
               <folding>
-                <marker date="1490335774640" expanded="true" signature="49:137" ph="..." />
-                <marker date="1490335774640" expanded="true" signature="340:4268" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="376:505" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="544:671" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="726:1316" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="1344:2182" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="2222:2362" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="2415:2603" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="2661:2928" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="2984:3116" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="3172:3808" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="3860:3995" ph="{...}" />
-                <marker date="1490335774640" expanded="true" signature="4046:4266" ph="{...}" />
+                <element signature="e#40#61#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -183,16 +160,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Serial.h" />
         <option value="$PROJECT_DIR$/SendQueue.h" />
         <option value="$PROJECT_DIR$/UDPServer.h" />
-        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/protocol.pb-c.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/SendQueue.cpp" />
+        <option value="$PROJECT_DIR$/SerialSendQueue.cpp" />
+        <option value="$PROJECT_DIR$/SerialSendQueue.h" />
+        <option value="$PROJECT_DIR$/Serial.h" />
         <option value="$PROJECT_DIR$/Serial.cpp" />
-        <option value="$PROJECT_DIR$/UDPServer.cpp" />
         <option value="$PROJECT_DIR$/protocol.h" />
         <option value="$PROJECT_DIR$/protocol.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/UDPClient.cpp" />
+        <option value="$PROJECT_DIR$/UDPClient.h" />
+        <option value="$PROJECT_DIR$/SerialReceive.cpp" />
+        <option value="$PROJECT_DIR$/SerialReceive.h" />
+        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/UDPServer.cpp" />
       </list>
     </option>
   </component>
@@ -205,7 +189,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="285" />
     <option name="y" value="91" />
-    <option name="width" value="1409" />
+    <option name="width" value="1408" />
     <option name="height" value="927" />
   </component>
   <component name="ProjectView">
@@ -227,7 +211,7 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="C" />
+              <option name="myItemId" value="SerialInterface" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -245,7 +229,7 @@
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Application.Build All">
+  <component name="RunManager" selected="Application.SerialInterface">
     <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C" TARGET_NAME="C" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -421,9 +405,14 @@
       <envs />
       <method />
     </configuration>
-    <list size="2">
+    <configuration default="false" name="SerialInterface" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SerialInterface" TARGET_NAME="SerialInterface" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SerialInterface" RUN_TARGET_NAME="SerialInterface">
+      <envs />
+      <method />
+    </configuration>
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.C" />
       <item index="1" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="2" class="java.lang.String" itemvalue="Application.SerialInterface" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -443,24 +432,24 @@
       <workItem from="1489204160128" duration="6660000" />
       <workItem from="1489222513397" duration="2555000" />
       <workItem from="1489225202739" duration="6164000" />
-      <workItem from="1489239040731" duration="13746000" />
+      <workItem from="1489239040731" duration="18962000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33854000" />
+    <option name="totallyTimeSpent" value="39070000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="285" y="91" width="1409" height="927" extended-state="0" />
+    <frame x="285" y="91" width="1408" height="927" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24840312" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24857955" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290398" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -482,106 +471,27 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/UDPServer.cpp</url>
+          <line>62</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="29" />
+      <option name="time" value="35" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protocol.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding>
-            <marker date="1490316070190" expanded="false" signature="48:76" ph="..." />
-            <marker date="1490316070190" expanded="true" signature="172:4637" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="10" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="16" />
-          <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/pthread.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-          <folding>
-            <element signature="e#830#851#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-          <folding>
-            <marker date="1490283799590" expanded="true" signature="52:88" ph="..." />
-            <marker date="1490283799590" expanded="true" signature="120:775" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="801:2186" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="2217:2275" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <marker date="1490335774576" expanded="true" signature="290:882" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#42#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Serial.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-          <folding>
-            <marker date="1489293666245" expanded="true" signature="130:1146" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1175:1389" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1422:1488" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1532:1574" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UDPServer.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="31" />
           <folding>
-            <element signature="e#42#64#0" expanded="true" />
+            <element signature="e#42#64#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -591,19 +501,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1490335774640" expanded="true" signature="49:137" ph="..." />
-            <marker date="1490335774640" expanded="true" signature="340:4268" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="376:505" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="544:671" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="726:1316" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="1344:2182" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2222:2362" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2415:2603" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2661:2928" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2984:3116" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3172:3808" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3860:3995" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="4046:4266" ph="{...}" />
+            <element signature="e#40#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -621,8 +519,7 @@
         <state relative-caret-position="72">
           <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
           <folding>
-            <marker date="1490316070190" expanded="false" signature="48:76" ph="..." />
-            <marker date="1490316070190" expanded="true" signature="172:4637" ph="{...}" />
+            <element signature="e#39#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -632,8 +529,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -642,31 +538,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1152">
           <caret line="64" column="19" lean-forward="false" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="19" />
-          <folding>
-            <marker date="1490283799590" expanded="true" signature="52:88" ph="..." />
-            <marker date="1490283799590" expanded="true" signature="120:775" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="801:2186" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="2217:2275" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.cpp">
+    <entry file="file://$PROJECT_DIR$/SerialSendQueue.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="33" />
-          <folding>
-            <marker date="1490335774576" expanded="true" signature="290:882" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.h">
+    <entry file="file://$PROJECT_DIR$/SerialSendQueue.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
-            <element signature="e#42#58#0" expanded="true" />
+            <element signature="e#42#58#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -675,12 +564,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1489293666245" expanded="true" signature="130:1146" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1175:1389" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1422:1488" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1532:1574" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -697,7 +581,7 @@
         <state relative-caret-position="486">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="31" />
           <folding>
-            <element signature="e#42#64#0" expanded="true" />
+            <element signature="e#42#64#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -707,19 +591,7 @@
         <state relative-caret-position="162">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <marker date="1490335774640" expanded="true" signature="49:137" ph="..." />
-            <marker date="1490335774640" expanded="true" signature="340:4268" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="376:505" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="544:671" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="726:1316" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="1344:2182" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2222:2362" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2415:2603" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2661:2928" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2984:3116" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3172:3808" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3860:3995" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="4046:4266" ph="{...}" />
+            <element signature="e#40#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -737,8 +609,7 @@
         <state relative-caret-position="72">
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
-            <marker date="1490316070190" expanded="false" signature="48:76" ph="..." />
-            <marker date="1490316070190" expanded="true" signature="172:4637" ph="{...}" />
+            <element signature="e#39#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -748,8 +619,7 @@
         <state relative-caret-position="198">
           <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
           <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -758,31 +628,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="46" column="20" lean-forward="true" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
-          <folding>
-            <marker date="1490283799590" expanded="true" signature="52:88" ph="..." />
-            <marker date="1490283799590" expanded="true" signature="120:775" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="801:2186" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="2217:2275" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.cpp">
+    <entry file="file://$PROJECT_DIR$/SerialSendQueue.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding>
-            <marker date="1490335774576" expanded="true" signature="290:882" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.h">
+    <entry file="file://$PROJECT_DIR$/SerialSendQueue.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
           <folding>
-            <element signature="e#42#58#0" expanded="true" />
+            <element signature="e#42#58#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -791,12 +654,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1489293666245" expanded="true" signature="130:1146" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1175:1389" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1422:1488" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1532:1574" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -813,7 +671,7 @@
         <state relative-caret-position="432">
           <caret line="24" column="2" lean-forward="false" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
           <folding>
-            <element signature="e#42#64#0" expanded="true" />
+            <element signature="e#42#64#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -823,19 +681,7 @@
         <state relative-caret-position="594">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
-            <marker date="1490335774640" expanded="true" signature="49:137" ph="..." />
-            <marker date="1490335774640" expanded="true" signature="340:4268" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="376:505" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="544:671" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="726:1316" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="1344:2182" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2222:2362" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2415:2603" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2661:2928" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2984:3116" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3172:3808" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3860:3995" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="4046:4266" ph="{...}" />
+            <element signature="e#40#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -853,8 +699,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -872,8 +717,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -891,8 +735,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -910,8 +753,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -920,34 +762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="42" column="8" lean-forward="false" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Serial.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UDPServer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="31" />
-          <folding>
-            <element signature="e#42#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#42#58#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -961,90 +775,175 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
+    <entry file="file://$PROJECT_DIR$/protocol.pb-c.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="61" column="9" lean-forward="false" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+        <state relative-caret-position="108">
+          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
           <folding>
-            <marker date="1490283799590" expanded="true" signature="52:88" ph="..." />
-            <marker date="1490283799590" expanded="true" signature="120:775" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="801:2186" ph="{...}" />
-            <marker date="1490283799590" expanded="true" signature="2217:2275" ph="{...}" />
+            <element signature="e#284#429#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UDPServer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="31" />
+          <folding>
+            <element signature="e#42#64#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeCache.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4820">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protobuf-c.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protobuf-c.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1490336108810" expanded="false" signature="7804:7867" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protocol.pb-c.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11138">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SerialSendQueue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="31" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SerialSendQueue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="21" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="e#42#58#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Serial.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+        <state relative-caret-position="108">
+          <caret line="6" column="20" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protocol.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
           <folding>
-            <marker date="1489293666245" expanded="true" signature="130:1146" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1175:1389" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1422:1488" ph="{...}" />
-            <marker date="1489293666245" expanded="true" signature="1532:1574" ph="{...}" />
+            <element signature="e#39#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Serial.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protocol.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="31" />
+          <folding>
+            <element signature="e#40#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UDPClient.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="28" column="48" lean-forward="false" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UDPClient.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="27" column="55" lean-forward="false" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="55" />
+          <folding>
+            <marker date="1490340452932" expanded="true" signature="89:388" ph="{...}" />
+            <marker date="1490340452932" expanded="true" signature="425:728" ph="{...}" />
+            <marker date="1490340452932" expanded="true" signature="790:928" ph="{...}" />
+            <marker date="1490340452932" expanded="true" signature="953:985" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SerialReceive.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SerialReceive.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="20" />
+          <folding>
+            <element signature="e#134#153#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="16" />
+        <state relative-caret-position="468">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
-            <marker date="1489238654944" expanded="true" signature="10:126" ph="..." />
-            <marker date="1489238654944" expanded="true" signature="205:547" ph="{...}" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SendQueue.cpp">
+    <entry file="file://$PROJECT_DIR$/UDPServer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="22" column="34" lean-forward="false" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
-          <folding>
-            <marker date="1490335774576" expanded="true" signature="290:882" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protocol.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="82" column="27" lean-forward="false" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
-          <folding>
-            <marker date="1490316070190" expanded="false" signature="48:76" ph="..." />
-            <marker date="1490316070190" expanded="true" signature="172:4637" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protocol.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding>
-            <marker date="1490335774640" expanded="true" signature="49:137" ph="..." />
-            <marker date="1490335774640" expanded="true" signature="340:4268" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="376:505" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="544:671" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="726:1316" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="1344:2182" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2222:2362" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2415:2603" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2661:2928" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="2984:3116" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3172:3808" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="3860:3995" ph="{...}" />
-            <marker date="1490335774640" expanded="true" signature="4046:4266" ph="{...}" />
-          </folding>
+        <state relative-caret-position="86">
+          <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="126">
+          <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
           <folding />
         </state>
       </provider>

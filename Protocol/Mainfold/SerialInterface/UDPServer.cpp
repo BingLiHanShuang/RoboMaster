@@ -3,7 +3,7 @@
 //
 
 #include "UDPServer.h"
-#include "SendQueue.h"
+#include "SerialSendQueue.h"
 UDPServer::UDPServer(int port) {
     struct epoll_event event;   // 告诉内核要监听什么事件
     epfd=epoll_create(1024);
@@ -34,7 +34,7 @@ void UDPServer::listen() {
             int client_socket = events[i].data.fd;
 
             if (events[i].events & EPOLLIN){
-                char *buffer=new char[1024];//每次收发的字节数小于1024字节
+                uint8_t *buffer=new uint8_t[1024];//每次收发的字节数小于1024字节
                 memset(buffer, 0, 1024);
                 int rev_size = recv(events[i].data.fd,buffer, 1024,0);
                 if( rev_size > 0 )

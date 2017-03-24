@@ -1,14 +1,14 @@
 //
 // Created by parallels on 3/11/17.
 //
-#include "SendQueue.h"
+#include "SerialSendQueue.h"
 queue<BufferData> data_queue;
 pthread_cond_t cond_thread =PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mtx_thread=PTHREAD_MUTEX_INITIALIZER;
 
 pthread_mutex_t mtx_queue=PTHREAD_MUTEX_INITIALIZER;
 void* thread_SendQueue(void *arg){
-    serial=new Serial("/dev/ttyTHS1");
+
 
 
     while(1){

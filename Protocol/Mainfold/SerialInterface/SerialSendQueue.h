@@ -9,11 +9,7 @@ using namespace std;
 
 #ifndef C_SENDQUEUE_H
 #define C_SENDQUEUE_H
-struct BufferData{
-    char * data;
-    int len;
 
-};
 extern pthread_cond_t cond_thread;
 extern pthread_mutex_t mtx_thread;
 extern pthread_mutex_t mtx_queue;

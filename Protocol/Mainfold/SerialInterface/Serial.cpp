@@ -4,6 +4,7 @@
 
 #include "Serial.h"
 Serial * serial;
+UDPClient *udpClient;
 int Serial::set_interface_attribs(int fd, int speed)
 {
     struct termios tty;
@@ -41,8 +42,9 @@ int Serial::set_interface_attribs(int fd, int speed)
 Serial::Serial(char *name) {
     fd = open(name, O_RDWR | O_NOCTTY | O_SYNC);
     if (fd < 0) {
-        exit(0);
         printf("Error opening %s: %s\n", name, strerror(errno));
+
+        exit(0);
         return;
     }
     set_interface_attribs(fd, B115200);
@@ -53,5 +55,19 @@ void Serial::send(uint8_t data) {
 }
 void Serial::send(uint8_t *data, int size) {
     int wlen = write(fd, data, size);
+
+}
+Serial::~Serial() {
+    close(fd);
+}
+BufferData* Serial::Read(){
+    uint8_t buffer[1024];
+    size_t length = read(fd,buffer,sizeof(buffer));
+    BufferData* res=new BufferData;
+    res->data=new uint8_t[length];
+    res->len=length;
+    memcpy(res->data,buffer,length);
+    return res;
+
 
 }
