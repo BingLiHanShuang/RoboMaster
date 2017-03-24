@@ -18,15 +18,30 @@ PROTOBUF_C__BEGIN_DECLS
 typedef struct _PosPoint PosPoint;
 typedef struct _ScanResult ScanResult;
 typedef struct _PadPass PadPass;
+typedef struct _VideoRecord VideoRecord;
 typedef struct _Message Message;
 
 
 /* --- enums --- */
 
+typedef enum _VideoRecord__ControlType {
+  VIDEO_RECORD__CONTROL_TYPE__NULL = 0,
+  VIDEO_RECORD__CONTROL_TYPE__Start = 1,
+  VIDEO_RECORD__CONTROL_TYPE__Stop = 2,
+  VIDEO_RECORD__CONTROL_TYPE__Status = 3
+    PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(VIDEO_RECORD__CONTROL_TYPE)
+} VideoRecord__ControlType;
+typedef enum _VideoRecord__StatusType {
+  VIDEO_RECORD__STATUS_TYPE__NULL1 = 0,
+  VIDEO_RECORD__STATUS_TYPE__Recording = 1,
+  VIDEO_RECORD__STATUS_TYPE__Off = 2
+    PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(VIDEO_RECORD__STATUS_TYPE)
+} VideoRecord__StatusType;
 typedef enum _Message__MessageType {
   MESSAGE__MESSAGE_TYPE__NULL = 0,
   MESSAGE__MESSAGE_TYPE__ScanResult = 1,
-  MESSAGE__MESSAGE_TYPE__PadPass = 2
+  MESSAGE__MESSAGE_TYPE__PadPass = 2,
+  MESSAGE__MESSAGE_TYPE__VideoRecord = 3
     PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(MESSAGE__MESSAGE_TYPE)
 } Message__MessageType;
 
@@ -71,6 +86,22 @@ struct  _PadPass
 #define PAD_PASS__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&pad_pass__descriptor) \
     , 0,{0,NULL}, 0,{0,NULL} }
+
+
+struct  _VideoRecord
+{
+  ProtobufCMessage base;
+  protobuf_c_boolean has_control;
+  VideoRecord__ControlType control;
+  protobuf_c_boolean has_status;
+  VideoRecord__StatusType status;
+  char *devicename;
+  char *deviceid;
+  char *operator_;
+};
+#define VIDEO_RECORD__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&video_record__descriptor) \
+    , 0,0, 0,0, NULL, NULL, NULL }
 
 
 struct  _Message
@@ -143,6 +174,25 @@ PadPass *
 void   pad_pass__free_unpacked
                      (PadPass *message,
                       ProtobufCAllocator *allocator);
+/* VideoRecord methods */
+void   video_record__init
+                     (VideoRecord         *message);
+size_t video_record__get_packed_size
+                     (const VideoRecord   *message);
+size_t video_record__pack
+                     (const VideoRecord   *message,
+                      uint8_t             *out);
+size_t video_record__pack_to_buffer
+                     (const VideoRecord   *message,
+                      ProtobufCBuffer     *buffer);
+VideoRecord *
+       video_record__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   video_record__free_unpacked
+                     (VideoRecord *message,
+                      ProtobufCAllocator *allocator);
 /* Message methods */
 void   message__init
                      (Message         *message);
@@ -173,6 +223,9 @@ typedef void (*ScanResult_Closure)
 typedef void (*PadPass_Closure)
                  (const PadPass *message,
                   void *closure_data);
+typedef void (*VideoRecord_Closure)
+                 (const VideoRecord *message,
+                  void *closure_data);
 typedef void (*Message_Closure)
                  (const Message *message,
                   void *closure_data);
@@ -185,6 +238,9 @@ typedef void (*Message_Closure)
 extern const ProtobufCMessageDescriptor pos_point__descriptor;
 extern const ProtobufCMessageDescriptor scan_result__descriptor;
 extern const ProtobufCMessageDescriptor pad_pass__descriptor;
+extern const ProtobufCMessageDescriptor video_record__descriptor;
+extern const ProtobufCEnumDescriptor    video_record__control_type__descriptor;
+extern const ProtobufCEnumDescriptor    video_record__status_type__descriptor;
 extern const ProtobufCMessageDescriptor message__descriptor;
 extern const ProtobufCEnumDescriptor    message__message_type__descriptor;
 

@@ -22,6 +22,8 @@ class ScanResultDefaultTypeInternal : public ::google::protobuf::internal::Expli
 } _ScanResult_default_instance_;
 class PadPassDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PadPass> {
 } _PadPass_default_instance_;
+class VideoRecordDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<VideoRecord> {
+} _VideoRecord_default_instance_;
 class MessageDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Message> {
 } _Message_default_instance_;
 
@@ -30,8 +32,8 @@ namespace protobuf_protocol_2eproto {
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[4];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
+::google::protobuf::Metadata file_level_metadata[5];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[3];
 
 }  // namespace
 
@@ -57,6 +59,15 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PadPass, pad_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PadPass, password_),
   ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, control_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, status_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, devicename_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, deviceid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, operator__),
+  ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -68,13 +79,15 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(PosPoint)},
   { 6, -1, sizeof(ScanResult)},
   { 14, -1, sizeof(PadPass)},
-  { 20, -1, sizeof(Message)},
+  { 20, -1, sizeof(VideoRecord)},
+  { 29, -1, sizeof(Message)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_PosPoint_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_ScanResult_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_PadPass_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_VideoRecord_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_Message_default_instance_),
 };
 
@@ -96,7 +109,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 4);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 5);
 }
 
 }  // namespace
@@ -108,8 +121,10 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[1].reflection;
   _PadPass_default_instance_.Shutdown();
   delete file_level_metadata[2].reflection;
-  _Message_default_instance_.Shutdown();
+  _VideoRecord_default_instance_.Shutdown();
   delete file_level_metadata[3].reflection;
+  _Message_default_instance_.Shutdown();
+  delete file_level_metadata[4].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
@@ -119,6 +134,7 @@ void TableStruct::InitDefaultsImpl() {
   _PosPoint_default_instance_.DefaultConstruct();
   _ScanResult_default_instance_.DefaultConstruct();
   _PadPass_default_instance_.DefaultConstruct();
+  _VideoRecord_default_instance_.DefaultConstruct();
   _Message_default_instance_.DefaultConstruct();
   _ScanResult_default_instance_.get_mutable()->picrutesize_ = const_cast< ::PosPoint*>(
       ::PosPoint::internal_default_instance());
@@ -135,14 +151,21 @@ void AddDescriptorsImpl() {
       "\t\n\001y\030\002 \001(\002\"h\n\nScanResult\022\033\n\010position\030\001 \003"
       "(\0132\t.PosPoint\022\036\n\013picrutesize\030\004 \001(\0132\t.Pos"
       "Point\022\016\n\006result\030\002 \001(\t\022\r\n\005angle\030\003 \001(\002\"(\n\007"
-      "PadPass\022\013\n\003pad\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\"x"
-      "\n\007Message\022)\n\013messagetype\030\001 \001(\0162\024.Message"
-      ".MessageType\022\014\n\004data\030\002 \001(\014\"4\n\013MessageTyp"
-      "e\022\010\n\004NULL\020\000\022\016\n\nScanResult\020\001\022\013\n\007PadPass\020\002"
-      "b\006proto3"
+      "PadPass\022\013\n\003pad\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\"\204"
+      "\002\n\013VideoRecord\022)\n\007control\030\001 \001(\0162\030.VideoR"
+      "ecord.ControlType\022\'\n\006status\030\002 \001(\0162\027.Vide"
+      "oRecord.StatusType\022\022\n\nDeviceName\030\003 \001(\t\022\020"
+      "\n\010DeviceId\030\004 \001(\t\022\020\n\010Operator\030\005 \001(\t\"8\n\013Co"
+      "ntrolType\022\010\n\004NULL\020\000\022\t\n\005Start\020\001\022\010\n\004Stop\020\002"
+      "\022\n\n\006Status\020\003\"/\n\nStatusType\022\t\n\005NULL1\020\000\022\r\n"
+      "\tRecording\020\001\022\007\n\003Off\020\002\"\211\001\n\007Message\022)\n\013mes"
+      "sagetype\030\001 \001(\0162\024.Message.MessageType\022\014\n\004"
+      "data\030\002 \001(\014\"E\n\013MessageType\022\010\n\004NULL\020\000\022\016\n\nS"
+      "canResult\020\001\022\013\n\007PadPass\020\002\022\017\n\013VideoRecord\020"
+      "\003b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 328);
+      descriptor, 609);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "protocol.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -161,11 +184,36 @@ struct StaticDescriptorInitializer {
 
 }  // namespace protobuf_protocol_2eproto
 
-const ::google::protobuf::EnumDescriptor* Message_MessageType_descriptor() {
+const ::google::protobuf::EnumDescriptor* VideoRecord_ControlType_descriptor() {
   protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_protocol_2eproto::file_level_enum_descriptors[0];
 }
-bool Message_MessageType_IsValid(int value) {
+bool VideoRecord_ControlType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const VideoRecord_ControlType VideoRecord::NULL_;
+const VideoRecord_ControlType VideoRecord::Start;
+const VideoRecord_ControlType VideoRecord::Stop;
+const VideoRecord_ControlType VideoRecord::Status;
+const VideoRecord_ControlType VideoRecord::ControlType_MIN;
+const VideoRecord_ControlType VideoRecord::ControlType_MAX;
+const int VideoRecord::ControlType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+const ::google::protobuf::EnumDescriptor* VideoRecord_StatusType_descriptor() {
+  protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_protocol_2eproto::file_level_enum_descriptors[1];
+}
+bool VideoRecord_StatusType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -177,9 +225,34 @@ bool Message_MessageType_IsValid(int value) {
 }
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const VideoRecord_StatusType VideoRecord::NULL1;
+const VideoRecord_StatusType VideoRecord::Recording;
+const VideoRecord_StatusType VideoRecord::Off;
+const VideoRecord_StatusType VideoRecord::StatusType_MIN;
+const VideoRecord_StatusType VideoRecord::StatusType_MAX;
+const int VideoRecord::StatusType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+const ::google::protobuf::EnumDescriptor* Message_MessageType_descriptor() {
+  protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_protocol_2eproto::file_level_enum_descriptors[2];
+}
+bool Message_MessageType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const Message_MessageType Message::NULL_;
 const Message_MessageType Message::ScanResult;
 const Message_MessageType Message::PadPass;
+const Message_MessageType Message::VideoRecord;
 const Message_MessageType Message::MessageType_MIN;
 const Message_MessageType Message::MessageType_MAX;
 const int Message::MessageType_ARRAYSIZE;
@@ -1318,6 +1391,612 @@ void PadPass::set_allocated_password(::std::string* password) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int VideoRecord::kControlFieldNumber;
+const int VideoRecord::kStatusFieldNumber;
+const int VideoRecord::kDeviceNameFieldNumber;
+const int VideoRecord::kDeviceIdFieldNumber;
+const int VideoRecord::kOperatorFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+VideoRecord::VideoRecord()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_protocol_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:VideoRecord)
+}
+VideoRecord::VideoRecord(const VideoRecord& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  devicename_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.devicename().size() > 0) {
+    devicename_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.devicename_);
+  }
+  deviceid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.deviceid().size() > 0) {
+    deviceid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.deviceid_);
+  }
+  operator__.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.operator_().size() > 0) {
+    operator__.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.operator__);
+  }
+  ::memcpy(&control_, &from.control_,
+    reinterpret_cast<char*>(&status_) -
+    reinterpret_cast<char*>(&control_) + sizeof(status_));
+  // @@protoc_insertion_point(copy_constructor:VideoRecord)
+}
+
+void VideoRecord::SharedCtor() {
+  devicename_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  deviceid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  operator__.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&control_, 0, reinterpret_cast<char*>(&status_) -
+    reinterpret_cast<char*>(&control_) + sizeof(status_));
+  _cached_size_ = 0;
+}
+
+VideoRecord::~VideoRecord() {
+  // @@protoc_insertion_point(destructor:VideoRecord)
+  SharedDtor();
+}
+
+void VideoRecord::SharedDtor() {
+  devicename_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  deviceid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  operator__.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void VideoRecord::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* VideoRecord::descriptor() {
+  protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_protocol_2eproto::file_level_metadata[3].descriptor;
+}
+
+const VideoRecord& VideoRecord::default_instance() {
+  protobuf_protocol_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+VideoRecord* VideoRecord::New(::google::protobuf::Arena* arena) const {
+  VideoRecord* n = new VideoRecord;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void VideoRecord::Clear() {
+// @@protoc_insertion_point(message_clear_start:VideoRecord)
+  devicename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  deviceid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  operator__.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&control_, 0, reinterpret_cast<char*>(&status_) -
+    reinterpret_cast<char*>(&control_) + sizeof(status_));
+}
+
+bool VideoRecord::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:VideoRecord)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .VideoRecord.ControlType control = 1;
+      case 1: {
+        if (tag == 8u) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_control(static_cast< ::VideoRecord_ControlType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .VideoRecord.StatusType status = 2;
+      case 2: {
+        if (tag == 16u) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_status(static_cast< ::VideoRecord_StatusType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string DeviceName = 3;
+      case 3: {
+        if (tag == 26u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_devicename()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->devicename().data(), this->devicename().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "VideoRecord.DeviceName"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string DeviceId = 4;
+      case 4: {
+        if (tag == 34u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_deviceid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->deviceid().data(), this->deviceid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "VideoRecord.DeviceId"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string Operator = 5;
+      case 5: {
+        if (tag == 42u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_operator_()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->operator_().data(), this->operator_().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "VideoRecord.Operator"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:VideoRecord)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:VideoRecord)
+  return false;
+#undef DO_
+}
+
+void VideoRecord::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:VideoRecord)
+  // .VideoRecord.ControlType control = 1;
+  if (this->control() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->control(), output);
+  }
+
+  // .VideoRecord.StatusType status = 2;
+  if (this->status() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      2, this->status(), output);
+  }
+
+  // string DeviceName = 3;
+  if (this->devicename().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->devicename().data(), this->devicename().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "VideoRecord.DeviceName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->devicename(), output);
+  }
+
+  // string DeviceId = 4;
+  if (this->deviceid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->deviceid().data(), this->deviceid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "VideoRecord.DeviceId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->deviceid(), output);
+  }
+
+  // string Operator = 5;
+  if (this->operator_().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->operator_().data(), this->operator_().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "VideoRecord.Operator");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->operator_(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:VideoRecord)
+}
+
+::google::protobuf::uint8* VideoRecord::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:VideoRecord)
+  // .VideoRecord.ControlType control = 1;
+  if (this->control() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->control(), target);
+  }
+
+  // .VideoRecord.StatusType status = 2;
+  if (this->status() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      2, this->status(), target);
+  }
+
+  // string DeviceName = 3;
+  if (this->devicename().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->devicename().data(), this->devicename().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "VideoRecord.DeviceName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->devicename(), target);
+  }
+
+  // string DeviceId = 4;
+  if (this->deviceid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->deviceid().data(), this->deviceid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "VideoRecord.DeviceId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->deviceid(), target);
+  }
+
+  // string Operator = 5;
+  if (this->operator_().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->operator_().data(), this->operator_().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "VideoRecord.Operator");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->operator_(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:VideoRecord)
+  return target;
+}
+
+size_t VideoRecord::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:VideoRecord)
+  size_t total_size = 0;
+
+  // string DeviceName = 3;
+  if (this->devicename().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->devicename());
+  }
+
+  // string DeviceId = 4;
+  if (this->deviceid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->deviceid());
+  }
+
+  // string Operator = 5;
+  if (this->operator_().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->operator_());
+  }
+
+  // .VideoRecord.ControlType control = 1;
+  if (this->control() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->control());
+  }
+
+  // .VideoRecord.StatusType status = 2;
+  if (this->status() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void VideoRecord::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:VideoRecord)
+  GOOGLE_DCHECK_NE(&from, this);
+  const VideoRecord* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const VideoRecord>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:VideoRecord)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:VideoRecord)
+    MergeFrom(*source);
+  }
+}
+
+void VideoRecord::MergeFrom(const VideoRecord& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:VideoRecord)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.devicename().size() > 0) {
+
+    devicename_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.devicename_);
+  }
+  if (from.deviceid().size() > 0) {
+
+    deviceid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.deviceid_);
+  }
+  if (from.operator_().size() > 0) {
+
+    operator__.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.operator__);
+  }
+  if (from.control() != 0) {
+    set_control(from.control());
+  }
+  if (from.status() != 0) {
+    set_status(from.status());
+  }
+}
+
+void VideoRecord::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:VideoRecord)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void VideoRecord::CopyFrom(const VideoRecord& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:VideoRecord)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VideoRecord::IsInitialized() const {
+  return true;
+}
+
+void VideoRecord::Swap(VideoRecord* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void VideoRecord::InternalSwap(VideoRecord* other) {
+  devicename_.Swap(&other->devicename_);
+  deviceid_.Swap(&other->deviceid_);
+  operator__.Swap(&other->operator__);
+  std::swap(control_, other->control_);
+  std::swap(status_, other->status_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata VideoRecord::GetMetadata() const {
+  protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_protocol_2eproto::file_level_metadata[3];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// VideoRecord
+
+// .VideoRecord.ControlType control = 1;
+void VideoRecord::clear_control() {
+  control_ = 0;
+}
+::VideoRecord_ControlType VideoRecord::control() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.control)
+  return static_cast< ::VideoRecord_ControlType >(control_);
+}
+void VideoRecord::set_control(::VideoRecord_ControlType value) {
+  
+  control_ = value;
+  // @@protoc_insertion_point(field_set:VideoRecord.control)
+}
+
+// .VideoRecord.StatusType status = 2;
+void VideoRecord::clear_status() {
+  status_ = 0;
+}
+::VideoRecord_StatusType VideoRecord::status() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.status)
+  return static_cast< ::VideoRecord_StatusType >(status_);
+}
+void VideoRecord::set_status(::VideoRecord_StatusType value) {
+  
+  status_ = value;
+  // @@protoc_insertion_point(field_set:VideoRecord.status)
+}
+
+// string DeviceName = 3;
+void VideoRecord::clear_devicename() {
+  devicename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& VideoRecord::devicename() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.DeviceName)
+  return devicename_.GetNoArena();
+}
+void VideoRecord::set_devicename(const ::std::string& value) {
+  
+  devicename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:VideoRecord.DeviceName)
+}
+#if LANG_CXX11
+void VideoRecord::set_devicename(::std::string&& value) {
+  
+  devicename_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:VideoRecord.DeviceName)
+}
+#endif
+void VideoRecord::set_devicename(const char* value) {
+  
+  devicename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:VideoRecord.DeviceName)
+}
+void VideoRecord::set_devicename(const char* value, size_t size) {
+  
+  devicename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:VideoRecord.DeviceName)
+}
+::std::string* VideoRecord::mutable_devicename() {
+  
+  // @@protoc_insertion_point(field_mutable:VideoRecord.DeviceName)
+  return devicename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* VideoRecord::release_devicename() {
+  // @@protoc_insertion_point(field_release:VideoRecord.DeviceName)
+  
+  return devicename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void VideoRecord::set_allocated_devicename(::std::string* devicename) {
+  if (devicename != NULL) {
+    
+  } else {
+    
+  }
+  devicename_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), devicename);
+  // @@protoc_insertion_point(field_set_allocated:VideoRecord.DeviceName)
+}
+
+// string DeviceId = 4;
+void VideoRecord::clear_deviceid() {
+  deviceid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& VideoRecord::deviceid() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.DeviceId)
+  return deviceid_.GetNoArena();
+}
+void VideoRecord::set_deviceid(const ::std::string& value) {
+  
+  deviceid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:VideoRecord.DeviceId)
+}
+#if LANG_CXX11
+void VideoRecord::set_deviceid(::std::string&& value) {
+  
+  deviceid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:VideoRecord.DeviceId)
+}
+#endif
+void VideoRecord::set_deviceid(const char* value) {
+  
+  deviceid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:VideoRecord.DeviceId)
+}
+void VideoRecord::set_deviceid(const char* value, size_t size) {
+  
+  deviceid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:VideoRecord.DeviceId)
+}
+::std::string* VideoRecord::mutable_deviceid() {
+  
+  // @@protoc_insertion_point(field_mutable:VideoRecord.DeviceId)
+  return deviceid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* VideoRecord::release_deviceid() {
+  // @@protoc_insertion_point(field_release:VideoRecord.DeviceId)
+  
+  return deviceid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void VideoRecord::set_allocated_deviceid(::std::string* deviceid) {
+  if (deviceid != NULL) {
+    
+  } else {
+    
+  }
+  deviceid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), deviceid);
+  // @@protoc_insertion_point(field_set_allocated:VideoRecord.DeviceId)
+}
+
+// string Operator = 5;
+void VideoRecord::clear_operator_() {
+  operator__.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& VideoRecord::operator_() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.Operator)
+  return operator__.GetNoArena();
+}
+void VideoRecord::set_operator_(const ::std::string& value) {
+  
+  operator__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:VideoRecord.Operator)
+}
+#if LANG_CXX11
+void VideoRecord::set_operator_(::std::string&& value) {
+  
+  operator__.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:VideoRecord.Operator)
+}
+#endif
+void VideoRecord::set_operator_(const char* value) {
+  
+  operator__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:VideoRecord.Operator)
+}
+void VideoRecord::set_operator_(const char* value, size_t size) {
+  
+  operator__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:VideoRecord.Operator)
+}
+::std::string* VideoRecord::mutable_operator_() {
+  
+  // @@protoc_insertion_point(field_mutable:VideoRecord.Operator)
+  return operator__.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* VideoRecord::release_operator_() {
+  // @@protoc_insertion_point(field_release:VideoRecord.Operator)
+  
+  return operator__.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void VideoRecord::set_allocated_operator_(::std::string* operator_) {
+  if (operator_ != NULL) {
+    
+  } else {
+    
+  }
+  operator__.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), operator_);
+  // @@protoc_insertion_point(field_set_allocated:VideoRecord.Operator)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Message::kMessagetypeFieldNumber;
 const int Message::kDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -1365,7 +2044,7 @@ void Message::SetCachedSize(int size) const {
 }
 const ::google::protobuf::Descriptor* Message::descriptor() {
   protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protocol_2eproto::file_level_metadata[3].descriptor;
+  return protobuf_protocol_2eproto::file_level_metadata[4].descriptor;
 }
 
 const Message& Message::default_instance() {
@@ -1564,7 +2243,7 @@ void Message::InternalSwap(Message* other) {
 
 ::google::protobuf::Metadata Message::GetMetadata() const {
   protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protocol_2eproto::file_level_metadata[3];
+  return protobuf_protocol_2eproto::file_level_metadata[4];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
