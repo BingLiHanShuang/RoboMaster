@@ -17,7 +17,6 @@ UDPServer::UDPServer(int port) {
     if(bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1)
     {
         perror("bind error");
-
     }
     event.data.fd = sockfd;     //监听套接字
     event.events = EPOLLIN; // 表示对应的文件描述符可以读

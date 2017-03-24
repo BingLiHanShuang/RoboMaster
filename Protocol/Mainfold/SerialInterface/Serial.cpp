@@ -41,6 +41,7 @@ int Serial::set_interface_attribs(int fd, int speed)
 Serial::Serial(char *name) {
     fd = open(name, O_RDWR | O_NOCTTY | O_SYNC);
     if (fd < 0) {
+        exit(0);
         printf("Error opening %s: %s\n", name, strerror(errno));
         return;
     }
