@@ -137,7 +137,7 @@ namespace PROTOCOL{
     void sendtoserial(void *payload, uint32_t size){
         //writetofile(payload,size);
         print((uint8_t *) payload, size);
-        //serial->send((uint8_t *) payload, size);
+        serial->send((uint8_t *) payload, size);
     }
     void writetofile(void *payload, uint32_t size){
         FILE *fp;
