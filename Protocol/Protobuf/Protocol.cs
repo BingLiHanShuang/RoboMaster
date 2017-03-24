@@ -24,16 +24,23 @@ public static partial class ProtocolReflection {
           "AiABKAIiaAoKU2NhblJlc3VsdBIbCghwb3NpdGlvbhgBIAMoCzIJLlBvc1Bv",
           "aW50Eh4KC3BpY3J1dGVzaXplGAQgASgLMgkuUG9zUG9pbnQSDgoGcmVzdWx0",
           "GAIgASgJEg0KBWFuZ2xlGAMgASgCIigKB1BhZFBhc3MSCwoDcGFkGAEgASgM",
-          "EhAKCHBhc3N3b3JkGAIgASgMIngKB01lc3NhZ2USKQoLbWVzc2FnZXR5cGUY",
-          "ASABKA4yFC5NZXNzYWdlLk1lc3NhZ2VUeXBlEgwKBGRhdGEYAiABKAwiNAoL",
-          "TWVzc2FnZVR5cGUSCAoETlVMTBAAEg4KClNjYW5SZXN1bHQQARILCgdQYWRQ",
-          "YXNzEAJiBnByb3RvMw=="));
+          "EhAKCHBhc3N3b3JkGAIgASgMIoQCCgtWaWRlb1JlY29yZBIpCgdjb250cm9s",
+          "GAEgASgOMhguVmlkZW9SZWNvcmQuQ29udHJvbFR5cGUSJwoGc3RhdHVzGAIg",
+          "ASgOMhcuVmlkZW9SZWNvcmQuU3RhdHVzVHlwZRISCgpEZXZpY2VOYW1lGAMg",
+          "ASgJEhAKCERldmljZUlkGAQgASgJEhAKCE9wZXJhdG9yGAUgASgJIjgKC0Nv",
+          "bnRyb2xUeXBlEggKBE5VTEwQABIJCgVTdGFydBABEggKBFN0b3AQAhIKCgZT",
+          "dGF0dXMQAyIvCgpTdGF0dXNUeXBlEgkKBU5VTEwxEAASDQoJUmVjb3JkaW5n",
+          "EAESBwoDT2ZmEAIiiQEKB01lc3NhZ2USKQoLbWVzc2FnZXR5cGUYASABKA4y",
+          "FC5NZXNzYWdlLk1lc3NhZ2VUeXBlEgwKBGRhdGEYAiABKAwiRQoLTWVzc2Fn",
+          "ZVR5cGUSCAoETlVMTBAAEg4KClNjYW5SZXN1bHQQARILCgdQYWRQYXNzEAIS",
+          "DwoLVmlkZW9SZWNvcmQQA2IGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::PosPoint), global::PosPoint.Parser, new[]{ "X", "Y" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ScanResult), global::ScanResult.Parser, new[]{ "Position", "Picrutesize", "Result", "Angle" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PadPass), global::PadPass.Parser, new[]{ "Pad", "Password" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::VideoRecord), global::VideoRecord.Parser, new[]{ "Control", "Status", "DeviceName", "DeviceId", "Operator" }, null, new[]{ typeof(global::VideoRecord.Types.ControlType), typeof(global::VideoRecord.Types.StatusType) }, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Message), global::Message.Parser, new[]{ "Messagetype", "Data" }, null, new[]{ typeof(global::Message.Types.MessageType) }, null)
         }));
   }
@@ -530,6 +537,255 @@ public sealed partial class PadPass : pb::IMessage<PadPass> {
 
 }
 
+public sealed partial class VideoRecord : pb::IMessage<VideoRecord> {
+  private static readonly pb::MessageParser<VideoRecord> _parser = new pb::MessageParser<VideoRecord>(() => new VideoRecord());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<VideoRecord> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::ProtocolReflection.Descriptor.MessageTypes[3]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public VideoRecord() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public VideoRecord(VideoRecord other) : this() {
+    control_ = other.control_;
+    status_ = other.status_;
+    deviceName_ = other.deviceName_;
+    deviceId_ = other.deviceId_;
+    operator_ = other.operator_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public VideoRecord Clone() {
+    return new VideoRecord(this);
+  }
+
+  /// <summary>Field number for the "control" field.</summary>
+  public const int ControlFieldNumber = 1;
+  private global::VideoRecord.Types.ControlType control_ = 0;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::VideoRecord.Types.ControlType Control {
+    get { return control_; }
+    set {
+      control_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "status" field.</summary>
+  public const int StatusFieldNumber = 2;
+  private global::VideoRecord.Types.StatusType status_ = 0;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::VideoRecord.Types.StatusType Status {
+    get { return status_; }
+    set {
+      status_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "DeviceName" field.</summary>
+  public const int DeviceNameFieldNumber = 3;
+  private string deviceName_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string DeviceName {
+    get { return deviceName_; }
+    set {
+      deviceName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "DeviceId" field.</summary>
+  public const int DeviceIdFieldNumber = 4;
+  private string deviceId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string DeviceId {
+    get { return deviceId_; }
+    set {
+      deviceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Operator" field.</summary>
+  public const int OperatorFieldNumber = 5;
+  private string operator_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Operator {
+    get { return operator_; }
+    set {
+      operator_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as VideoRecord);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(VideoRecord other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Control != other.Control) return false;
+    if (Status != other.Status) return false;
+    if (DeviceName != other.DeviceName) return false;
+    if (DeviceId != other.DeviceId) return false;
+    if (Operator != other.Operator) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Control != 0) hash ^= Control.GetHashCode();
+    if (Status != 0) hash ^= Status.GetHashCode();
+    if (DeviceName.Length != 0) hash ^= DeviceName.GetHashCode();
+    if (DeviceId.Length != 0) hash ^= DeviceId.GetHashCode();
+    if (Operator.Length != 0) hash ^= Operator.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Control != 0) {
+      output.WriteRawTag(8);
+      output.WriteEnum((int) Control);
+    }
+    if (Status != 0) {
+      output.WriteRawTag(16);
+      output.WriteEnum((int) Status);
+    }
+    if (DeviceName.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(DeviceName);
+    }
+    if (DeviceId.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(DeviceId);
+    }
+    if (Operator.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(Operator);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Control != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Control);
+    }
+    if (Status != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
+    }
+    if (DeviceName.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(DeviceName);
+    }
+    if (DeviceId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(DeviceId);
+    }
+    if (Operator.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Operator);
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(VideoRecord other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Control != 0) {
+      Control = other.Control;
+    }
+    if (other.Status != 0) {
+      Status = other.Status;
+    }
+    if (other.DeviceName.Length != 0) {
+      DeviceName = other.DeviceName;
+    }
+    if (other.DeviceId.Length != 0) {
+      DeviceId = other.DeviceId;
+    }
+    if (other.Operator.Length != 0) {
+      Operator = other.Operator;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 8: {
+          control_ = (global::VideoRecord.Types.ControlType) input.ReadEnum();
+          break;
+        }
+        case 16: {
+          status_ = (global::VideoRecord.Types.StatusType) input.ReadEnum();
+          break;
+        }
+        case 26: {
+          DeviceName = input.ReadString();
+          break;
+        }
+        case 34: {
+          DeviceId = input.ReadString();
+          break;
+        }
+        case 42: {
+          Operator = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+
+  #region Nested types
+  /// <summary>Container for nested types declared in the VideoRecord message type.</summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static partial class Types {
+    public enum ControlType {
+      [pbr::OriginalName("NULL")] Null = 0,
+      [pbr::OriginalName("Start")] Start = 1,
+      [pbr::OriginalName("Stop")] Stop = 2,
+      [pbr::OriginalName("Status")] Status = 3,
+    }
+
+    public enum StatusType {
+      [pbr::OriginalName("NULL1")] Null1 = 0,
+      [pbr::OriginalName("Recording")] Recording = 1,
+      [pbr::OriginalName("Off")] Off = 2,
+    }
+
+  }
+  #endregion
+
+}
+
 public sealed partial class Message : pb::IMessage<Message> {
   private static readonly pb::MessageParser<Message> _parser = new pb::MessageParser<Message>(() => new Message());
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -537,7 +793,7 @@ public sealed partial class Message : pb::IMessage<Message> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::ProtocolReflection.Descriptor.MessageTypes[3]; }
+    get { return global::ProtocolReflection.Descriptor.MessageTypes[4]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -681,6 +937,7 @@ public sealed partial class Message : pb::IMessage<Message> {
       [pbr::OriginalName("NULL")] Null = 0,
       [pbr::OriginalName("ScanResult")] ScanResult = 1,
       [pbr::OriginalName("PadPass")] PadPass = 2,
+      [pbr::OriginalName("VideoRecord")] VideoRecord = 3,
     }
 
   }
