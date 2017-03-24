@@ -13,12 +13,30 @@ message PadPass{
 	bytes pad=1;
 	bytes password=2;
 }
+message VideoRecord{
+	enum ControlType{
+		NULL=0;
+		Start=1;
+		Stop=2;
+		Status=3;
+	}
+	enum StatusType{
+		NULL1=0;
+		Recording=1;
+		Off=2;
+	}
+	ControlType control=1;
+	StatusType status=2;
+	string DeviceName=3;
+	string DeviceId=4;
+	string Operator=5;
+}
 message Message {
 	enum MessageType{
 		NULL = 0;
 		ScanResult=1;
 		PadPass=2;
-		
+		VideoRecord=3;
 	}
 	MessageType messagetype = 1;  
 	bytes data = 2;
