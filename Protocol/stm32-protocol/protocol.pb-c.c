@@ -136,6 +136,49 @@ void   pad_pass__free_unpacked
   assert(message->base.descriptor == &pad_pass__descriptor);
   protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
 }
+void   video_record__init
+                     (VideoRecord         *message)
+{
+  static VideoRecord init_value = VIDEO_RECORD__INIT;
+  *message = init_value;
+}
+size_t video_record__get_packed_size
+                     (const VideoRecord *message)
+{
+  assert(message->base.descriptor == &video_record__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t video_record__pack
+                     (const VideoRecord *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &video_record__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t video_record__pack_to_buffer
+                     (const VideoRecord *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &video_record__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+VideoRecord *
+       video_record__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (VideoRecord *)
+     protobuf_c_message_unpack (&video_record__descriptor,
+                                allocator, len, data);
+}
+void   video_record__free_unpacked
+                     (VideoRecord *message,
+                      ProtobufCAllocator *allocator)
+{
+  assert(message->base.descriptor == &video_record__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
 void   message__init
                      (Message         *message)
 {
@@ -358,20 +401,174 @@ const ProtobufCMessageDescriptor pad_pass__descriptor =
   (ProtobufCMessageInit) pad_pass__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCEnumValue message__message_type__enum_values_by_number[3] =
+static const ProtobufCEnumValue video_record__control_type__enum_values_by_number[4] =
+{
+  { "NULL", "VIDEO_RECORD__CONTROL_TYPE__NULL", 0 },
+  { "Start", "VIDEO_RECORD__CONTROL_TYPE__Start", 1 },
+  { "Stop", "VIDEO_RECORD__CONTROL_TYPE__Stop", 2 },
+  { "Status", "VIDEO_RECORD__CONTROL_TYPE__Status", 3 },
+};
+static const ProtobufCIntRange video_record__control_type__value_ranges[] = {
+{0, 0},{0, 4}
+};
+static const ProtobufCEnumValueIndex video_record__control_type__enum_values_by_name[4] =
+{
+  { "NULL", 0 },
+  { "Start", 1 },
+  { "Status", 3 },
+  { "Stop", 2 },
+};
+const ProtobufCEnumDescriptor video_record__control_type__descriptor =
+{
+  PROTOBUF_C__ENUM_DESCRIPTOR_MAGIC,
+  "VideoRecord.ControlType",
+  "ControlType",
+  "VideoRecord__ControlType",
+  "",
+  4,
+  video_record__control_type__enum_values_by_number,
+  4,
+  video_record__control_type__enum_values_by_name,
+  1,
+  video_record__control_type__value_ranges,
+  NULL,NULL,NULL,NULL   /* reserved[1234] */
+};
+static const ProtobufCEnumValue video_record__status_type__enum_values_by_number[3] =
+{
+  { "NULL1", "VIDEO_RECORD__STATUS_TYPE__NULL1", 0 },
+  { "Recording", "VIDEO_RECORD__STATUS_TYPE__Recording", 1 },
+  { "Off", "VIDEO_RECORD__STATUS_TYPE__Off", 2 },
+};
+static const ProtobufCIntRange video_record__status_type__value_ranges[] = {
+{0, 0},{0, 3}
+};
+static const ProtobufCEnumValueIndex video_record__status_type__enum_values_by_name[3] =
+{
+  { "NULL1", 0 },
+  { "Off", 2 },
+  { "Recording", 1 },
+};
+const ProtobufCEnumDescriptor video_record__status_type__descriptor =
+{
+  PROTOBUF_C__ENUM_DESCRIPTOR_MAGIC,
+  "VideoRecord.StatusType",
+  "StatusType",
+  "VideoRecord__StatusType",
+  "",
+  3,
+  video_record__status_type__enum_values_by_number,
+  3,
+  video_record__status_type__enum_values_by_name,
+  1,
+  video_record__status_type__value_ranges,
+  NULL,NULL,NULL,NULL   /* reserved[1234] */
+};
+static const ProtobufCFieldDescriptor video_record__field_descriptors[5] =
+{
+  {
+    "control",
+    1,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_ENUM,
+    offsetof(VideoRecord, has_control),
+    offsetof(VideoRecord, control),
+    &video_record__control_type__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "status",
+    2,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_ENUM,
+    offsetof(VideoRecord, has_status),
+    offsetof(VideoRecord, status),
+    &video_record__status_type__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "DeviceName",
+    3,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(VideoRecord, devicename),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "DeviceId",
+    4,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(VideoRecord, deviceid),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "Operator",
+    5,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(VideoRecord, operator_),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned video_record__field_indices_by_name[] = {
+  3,   /* field[3] = DeviceId */
+  2,   /* field[2] = DeviceName */
+  4,   /* field[4] = Operator */
+  0,   /* field[0] = control */
+  1,   /* field[1] = status */
+};
+static const ProtobufCIntRange video_record__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 5 }
+};
+const ProtobufCMessageDescriptor video_record__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "VideoRecord",
+  "VideoRecord",
+  "VideoRecord",
+  "",
+  sizeof(VideoRecord),
+  5,
+  video_record__field_descriptors,
+  video_record__field_indices_by_name,
+  1,  video_record__number_ranges,
+  (ProtobufCMessageInit) video_record__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCEnumValue message__message_type__enum_values_by_number[4] =
 {
   { "NULL", "MESSAGE__MESSAGE_TYPE__NULL", 0 },
   { "ScanResult", "MESSAGE__MESSAGE_TYPE__ScanResult", 1 },
   { "PadPass", "MESSAGE__MESSAGE_TYPE__PadPass", 2 },
+  { "VideoRecord", "MESSAGE__MESSAGE_TYPE__VideoRecord", 3 },
 };
 static const ProtobufCIntRange message__message_type__value_ranges[] = {
-{0, 0},{0, 3}
+{0, 0},{0, 4}
 };
-static const ProtobufCEnumValueIndex message__message_type__enum_values_by_name[3] =
+static const ProtobufCEnumValueIndex message__message_type__enum_values_by_name[4] =
 {
   { "NULL", 0 },
   { "PadPass", 2 },
   { "ScanResult", 1 },
+  { "VideoRecord", 3 },
 };
 const ProtobufCEnumDescriptor message__message_type__descriptor =
 {
@@ -380,9 +577,9 @@ const ProtobufCEnumDescriptor message__message_type__descriptor =
   "MessageType",
   "Message__MessageType",
   "",
-  3,
+  4,
   message__message_type__enum_values_by_number,
-  3,
+  4,
   message__message_type__enum_values_by_name,
   1,
   message__message_type__value_ranges,

@@ -42,6 +42,9 @@ extern PosPointDefaultTypeInternal _PosPoint_default_instance_;
 class ScanResult;
 class ScanResultDefaultTypeInternal;
 extern ScanResultDefaultTypeInternal _ScanResult_default_instance_;
+class VideoRecord;
+class VideoRecordDefaultTypeInternal;
+extern VideoRecordDefaultTypeInternal _VideoRecord_default_instance_;
 
 namespace protobuf_protocol_2eproto {
 // Internal implementation detail -- do not call these.
@@ -54,16 +57,62 @@ void AddDescriptors();
 void InitDefaults();
 }  // namespace protobuf_protocol_2eproto
 
+enum VideoRecord_ControlType {
+  VideoRecord_ControlType_NULL_ = 0,
+  VideoRecord_ControlType_Start = 1,
+  VideoRecord_ControlType_Stop = 2,
+  VideoRecord_ControlType_Status = 3,
+  VideoRecord_ControlType_VideoRecord_ControlType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  VideoRecord_ControlType_VideoRecord_ControlType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool VideoRecord_ControlType_IsValid(int value);
+const VideoRecord_ControlType VideoRecord_ControlType_ControlType_MIN = VideoRecord_ControlType_NULL_;
+const VideoRecord_ControlType VideoRecord_ControlType_ControlType_MAX = VideoRecord_ControlType_Status;
+const int VideoRecord_ControlType_ControlType_ARRAYSIZE = VideoRecord_ControlType_ControlType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* VideoRecord_ControlType_descriptor();
+inline const ::std::string& VideoRecord_ControlType_Name(VideoRecord_ControlType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    VideoRecord_ControlType_descriptor(), value);
+}
+inline bool VideoRecord_ControlType_Parse(
+    const ::std::string& name, VideoRecord_ControlType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<VideoRecord_ControlType>(
+    VideoRecord_ControlType_descriptor(), name, value);
+}
+enum VideoRecord_StatusType {
+  VideoRecord_StatusType_NULL1 = 0,
+  VideoRecord_StatusType_Recording = 1,
+  VideoRecord_StatusType_Off = 2,
+  VideoRecord_StatusType_VideoRecord_StatusType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  VideoRecord_StatusType_VideoRecord_StatusType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool VideoRecord_StatusType_IsValid(int value);
+const VideoRecord_StatusType VideoRecord_StatusType_StatusType_MIN = VideoRecord_StatusType_NULL1;
+const VideoRecord_StatusType VideoRecord_StatusType_StatusType_MAX = VideoRecord_StatusType_Off;
+const int VideoRecord_StatusType_StatusType_ARRAYSIZE = VideoRecord_StatusType_StatusType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* VideoRecord_StatusType_descriptor();
+inline const ::std::string& VideoRecord_StatusType_Name(VideoRecord_StatusType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    VideoRecord_StatusType_descriptor(), value);
+}
+inline bool VideoRecord_StatusType_Parse(
+    const ::std::string& name, VideoRecord_StatusType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<VideoRecord_StatusType>(
+    VideoRecord_StatusType_descriptor(), name, value);
+}
 enum Message_MessageType {
   Message_MessageType_NULL_ = 0,
   Message_MessageType_ScanResult = 1,
   Message_MessageType_PadPass = 2,
+  Message_MessageType_VideoRecord = 3,
   Message_MessageType_Message_MessageType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   Message_MessageType_Message_MessageType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool Message_MessageType_IsValid(int value);
 const Message_MessageType Message_MessageType_MessageType_MIN = Message_MessageType_NULL_;
-const Message_MessageType Message_MessageType_MessageType_MAX = Message_MessageType_PadPass;
+const Message_MessageType Message_MessageType_MessageType_MAX = Message_MessageType_VideoRecord;
 const int Message_MessageType_MessageType_ARRAYSIZE = Message_MessageType_MessageType_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* Message_MessageType_descriptor();
@@ -395,6 +444,199 @@ class PadPass : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 };
 // -------------------------------------------------------------------
 
+class VideoRecord : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:VideoRecord) */ {
+ public:
+  VideoRecord();
+  virtual ~VideoRecord();
+
+  VideoRecord(const VideoRecord& from);
+
+  inline VideoRecord& operator=(const VideoRecord& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const VideoRecord& default_instance();
+
+  static inline const VideoRecord* internal_default_instance() {
+    return reinterpret_cast<const VideoRecord*>(
+               &_VideoRecord_default_instance_);
+  }
+
+  void Swap(VideoRecord* other);
+
+  // implements Message ----------------------------------------------
+
+  inline VideoRecord* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  VideoRecord* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const VideoRecord& from);
+  void MergeFrom(const VideoRecord& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output)
+      const PROTOBUF_FINAL {
+    return InternalSerializeWithCachedSizesToArray(
+        ::google::protobuf::io::CodedOutputStream::IsDefaultSerializationDeterministic(), output);
+  }
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(VideoRecord* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  typedef VideoRecord_ControlType ControlType;
+  static const ControlType NULL_ =
+    VideoRecord_ControlType_NULL_;
+  static const ControlType Start =
+    VideoRecord_ControlType_Start;
+  static const ControlType Stop =
+    VideoRecord_ControlType_Stop;
+  static const ControlType Status =
+    VideoRecord_ControlType_Status;
+  static inline bool ControlType_IsValid(int value) {
+    return VideoRecord_ControlType_IsValid(value);
+  }
+  static const ControlType ControlType_MIN =
+    VideoRecord_ControlType_ControlType_MIN;
+  static const ControlType ControlType_MAX =
+    VideoRecord_ControlType_ControlType_MAX;
+  static const int ControlType_ARRAYSIZE =
+    VideoRecord_ControlType_ControlType_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  ControlType_descriptor() {
+    return VideoRecord_ControlType_descriptor();
+  }
+  static inline const ::std::string& ControlType_Name(ControlType value) {
+    return VideoRecord_ControlType_Name(value);
+  }
+  static inline bool ControlType_Parse(const ::std::string& name,
+      ControlType* value) {
+    return VideoRecord_ControlType_Parse(name, value);
+  }
+
+  typedef VideoRecord_StatusType StatusType;
+  static const StatusType NULL1 =
+    VideoRecord_StatusType_NULL1;
+  static const StatusType Recording =
+    VideoRecord_StatusType_Recording;
+  static const StatusType Off =
+    VideoRecord_StatusType_Off;
+  static inline bool StatusType_IsValid(int value) {
+    return VideoRecord_StatusType_IsValid(value);
+  }
+  static const StatusType StatusType_MIN =
+    VideoRecord_StatusType_StatusType_MIN;
+  static const StatusType StatusType_MAX =
+    VideoRecord_StatusType_StatusType_MAX;
+  static const int StatusType_ARRAYSIZE =
+    VideoRecord_StatusType_StatusType_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  StatusType_descriptor() {
+    return VideoRecord_StatusType_descriptor();
+  }
+  static inline const ::std::string& StatusType_Name(StatusType value) {
+    return VideoRecord_StatusType_Name(value);
+  }
+  static inline bool StatusType_Parse(const ::std::string& name,
+      StatusType* value) {
+    return VideoRecord_StatusType_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  // string DeviceName = 3;
+  void clear_devicename();
+  static const int kDeviceNameFieldNumber = 3;
+  const ::std::string& devicename() const;
+  void set_devicename(const ::std::string& value);
+  #if LANG_CXX11
+  void set_devicename(::std::string&& value);
+  #endif
+  void set_devicename(const char* value);
+  void set_devicename(const char* value, size_t size);
+  ::std::string* mutable_devicename();
+  ::std::string* release_devicename();
+  void set_allocated_devicename(::std::string* devicename);
+
+  // string DeviceId = 4;
+  void clear_deviceid();
+  static const int kDeviceIdFieldNumber = 4;
+  const ::std::string& deviceid() const;
+  void set_deviceid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_deviceid(::std::string&& value);
+  #endif
+  void set_deviceid(const char* value);
+  void set_deviceid(const char* value, size_t size);
+  ::std::string* mutable_deviceid();
+  ::std::string* release_deviceid();
+  void set_allocated_deviceid(::std::string* deviceid);
+
+  // string Operator = 5;
+  void clear_operator_();
+  static const int kOperatorFieldNumber = 5;
+  const ::std::string& operator_() const;
+  void set_operator_(const ::std::string& value);
+  #if LANG_CXX11
+  void set_operator_(::std::string&& value);
+  #endif
+  void set_operator_(const char* value);
+  void set_operator_(const char* value, size_t size);
+  ::std::string* mutable_operator_();
+  ::std::string* release_operator_();
+  void set_allocated_operator_(::std::string* operator_);
+
+  // .VideoRecord.ControlType control = 1;
+  void clear_control();
+  static const int kControlFieldNumber = 1;
+  ::VideoRecord_ControlType control() const;
+  void set_control(::VideoRecord_ControlType value);
+
+  // .VideoRecord.StatusType status = 2;
+  void clear_status();
+  static const int kStatusFieldNumber = 2;
+  ::VideoRecord_StatusType status() const;
+  void set_status(::VideoRecord_StatusType value);
+
+  // @@protoc_insertion_point(class_scope:VideoRecord)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr devicename_;
+  ::google::protobuf::internal::ArenaStringPtr deviceid_;
+  ::google::protobuf::internal::ArenaStringPtr operator__;
+  int control_;
+  int status_;
+  mutable int _cached_size_;
+  friend struct  protobuf_protocol_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Message) */ {
  public:
   Message();
@@ -467,6 +709,8 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
     Message_MessageType_ScanResult;
   static const MessageType PadPass =
     Message_MessageType_PadPass;
+  static const MessageType VideoRecord =
+    Message_MessageType_VideoRecord;
   static inline bool MessageType_IsValid(int value) {
     return Message_MessageType_IsValid(value);
   }
@@ -804,6 +1048,194 @@ inline void PadPass::set_allocated_password(::std::string* password) {
 
 // -------------------------------------------------------------------
 
+// VideoRecord
+
+// .VideoRecord.ControlType control = 1;
+inline void VideoRecord::clear_control() {
+  control_ = 0;
+}
+inline ::VideoRecord_ControlType VideoRecord::control() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.control)
+  return static_cast< ::VideoRecord_ControlType >(control_);
+}
+inline void VideoRecord::set_control(::VideoRecord_ControlType value) {
+  
+  control_ = value;
+  // @@protoc_insertion_point(field_set:VideoRecord.control)
+}
+
+// .VideoRecord.StatusType status = 2;
+inline void VideoRecord::clear_status() {
+  status_ = 0;
+}
+inline ::VideoRecord_StatusType VideoRecord::status() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.status)
+  return static_cast< ::VideoRecord_StatusType >(status_);
+}
+inline void VideoRecord::set_status(::VideoRecord_StatusType value) {
+  
+  status_ = value;
+  // @@protoc_insertion_point(field_set:VideoRecord.status)
+}
+
+// string DeviceName = 3;
+inline void VideoRecord::clear_devicename() {
+  devicename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& VideoRecord::devicename() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.DeviceName)
+  return devicename_.GetNoArena();
+}
+inline void VideoRecord::set_devicename(const ::std::string& value) {
+  
+  devicename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:VideoRecord.DeviceName)
+}
+#if LANG_CXX11
+inline void VideoRecord::set_devicename(::std::string&& value) {
+  
+  devicename_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:VideoRecord.DeviceName)
+}
+#endif
+inline void VideoRecord::set_devicename(const char* value) {
+  
+  devicename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:VideoRecord.DeviceName)
+}
+inline void VideoRecord::set_devicename(const char* value, size_t size) {
+  
+  devicename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:VideoRecord.DeviceName)
+}
+inline ::std::string* VideoRecord::mutable_devicename() {
+  
+  // @@protoc_insertion_point(field_mutable:VideoRecord.DeviceName)
+  return devicename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* VideoRecord::release_devicename() {
+  // @@protoc_insertion_point(field_release:VideoRecord.DeviceName)
+  
+  return devicename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void VideoRecord::set_allocated_devicename(::std::string* devicename) {
+  if (devicename != NULL) {
+    
+  } else {
+    
+  }
+  devicename_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), devicename);
+  // @@protoc_insertion_point(field_set_allocated:VideoRecord.DeviceName)
+}
+
+// string DeviceId = 4;
+inline void VideoRecord::clear_deviceid() {
+  deviceid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& VideoRecord::deviceid() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.DeviceId)
+  return deviceid_.GetNoArena();
+}
+inline void VideoRecord::set_deviceid(const ::std::string& value) {
+  
+  deviceid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:VideoRecord.DeviceId)
+}
+#if LANG_CXX11
+inline void VideoRecord::set_deviceid(::std::string&& value) {
+  
+  deviceid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:VideoRecord.DeviceId)
+}
+#endif
+inline void VideoRecord::set_deviceid(const char* value) {
+  
+  deviceid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:VideoRecord.DeviceId)
+}
+inline void VideoRecord::set_deviceid(const char* value, size_t size) {
+  
+  deviceid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:VideoRecord.DeviceId)
+}
+inline ::std::string* VideoRecord::mutable_deviceid() {
+  
+  // @@protoc_insertion_point(field_mutable:VideoRecord.DeviceId)
+  return deviceid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* VideoRecord::release_deviceid() {
+  // @@protoc_insertion_point(field_release:VideoRecord.DeviceId)
+  
+  return deviceid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void VideoRecord::set_allocated_deviceid(::std::string* deviceid) {
+  if (deviceid != NULL) {
+    
+  } else {
+    
+  }
+  deviceid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), deviceid);
+  // @@protoc_insertion_point(field_set_allocated:VideoRecord.DeviceId)
+}
+
+// string Operator = 5;
+inline void VideoRecord::clear_operator_() {
+  operator__.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& VideoRecord::operator_() const {
+  // @@protoc_insertion_point(field_get:VideoRecord.Operator)
+  return operator__.GetNoArena();
+}
+inline void VideoRecord::set_operator_(const ::std::string& value) {
+  
+  operator__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:VideoRecord.Operator)
+}
+#if LANG_CXX11
+inline void VideoRecord::set_operator_(::std::string&& value) {
+  
+  operator__.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:VideoRecord.Operator)
+}
+#endif
+inline void VideoRecord::set_operator_(const char* value) {
+  
+  operator__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:VideoRecord.Operator)
+}
+inline void VideoRecord::set_operator_(const char* value, size_t size) {
+  
+  operator__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:VideoRecord.Operator)
+}
+inline ::std::string* VideoRecord::mutable_operator_() {
+  
+  // @@protoc_insertion_point(field_mutable:VideoRecord.Operator)
+  return operator__.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* VideoRecord::release_operator_() {
+  // @@protoc_insertion_point(field_release:VideoRecord.Operator)
+  
+  return operator__.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void VideoRecord::set_allocated_operator_(::std::string* operator_) {
+  if (operator_ != NULL) {
+    
+  } else {
+    
+  }
+  operator__.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), operator_);
+  // @@protoc_insertion_point(field_set_allocated:VideoRecord.Operator)
+}
+
+// -------------------------------------------------------------------
+
 // Message
 
 // .Message.MessageType messagetype = 1;
@@ -879,6 +1311,8 @@ inline void Message::set_allocated_data(::std::string* data) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -887,6 +1321,16 @@ inline void Message::set_allocated_data(::std::string* data) {
 namespace google {
 namespace protobuf {
 
+template <> struct is_proto_enum< ::VideoRecord_ControlType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::VideoRecord_ControlType>() {
+  return ::VideoRecord_ControlType_descriptor();
+}
+template <> struct is_proto_enum< ::VideoRecord_StatusType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::VideoRecord_StatusType>() {
+  return ::VideoRecord_StatusType_descriptor();
+}
 template <> struct is_proto_enum< ::Message_MessageType> : ::google::protobuf::internal::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Message_MessageType>() {
