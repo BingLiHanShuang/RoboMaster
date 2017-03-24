@@ -78,7 +78,9 @@ namespace PROTOCOL {
     unsigned int CRC32(uint8_t *buf, uint32_t size);
 
 
-
+    void GetMessage(uint8_t data);
+    int DeserializeInt(uint8_t *data);
+    void DispatchMessage();
     void presendtoserial(void *payload, uint32_t size);
     void sendtoserial(void *payload, uint32_t size);
     void writetofile(void *payload, uint32_t size);
