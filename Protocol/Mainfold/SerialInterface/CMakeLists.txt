@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.6)
-project(C)
+cmake_minimum_required(VERSION 2.8)
+project(SerialInterface)
 find_package (Threads)
 set(CMAKE_CXX_STANDARD 11)
 
