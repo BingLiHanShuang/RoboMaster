@@ -6,7 +6,7 @@
 #ifndef QRCODE_PROTOCOL_H
 #define QRCODE_PROTOCOL_H
 extern Serial *serial;
-
+extern UDPClient *udpClient;
 namespace PROTOCOL {
     static const uint32_t crc32tab[] = {
             0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL,
