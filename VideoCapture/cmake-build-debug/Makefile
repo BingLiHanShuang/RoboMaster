@@ -204,6 +204,33 @@ UDPServer.cpp.s:
 	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/UDPServer.cpp.s
 .PHONY : UDPServer.cpp.s
 
+VideoRecord.o: VideoRecord.cpp.o
+
+.PHONY : VideoRecord.o
+
+# target to build an object file
+VideoRecord.cpp.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o
+.PHONY : VideoRecord.cpp.o
+
+VideoRecord.i: VideoRecord.cpp.i
+
+.PHONY : VideoRecord.i
+
+# target to preprocess a source file
+VideoRecord.cpp.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.i
+.PHONY : VideoRecord.cpp.i
+
+VideoRecord.s: VideoRecord.cpp.s
+
+.PHONY : VideoRecord.s
+
+# target to generate assembly for a file
+VideoRecord.cpp.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.s
+.PHONY : VideoRecord.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -303,6 +330,9 @@ help:
 	@echo "... UDPServer.o"
 	@echo "... UDPServer.i"
 	@echo "... UDPServer.s"
+	@echo "... VideoRecord.o"
+	@echo "... VideoRecord.i"
+	@echo "... VideoRecord.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

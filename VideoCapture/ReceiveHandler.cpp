@@ -4,10 +4,15 @@
 
 #include "ReceiveHandler.h"
 #include "UDPServer.h"
+#include "UDPClient.h"
 #include "protocol.pb-c.h"
 #include <pthread.h>
 queue<Message*> data_queue;
 pthread_mutex_t data_mutex=PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t thread_message_mutex=PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t thread_message_cond=PTHREAD_COND_INITIALIZER;
+
+
 void callback_receive(BufferData &data){
 
     Message* temp=message__unpack(NULL,data.len,data.data);
@@ -17,7 +22,10 @@ void callback_receive(BufferData &data){
 
 }
 void callback_finish(){
-
+    if(pthread_mutex_trylock(&thread_message_mutex)==0){//lock successfully and signal the SendQueueThread
+        pthread_cond_signal(&thread_message_cond);
+        pthread_mutex_unlock(&thread_message_mutex);
+    }
 
 }
 void* thread_server_udp(void *arg){
@@ -28,7 +36,10 @@ void* thread_server_udp(void *arg){
 
 }
 void* thread_message_handler(void *arg){
+    UDPClient udpClient;
+
     while (1){
+        pthread_mutex_lock(&thread_message_mutex);
         while (!data_queue.empty()){
             pthread_mutex_lock(&data_mutex);
             Message* message=data_queue.front();
@@ -39,11 +50,13 @@ void* thread_message_handler(void *arg){
                     VideoRecord* videoRecord=video_record__unpack(NULL,message->data.len,message->data.data);
                     switch (videoRecord->control){
                         case VIDEO_RECORD__CONTROL_TYPE__Start://start video recording
-
+                            
                             break;
                         case VIDEO_RECORD__CONTROL_TYPE__Stop://stop video recording
+
                             break;
                         case VIDEO_RECORD__CONTROL_TYPE__Status://show the recording status
+
                             break;
                         default:
                             break;
@@ -58,6 +71,9 @@ void* thread_message_handler(void *arg){
                     break;
             }
         }
+        //pthread_mutex_unlock(&thread_message_mutex);
+        pthread_cond_wait(&thread_message_cond,&thread_message_mutex);
+        pthread_mutex_unlock(&thread_message_mutex);
     }
 
 
