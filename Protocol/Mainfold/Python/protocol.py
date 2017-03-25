@@ -23,7 +23,7 @@ class Protocol:
         for i in position:
             point=res.position.add()
             point.x=i[0]
-            point.y = i[0]
+            point.y = i[1]
         res.picrutesize.x=size[0]
         res.picrutesize.y = size[1]
         res.angle=angle
