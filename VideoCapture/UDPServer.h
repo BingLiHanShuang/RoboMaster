@@ -14,17 +14,23 @@
 #define _MAX_SOCKFD_COUNT 1024
 
 using namespace std;
-
+struct BufferData{
+    uint8_t * data;
+    size_t len;
+};
 class UDPServer {
 private:
+    void (*ReceiveCasllback)(BufferData &data);
+    void (*FinishCasllback)();
     int sockfd;
     int epfd;
 
 public:
     UDPServer(int port=6000);
+    void setReceiveCallback(void (*arg1)(BufferData &data));
+    void setFinishCasllback(void (*arg1)());
     void listen();
 };
 
-void* thread_Server(void *arg);
 
 #endif //C_UDPSERVER_H

@@ -13,6 +13,7 @@ int main() {
         cout<<"Error opening camera"<<endl;
         return -1;
     }
+
     int frame_width=vcap.get(CV_CAP_PROP_FRAME_WIDTH);
     int frame_height=vcap.get(CV_CAP_PROP_FRAME_HEIGHT);
     int count=0;
