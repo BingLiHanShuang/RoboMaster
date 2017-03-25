@@ -3,8 +3,10 @@
 //
 
 #include "UDPServer.h"
-#include "SendQueue.h"
+#include "ReceiveHandler.h"
 UDPServer::UDPServer(int port) {
+    ReceiveCasllback=NULL;
+    FinishCasllback=NULL;
     struct epoll_event event;   // 告诉内核要监听什么事件
     epfd=epoll_create(1024);
 
@@ -35,7 +37,7 @@ void UDPServer::listen() {
             int client_socket = events[i].data.fd;
 
             if (events[i].events & EPOLLIN){
-                char *buffer=new char[1024];//每次收发的字节数小于1024字节
+                uint8_t *buffer=new uint8_t[1024];//每次收发的字节数小于1024字节
                 memset(buffer, 0, 1024);
                 int rev_size = recv(events[i].data.fd,buffer, 1024,0);
                 if( rev_size > 0 )
@@ -43,12 +45,19 @@ void UDPServer::listen() {
                     BufferData data;
                     data.data=buffer;
                     data.len=rev_size;
+                    if(ReceiveCasllback!=NULL){
+                        ReceiveCasllback(data);
+                    }
+                    /*
                     pthread_mutex_lock(&mtx_queue);
                     data_queue.push(data);
                     pthread_mutex_unlock(&mtx_queue);
-                    //cout << "recv error: recv size: " << rev_size << endl;
+                    */
+
+
 
                 }
+                delete buffer;
                 struct epoll_event event_del;
                 event_del.data.fd = client_socket;
                 event_del.events = EPOLLIN | EPOLLERR | EPOLLHUP;;
@@ -56,15 +65,28 @@ void UDPServer::listen() {
             }
         }
         if(num>0){
+            if(FinishCasllback!=NULL){
+                FinishCasllback();
+            }
+            /*
             if(pthread_mutex_trylock(&mtx_thread)==0){//lock successfully and signal the SendQueueThread
                 pthread_cond_signal(&cond_thread);
                 pthread_mutex_unlock(&mtx_thread);
             }
+             */
+
         }
 
     }
 }
-void* thread_Server(void *arg){
+void UDPServer::setReceiveCallback(void (*callback)(BufferData &data)){
+    ReceiveCasllback=callback;
+}
+void UDPServer::setFinishCasllback(void (*callback)() ) {
+    FinishCasllback=callback;
+}
+void* thread_Server_UDPToSerial(void *arg){
+
     UDPServer udpServer(6001);
     udpServer.listen();
 }
