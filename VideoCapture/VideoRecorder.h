@@ -8,7 +8,7 @@
 #include <iostream>
 using namespace cv;
 using namespace std;
-class VideoRecord {
+class VideoRecorder {
 private:
     int frame_width,frame_height;
     int status=0;//0 for not recording,1 for recording,2 for recording stoped
@@ -17,13 +17,19 @@ private:
     VideoWriter video;
 
 public:
-    VideoRecord();
-    VideoRecord(int deviceid);
+    VideoRecorder();
+    VideoRecorder(int deviceid);
+    void OpenCamera(int deviceid);
+    void CloseCamera();
     void CreateVideo(string path);
+    void ReleaseVideo();
     void SaveOneFrame();
     void Recording();
+    int GetStatus();
+    int SetStutus(int data);
     ~VideoRecord();
+
 };
 
-
+extern VideoRecorder videoRecorder;
 #endif //VIDEOCAPTURE_VIDEORECORD_H
