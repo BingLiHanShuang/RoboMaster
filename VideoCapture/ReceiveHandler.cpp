@@ -5,13 +5,16 @@
 #include "ReceiveHandler.h"
 #include "UDPServer.h"
 #include "UDPClient.h"
+#define video_path "/home/parallels/Video"
 #include "protocol.pb-c.h"
 #include <pthread.h>
 queue<Message*> data_queue;
 pthread_mutex_t data_mutex=PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t thread_message_mutex=PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t thread_message_cond=PTHREAD_COND_INITIALIZER;
+pthread_mutex_t thread_video_mutex=PTHREAD_MUTEX_INITIALIZER;
 
+pthread_cond_t thread_video_cond=PTHREAD_COND_INITIALIZER;
+pthread_cond_t thread_message_cond=PTHREAD_COND_INITIALIZER;
 
 void callback_receive(BufferData &data){
 
@@ -47,12 +50,18 @@ void* thread_message_handler(void *arg){
             pthread_mutex_unlock(&data_mutex);
             switch(message->messagetype){
                 case MESSAGE__MESSAGE_TYPE__VideoRecord:
-                    VideoRecord* videoRecord=video_record__unpack(NULL,message->data.len,message->data.data);
-                    switch (videoRecord->control){
+                    VideoRecord* messagevideoRecord=video_record__unpack(NULL,message->data.len,message->data.data);
+
+                    switch (messagevideoRecord->control){
                         case VIDEO_RECORD__CONTROL_TYPE__Start://start video recording
-                            
+                            string name=string(messagevideoRecord->devicename)+"_"+string(messagevideoRecord->deviceid)+"_"+".avi";
+                            videoRecorder.CreateVideo(string(video_path)+"/"+name);
+                            videoRecorder.SetStutus(1);
+
+
                             break;
                         case VIDEO_RECORD__CONTROL_TYPE__Stop://stop video recording
+                            videoRecorder.SetStutus(2);
 
                             break;
                         case VIDEO_RECORD__CONTROL_TYPE__Status://show the recording status
@@ -61,7 +70,7 @@ void* thread_message_handler(void *arg){
                         default:
                             break;
                     }
-                    video_record__free_unpacked(videoRecord,NULL);
+                    video_record__free_unpacked(messagevideoRecord,NULL);
                     message__free_unpacked(message,NULL);
 
                     break;

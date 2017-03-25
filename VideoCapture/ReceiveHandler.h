@@ -8,9 +8,12 @@
 #include <cstdint>
 #include <cstdlib>
 #include <queue>
+#include "VideoRecorder.h"
 #include "protocol.pb-c.h"
 
 using namespace std;
+extern VideoRecord videoRecord;
+
 extern queue<Message*> data_queue;
 struct BufferData{
     uint8_t * data;
