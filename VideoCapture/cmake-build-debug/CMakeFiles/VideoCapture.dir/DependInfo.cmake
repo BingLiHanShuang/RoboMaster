@@ -19,6 +19,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/parallels/RoboMaster/VideoCapture/ReceiveHandler.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o"
   "/home/parallels/RoboMaster/VideoCapture/UDPClient.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/UDPClient.cpp.o"
   "/home/parallels/RoboMaster/VideoCapture/UDPServer.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/UDPServer.cpp.o"
+  "/home/parallels/RoboMaster/VideoCapture/VideoRecord.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o"
   "/home/parallels/RoboMaster/VideoCapture/main.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

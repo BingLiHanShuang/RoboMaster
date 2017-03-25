@@ -104,6 +104,12 @@
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/UDPServer.h">
 			<Option target="VideoCapture"/>
 		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/VideoRecord.cpp">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/VideoRecord.h">
+			<Option target="VideoCapture"/>
+		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/main.cpp">
 			<Option target="VideoCapture"/>
 		</Unit>
