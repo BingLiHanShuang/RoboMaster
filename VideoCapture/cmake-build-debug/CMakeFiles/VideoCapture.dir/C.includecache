@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/parallels/RoboMaster/VideoCapture/protobuf-c.c
+stdlib.h
+-
+string.h
+-
+protobuf-c.h
+/home/parallels/RoboMaster/VideoCapture/protobuf-c.h
+
+/home/parallels/RoboMaster/VideoCapture/protobuf-c.h
+assert.h
+-
+limits.h
+-
+stddef.h
+-
+stdint.h
+-
+
+/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.c
+protocol.pb-c.h
+/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
+
+/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
+protobuf-c.h
+/home/parallels/RoboMaster/VideoCapture/protobuf-c.h
+
