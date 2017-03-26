@@ -12,12 +12,20 @@ int main() {
 
     pthread_t ntid_message_handler;
     pthread_t ntid_server_udp;
+    pthread_t ntid_thread_video_record;
+
 
     pthread_create(&ntid_message_handler,NULL,thread_server_udp,NULL);
     pthread_create(&ntid_server_udp,NULL,thread_message_handler,NULL);
+    pthread_create(&ntid_thread_video_record,NULL,thread_video_record,NULL);
+
 
     pthread_join (ntid_message_handler, NULL);
     pthread_join (ntid_server_udp, NULL);
+
+
+
+
     /*
 
     VideoCapture vcap(1);
