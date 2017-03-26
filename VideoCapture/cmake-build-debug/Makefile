@@ -204,32 +204,32 @@ UDPServer.cpp.s:
 	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/UDPServer.cpp.s
 .PHONY : UDPServer.cpp.s
 
-VideoRecord.o: VideoRecord.cpp.o
+VideoRecorder.o: VideoRecorder.cpp.o
 
-.PHONY : VideoRecord.o
+.PHONY : VideoRecorder.o
 
 # target to build an object file
-VideoRecord.cpp.o:
-	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o
-.PHONY : VideoRecord.cpp.o
+VideoRecorder.cpp.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o
+.PHONY : VideoRecorder.cpp.o
 
-VideoRecord.i: VideoRecord.cpp.i
+VideoRecorder.i: VideoRecorder.cpp.i
 
-.PHONY : VideoRecord.i
+.PHONY : VideoRecorder.i
 
 # target to preprocess a source file
-VideoRecord.cpp.i:
-	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.i
-.PHONY : VideoRecord.cpp.i
+VideoRecorder.cpp.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.i
+.PHONY : VideoRecorder.cpp.i
 
-VideoRecord.s: VideoRecord.cpp.s
+VideoRecorder.s: VideoRecorder.cpp.s
 
-.PHONY : VideoRecord.s
+.PHONY : VideoRecorder.s
 
 # target to generate assembly for a file
-VideoRecord.cpp.s:
-	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.s
-.PHONY : VideoRecord.cpp.s
+VideoRecorder.cpp.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.s
+.PHONY : VideoRecorder.cpp.s
 
 main.o: main.cpp.o
 
@@ -330,9 +330,9 @@ help:
 	@echo "... UDPServer.o"
 	@echo "... UDPServer.i"
 	@echo "... UDPServer.s"
-	@echo "... VideoRecord.o"
-	@echo "... VideoRecord.i"
-	@echo "... VideoRecord.s"
+	@echo "... VideoRecorder.o"
+	@echo "... VideoRecorder.i"
+	@echo "... VideoRecorder.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -86,6 +86,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/DataType.h">
+			<Option target="VideoCapture"/>
+		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/ReceiveHandler.cpp">
 			<Option target="VideoCapture"/>
 		</Unit>
@@ -104,10 +107,10 @@
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/UDPServer.h">
 			<Option target="VideoCapture"/>
 		</Unit>
-		<Unit filename="/home/parallels/RoboMaster/VideoCapture/VideoRecord.cpp">
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/VideoRecorder.cpp">
 			<Option target="VideoCapture"/>
 		</Unit>
-		<Unit filename="/home/parallels/RoboMaster/VideoCapture/VideoRecord.h">
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/VideoRecorder.h">
 			<Option target="VideoCapture"/>
 		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/main.cpp">

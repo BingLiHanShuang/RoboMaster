@@ -3,8 +3,9 @@
 //
 
 #include "VideoRecorder.h"
-VideoRecorder videoRecord;
-VideoRecorder::VideoRecord(int deviceid) {
+VideoRecorder videoRecorder;
+VideoRecorder::VideoRecorder(){}
+VideoRecorder::VideoRecorder(int deviceid) {
     vcap.open(deviceid);
     if(vcap.isOpened()){
         cout<<"Error opening camera id"<<deviceid<<endl;
@@ -28,7 +29,7 @@ void VideoRecorder::CloseCamera() {
 
 void VideoRecorder::CreateVideo(string path){
     ReleaseVideo();
-    video.open(path,CV_FOURCC('H','2','6','4'),10,Size(frame_width,frame_height),true);
+    video.open(path,CV_FOURCC('M','P','4','2'),10,Size(frame_width,frame_height),true);
     frame_count=0;
     status=0;
 
@@ -50,7 +51,7 @@ void VideoRecorder::Recording(){
     if(status==2)
         video.release();
 }
-VideoRecorder::~VideoRecord(){
+VideoRecorder::~VideoRecorder(){
     vcap.release();
 }
 int VideoRecorder::GetStatus() { return status;}
@@ -60,17 +61,17 @@ int VideoRecorder::SetStutus(int data) {
 }
 
 void* thread_video_record(void *arg){
-    videoRecord.OpenCamera(0);
+    videoRecorder.OpenCamera(0);
 
     while(1){
-        if(videoRecord.GetStatus()==1){
+        if(videoRecorder.GetStatus()==1){
             videoRecorder.Recording();
 
         }
 
 
     }
-    videoRecord.Recording();
+    videoRecorder.Recording();
 
 
 
