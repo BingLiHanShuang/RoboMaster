@@ -10,16 +10,15 @@
 #include <queue>
 #include "VideoRecorder.h"
 #include "protocol.pb-c.h"
+#include "DataType.h"
 
 using namespace std;
 extern VideoRecord videoRecord;
 
 extern queue<Message*> data_queue;
-struct BufferData{
-    uint8_t * data;
-    size_t len;
-};
 
+
+void* thread_server_udp(void *arg);
 void* thread_message_handler(void *arg);
 
 #endif //VIDEOCAPTURE_RECEIVEQUEUE_H
