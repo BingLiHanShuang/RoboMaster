@@ -122,6 +122,15 @@
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/protobuf-c.h">
 			<Option target="VideoCapture"/>
 		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/protocol.c">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/protocol.cpp">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/protocol.h">
+			<Option target="VideoCapture"/>
+		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.c">
 			<Option target="VideoCapture"/>
 		</Unit>

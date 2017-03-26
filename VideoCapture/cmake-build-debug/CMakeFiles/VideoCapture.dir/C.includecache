@@ -24,6 +24,14 @@ stddef.h
 stdint.h
 -
 
+/home/parallels/RoboMaster/VideoCapture/protocol.c
+protocol.h
+/home/parallels/RoboMaster/VideoCapture/protocol.h
+
+/home/parallels/RoboMaster/VideoCapture/protocol.h
+protocol.pb-c.h
+/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
+
 /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.c
 protocol.pb-c.h
 /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h

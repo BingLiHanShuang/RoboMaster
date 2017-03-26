@@ -6,6 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o"
   "CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o"
   "CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o"
+  "CMakeFiles/VideoCapture.dir/protocol.c.o"
+  "CMakeFiles/VideoCapture.dir/protocol.cpp.o"
   "VideoCapture.pdb"
   "VideoCapture"
 )

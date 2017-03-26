@@ -285,6 +285,60 @@ protobuf-c.c.s:
 	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protobuf-c.c.s
 .PHONY : protobuf-c.c.s
 
+protocol.o: protocol.c.o
+
+.PHONY : protocol.o
+
+# target to build an object file
+protocol.c.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.c.o
+.PHONY : protocol.c.o
+
+protocol.i: protocol.c.i
+
+.PHONY : protocol.i
+
+# target to preprocess a source file
+protocol.c.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.c.i
+.PHONY : protocol.c.i
+
+protocol.s: protocol.c.s
+
+.PHONY : protocol.s
+
+# target to generate assembly for a file
+protocol.c.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.c.s
+.PHONY : protocol.c.s
+
+protocol.o: protocol.cpp.o
+
+.PHONY : protocol.o
+
+# target to build an object file
+protocol.cpp.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.cpp.o
+.PHONY : protocol.cpp.o
+
+protocol.i: protocol.cpp.i
+
+.PHONY : protocol.i
+
+# target to preprocess a source file
+protocol.cpp.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.cpp.i
+.PHONY : protocol.cpp.i
+
+protocol.s: protocol.cpp.s
+
+.PHONY : protocol.s
+
+# target to generate assembly for a file
+protocol.cpp.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.cpp.s
+.PHONY : protocol.cpp.s
+
 protocol.pb-c.o: protocol.pb-c.c.o
 
 .PHONY : protocol.pb-c.o
@@ -339,6 +393,12 @@ help:
 	@echo "... protobuf-c.o"
 	@echo "... protobuf-c.i"
 	@echo "... protobuf-c.s"
+	@echo "... protocol.o"
+	@echo "... protocol.i"
+	@echo "... protocol.s"
+	@echo "... protocol.o"
+	@echo "... protocol.i"
+	@echo "... protocol.s"
 	@echo "... protocol.pb-c.o"
 	@echo "... protocol.pb-c.i"
 	@echo "... protocol.pb-c.s"
