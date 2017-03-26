@@ -16,6 +16,7 @@ pthread_mutex_t thread_video_mutex=PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t thread_video_cond=PTHREAD_COND_INITIALIZER;
 pthread_cond_t thread_message_cond=PTHREAD_COND_INITIALIZER;
 
+
 void callback_receive(BufferData &data){
 
     Message* temp=message__unpack(NULL,data.len,data.data);
@@ -52,15 +53,20 @@ void* thread_message_handler(void *arg){
                 VideoRecord* messagevideoRecord=video_record__unpack(NULL,message->data.len,message->data.data);
 
                 if(messagevideoRecord->control==VIDEO_RECORD__CONTROL_TYPE__Start){
+
                     string name=string(messagevideoRecord->devicename)+"_"+string(messagevideoRecord->deviceid)+"_"+".avi";
                     videoRecorder.CreateVideo(string(video_path)+"/"+name);
                     videoRecorder.SetStutus(1);
+                    extern pthread_mutex_t thread_video_record_mutex;
+                    extern pthread_cond_t thread_video_record_cond;
+                    pthread_cond_signal(&thread_video_record_cond);
+                    pthread_mutex_unlock(&thread_video_record_mutex);
                 }
-                else if(message->messagetype==VIDEO_RECORD__CONTROL_TYPE__Stop){
+                else if(messagevideoRecord->control==VIDEO_RECORD__CONTROL_TYPE__Stop){
                     videoRecorder.SetStutus(2);
 
                 }
-                else if(message->messagetype==VIDEO_RECORD__CONTROL_TYPE__Status){
+                else if(messagevideoRecord->control==VIDEO_RECORD__CONTROL_TYPE__Status){
 
                 }
                 else{

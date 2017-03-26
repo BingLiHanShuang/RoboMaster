@@ -30,6 +30,6 @@ public:
     ~VideoRecorder();
 
 };
-
+void* thread_video_record(void *arg);
 extern VideoRecorder videoRecorder;
 #endif //VIDEOCAPTURE_VIDEORECORD_H
