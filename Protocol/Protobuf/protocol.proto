@@ -21,9 +21,8 @@ message VideoRecord{
 		Status=3;
 	}
 	enum StatusType{
-		NULL1=0;
-		Recording=1;
-		Off=2;
+		Recording=0;
+		Off=1;
 	}
 	ControlType control=1;
 	StatusType status=2;

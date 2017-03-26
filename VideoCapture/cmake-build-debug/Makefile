@@ -204,32 +204,32 @@ UDPServer.cpp.s:
 	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/UDPServer.cpp.s
 .PHONY : UDPServer.cpp.s
 
-VideoRecord.o: VideoRecord.cpp.o
+VideoRecorder.o: VideoRecorder.cpp.o
 
-.PHONY : VideoRecord.o
+.PHONY : VideoRecorder.o
 
 # target to build an object file
-VideoRecord.cpp.o:
-	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o
-.PHONY : VideoRecord.cpp.o
+VideoRecorder.cpp.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o
+.PHONY : VideoRecorder.cpp.o
 
-VideoRecord.i: VideoRecord.cpp.i
+VideoRecorder.i: VideoRecorder.cpp.i
 
-.PHONY : VideoRecord.i
+.PHONY : VideoRecorder.i
 
 # target to preprocess a source file
-VideoRecord.cpp.i:
-	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.i
-.PHONY : VideoRecord.cpp.i
+VideoRecorder.cpp.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.i
+.PHONY : VideoRecorder.cpp.i
 
-VideoRecord.s: VideoRecord.cpp.s
+VideoRecorder.s: VideoRecorder.cpp.s
 
-.PHONY : VideoRecord.s
+.PHONY : VideoRecorder.s
 
 # target to generate assembly for a file
-VideoRecord.cpp.s:
-	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.s
-.PHONY : VideoRecord.cpp.s
+VideoRecorder.cpp.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.s
+.PHONY : VideoRecorder.cpp.s
 
 main.o: main.cpp.o
 
@@ -285,6 +285,60 @@ protobuf-c.c.s:
 	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protobuf-c.c.s
 .PHONY : protobuf-c.c.s
 
+protocol.o: protocol.c.o
+
+.PHONY : protocol.o
+
+# target to build an object file
+protocol.c.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.c.o
+.PHONY : protocol.c.o
+
+protocol.i: protocol.c.i
+
+.PHONY : protocol.i
+
+# target to preprocess a source file
+protocol.c.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.c.i
+.PHONY : protocol.c.i
+
+protocol.s: protocol.c.s
+
+.PHONY : protocol.s
+
+# target to generate assembly for a file
+protocol.c.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.c.s
+.PHONY : protocol.c.s
+
+protocol.o: protocol.cpp.o
+
+.PHONY : protocol.o
+
+# target to build an object file
+protocol.cpp.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.cpp.o
+.PHONY : protocol.cpp.o
+
+protocol.i: protocol.cpp.i
+
+.PHONY : protocol.i
+
+# target to preprocess a source file
+protocol.cpp.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.cpp.i
+.PHONY : protocol.cpp.i
+
+protocol.s: protocol.cpp.s
+
+.PHONY : protocol.s
+
+# target to generate assembly for a file
+protocol.cpp.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/protocol.cpp.s
+.PHONY : protocol.cpp.s
+
 protocol.pb-c.o: protocol.pb-c.c.o
 
 .PHONY : protocol.pb-c.o
@@ -330,15 +384,21 @@ help:
 	@echo "... UDPServer.o"
 	@echo "... UDPServer.i"
 	@echo "... UDPServer.s"
-	@echo "... VideoRecord.o"
-	@echo "... VideoRecord.i"
-	@echo "... VideoRecord.s"
+	@echo "... VideoRecorder.o"
+	@echo "... VideoRecorder.i"
+	@echo "... VideoRecorder.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
 	@echo "... protobuf-c.o"
 	@echo "... protobuf-c.i"
 	@echo "... protobuf-c.s"
+	@echo "... protocol.o"
+	@echo "... protocol.i"
+	@echo "... protocol.s"
+	@echo "... protocol.o"
+	@echo "... protocol.i"
+	@echo "... protocol.s"
 	@echo "... protocol.pb-c.o"
 	@echo "... protocol.pb-c.i"
 	@echo "... protocol.pb-c.s"

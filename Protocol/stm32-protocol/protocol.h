@@ -7,6 +7,8 @@
 
 #include "protocol.pb-c.h"
 #include <stdint.h>
+#include "DataType.h"
+#include "protocol_config.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -89,6 +91,7 @@ struct ScanData{
         float angle;
         char text[50];
 };
+
 struct PadPass{
     uint8_t Pad[9];//九宫格密码盘
     uint8_t Pass[5];//密码
@@ -101,7 +104,15 @@ void GetMessage(uint8_t data);
 int DeserializeInt(uint8_t *data);
 void SaveScanResult(ScanResult *scanResult);
 void SavePadPass(PadPass * mpadPass);
-
+void VideoRecord_Start();
+void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data);
+void presendtoserial(void *payload, uint32_t size);
+void enque_safe(BufferData* res,uint8_t data);
+void enque_int(BufferData* res,uint32_t data);
+void enque_uint8(BufferData* res,uint8_t data);
+void sendtoserial(void *payload, uint32_t size);
+void VideoRecord_Stop();
+void VideoRecord_Status(VideoRecord__StatusType type);
 extern struct ScanData scanData;
 extern struct PadPass padPass;
 #ifdef __cplusplus

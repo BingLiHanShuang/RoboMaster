@@ -27,9 +27,9 @@ public:
     void Recording();
     int GetStatus();
     int SetStutus(int data);
-    ~VideoRecord();
+    ~VideoRecorder();
 
 };
-
+void* thread_video_record(void *arg);
 extern VideoRecorder videoRecorder;
 #endif //VIDEOCAPTURE_VIDEORECORD_H

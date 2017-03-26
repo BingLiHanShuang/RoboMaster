@@ -9,15 +9,13 @@
 #include <iostream>
 #include <cstdio>
 #include <pthread.h>
+#include "DataType.h"
 #ifndef C_UDPSERVER_H
 #define C_UDPSERVER_H
 #define _MAX_SOCKFD_COUNT 1024
 
 using namespace std;
-struct BufferData{
-    uint8_t * data;
-    size_t len;
-};
+
 class UDPServer {
 private:
     void (*ReceiveCasllback)(BufferData &data);
