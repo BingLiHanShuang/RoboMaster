@@ -111,6 +111,8 @@ void enque_safe(BufferData* res,uint8_t data);
 void enque_int(BufferData* res,uint32_t data);
 void enque_uint8(BufferData* res,uint8_t data);
 void sendtoserial(void *payload, uint32_t size);
+void VideoRecord_Stop();
+void VideoRecord_Status(VideoRecord__StatusType type);
 extern struct ScanData scanData;
 extern struct PadPass padPass;
 #ifdef __cplusplus

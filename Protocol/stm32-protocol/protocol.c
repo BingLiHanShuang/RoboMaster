@@ -72,12 +72,12 @@ void presendtoserial(void *payload, uint32_t size) {
     free(result);//free 2
 
 }
-void sendtoserial(void *payload, uint32_t size){
+void sendtoserial(void *payload, uint32_t size){//abstruct for serial
     //writetofile(payload,size);
     print((uint8_t *) payload, size);
     //serial->send((uint8_t *) payload, size);
 }
-int CRC32(uint8_t *buf, uint8_t size) {
+int CRC32(uint8_t *buf, uint8_t size) {//calculate CRC32 code in case of data loss
     unsigned int i, crc;
     crc = 0xFFFFFFFF;
     for (i = 0; i < size; i++)
@@ -85,14 +85,14 @@ int CRC32(uint8_t *buf, uint8_t size) {
     return crc ^ 0xFFFFFFFF;
 }
 
-void GetMessage(uint8_t data) {
+void GetMessage(uint8_t data) {//receive the data from serial stream
     uart_buffer_1[uart_buffer_index_1++] = data;
     if (data == 0xff) {
         DispatchMessage();
     }
 }
 
-int DeserializeInt(uint8_t *data) {
+int DeserializeInt(uint8_t *data) {//deserialize int from memory
     int result = 0;
     result = data[0] | data[1] << 8 | data[2] << 16 | data[3] << 24;
     return result;
@@ -113,7 +113,7 @@ void SerializeInt(uint8_t *data,int val) {
 
     //return result;
 }
-int ExtractRaw(uint8_t *original,uint8_t *output) {
+int ExtractRaw(uint8_t *original,uint8_t *output) {//process escape character to convert data frame to original data
 
     int i = 0, j = 0;
     while (original[i] != 0xff) {
@@ -161,7 +161,7 @@ void SavePadPass(PadPass * mpadPass){
 
 
 }
-void print(uint8_t * data,int len){
+void print(uint8_t * data,int len){//for debug
 #define general
 #ifdef hex
     for (int i = 0; i < len; ++i) {
@@ -178,7 +178,7 @@ void print(uint8_t * data,int len){
 
 #endif
 }
-void DispatchMessage() {
+void DispatchMessage() {//process the received buffer
     uint8_t raw_data[256];
     memset(raw_data, 0, sizeof(raw_data));
 
@@ -244,6 +244,39 @@ void VideoRecord_Start(){
     videoRecord.devicename=devicename_temp;
     videoRecord.deviceid=deviceid_temp;
 
+
+    ProtobufCBinaryData data;
+    uint8_t buffer[100];
+    data.len=video_record__pack(&videoRecord,buffer);
+    data.data=buffer;
+
+    MessageSend(MESSAGE__MESSAGE_TYPE__VideoRecord,data);
+
+}
+void VideoRecord_Stop(){
+
+
+    VideoRecord videoRecord=VIDEO_RECORD__INIT;
+    videoRecord.has_control=1;
+    videoRecord.control=VIDEO_RECORD__CONTROL_TYPE__Stop;
+
+
+    ProtobufCBinaryData data;
+    uint8_t buffer[100];
+    data.len=video_record__pack(&videoRecord,buffer);
+    data.data=buffer;
+
+    MessageSend(MESSAGE__MESSAGE_TYPE__VideoRecord,data);
+
+}
+void VideoRecord_Status(VideoRecord__StatusType type){
+
+
+    VideoRecord videoRecord=VIDEO_RECORD__INIT;
+    videoRecord.has_control=1;
+    videoRecord.control=VIDEO_RECORD__CONTROL_TYPE__Status;
+    videoRecord.has_status=1;
+    videoRecord.status=type;
 
     ProtobufCBinaryData data;
     uint8_t buffer[100];
