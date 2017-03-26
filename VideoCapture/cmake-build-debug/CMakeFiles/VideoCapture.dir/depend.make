@@ -4,6 +4,11 @@
 CMakeFiles/VideoCapture.dir/protobuf-c.c.o: ../protobuf-c.c
 CMakeFiles/VideoCapture.dir/protobuf-c.c.o: ../protobuf-c.h
 
+CMakeFiles/VideoCapture.dir/protocol.c.o: ../protobuf-c.h
+CMakeFiles/VideoCapture.dir/protocol.c.o: ../protocol.c
+CMakeFiles/VideoCapture.dir/protocol.c.o: ../protocol.h
+CMakeFiles/VideoCapture.dir/protocol.c.o: ../protocol.pb-c.h
+
 CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o: ../protobuf-c.h
 CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o: ../protocol.pb-c.c
 CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o: ../protocol.pb-c.h
@@ -15,6 +20,7 @@ CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: ../UDPClient.h
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: ../UDPServer.h
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: ../VideoRecorder.h
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: ../protobuf-c.h
+CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: ../protocol.h
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: ../protocol.pb-c.h
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
@@ -153,4 +159,10 @@ CMakeFiles/VideoCapture.dir/main.cpp.o: /usr/local/include/opencv2/photo/photo_c
 CMakeFiles/VideoCapture.dir/main.cpp.o: /usr/local/include/opencv2/video/background_segm.hpp
 CMakeFiles/VideoCapture.dir/main.cpp.o: /usr/local/include/opencv2/video/tracking.hpp
 CMakeFiles/VideoCapture.dir/main.cpp.o: /usr/local/include/opencv2/video/video.hpp
+
+CMakeFiles/VideoCapture.dir/protocol.cpp.o: ../UDPClient.h
+CMakeFiles/VideoCapture.dir/protocol.cpp.o: ../protobuf-c.h
+CMakeFiles/VideoCapture.dir/protocol.cpp.o: ../protocol.cpp
+CMakeFiles/VideoCapture.dir/protocol.cpp.o: ../protocol.h
+CMakeFiles/VideoCapture.dir/protocol.cpp.o: ../protocol.pb-c.h
 
