@@ -3,10 +3,11 @@
 //
 
 #include "VideoRecorder.h"
-VideoRecorder videoRecord;
-VideoRecorder::VideoRecord(int deviceid) {
+VideoRecorder videoRecorder;
+VideoRecorder::VideoRecorder(){}
+VideoRecorder::VideoRecorder(int deviceid) {
     vcap.open(deviceid);
-    if(vcap.isOpened()){
+    if(!vcap.isOpened()){
         cout<<"Error opening camera id"<<deviceid<<endl;
         exit(0);
     }
@@ -14,21 +15,26 @@ VideoRecorder::VideoRecord(int deviceid) {
     frame_height=vcap.get(CV_CAP_PROP_FRAME_HEIGHT);
 }
 void VideoRecorder::OpenCamera(int deviceid){
+
     vcap.open(deviceid);
-    if(vcap.isOpened()){
+    if(!vcap.isOpened()){
         cout<<"Error opening camera id"<<deviceid<<endl;
-        exit(0);
+        //exit(0);
     }
     frame_width=vcap.get(CV_CAP_PROP_FRAME_WIDTH);
     frame_height=vcap.get(CV_CAP_PROP_FRAME_HEIGHT);
 }
 void VideoRecorder::CloseCamera() {
-    if(vcap.isOpened())vcap.release();
+    if(!vcap.isOpened())vcap.release();
 }
 
 void VideoRecorder::CreateVideo(string path){
+    if(!vcap.isOpened()){
+        cout<<"Camera is not opened in VideoRecorder.cpp CreateVideo"<<endl;
+        exit(0);
+    }
     ReleaseVideo();
-    video.open(path,CV_FOURCC('H','2','6','4'),10,Size(frame_width,frame_height),true);
+    video.open(path,CV_FOURCC('M','P','4','2'),10,Size(frame_width,frame_height),true);
     frame_count=0;
     status=0;
 
@@ -50,7 +56,7 @@ void VideoRecorder::Recording(){
     if(status==2)
         video.release();
 }
-VideoRecorder::~VideoRecord(){
+VideoRecorder::~VideoRecorder(){
     vcap.release();
 }
 int VideoRecorder::GetStatus() { return status;}
@@ -59,18 +65,23 @@ int VideoRecorder::SetStutus(int data) {
     return status;
 }
 
+pthread_mutex_t thread_video_record_mutex=PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t thread_video_record_cond=PTHREAD_COND_INITIALIZER;
 void* thread_video_record(void *arg){
-    videoRecord.OpenCamera(0);
+    videoRecorder.OpenCamera(0);
 
     while(1){
-        if(videoRecord.GetStatus()==1){
+        pthread_mutex_lock(&thread_video_record_mutex);
+        if(videoRecorder.GetStatus()==1){
             videoRecorder.Recording();
 
         }
+        pthread_cond_wait(&thread_video_record_cond,&thread_video_record_mutex);
+        pthread_mutex_unlock(&thread_video_record_mutex);
 
 
     }
-    videoRecord.Recording();
+    videoRecorder.Recording();
 
 
 

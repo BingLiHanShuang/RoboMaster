@@ -6,11 +6,23 @@
 
 #IncludeRegexTransform: 
 
+/home/parallels/RoboMaster/VideoCapture/DataType.h
+cstdlib
+-
+cstdint
+-
+
 /home/parallels/RoboMaster/VideoCapture/ReceiveHandler.cpp
 ReceiveHandler.h
 /home/parallels/RoboMaster/VideoCapture/ReceiveHandler.h
 UDPServer.h
 /home/parallels/RoboMaster/VideoCapture/UDPServer.h
+UDPClient.h
+/home/parallels/RoboMaster/VideoCapture/UDPClient.h
+protocol.h
+/home/parallels/RoboMaster/VideoCapture/protocol.h
+time.h
+-
 protocol.pb-c.h
 /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
 pthread.h
@@ -23,16 +35,18 @@ cstdlib
 -
 queue
 -
+VideoRecorder.h
+/home/parallels/RoboMaster/VideoCapture/VideoRecorder.h
 protocol.pb-c.h
 /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
+DataType.h
+/home/parallels/RoboMaster/VideoCapture/DataType.h
 
 /home/parallels/RoboMaster/VideoCapture/UDPClient.cpp
 UDPClient.h
 /home/parallels/RoboMaster/VideoCapture/UDPClient.h
 
 /home/parallels/RoboMaster/VideoCapture/UDPClient.h
-iostream
--
 sys/types.h
 -
 sys/socket.h
@@ -54,6 +68,8 @@ netdb.h
 stdarg.h
 -
 string.h
+-
+iostream
 -
 
 /home/parallels/RoboMaster/VideoCapture/UDPServer.cpp
@@ -79,6 +95,18 @@ cstdio
 -
 pthread.h
 -
+DataType.h
+/home/parallels/RoboMaster/VideoCapture/DataType.h
+
+/home/parallels/RoboMaster/VideoCapture/VideoRecorder.cpp
+VideoRecorder.h
+/home/parallels/RoboMaster/VideoCapture/VideoRecorder.h
+
+/home/parallels/RoboMaster/VideoCapture/VideoRecorder.h
+opencv2/opencv.hpp
+-
+iostream
+-
 
 /home/parallels/RoboMaster/VideoCapture/main.cpp
 iostream
@@ -91,6 +119,8 @@ signal.h
 -
 unistd.h
 -
+ReceiveHandler.h
+/home/parallels/RoboMaster/VideoCapture/ReceiveHandler.h
 
 /home/parallels/RoboMaster/VideoCapture/protobuf-c.h
 assert.h
@@ -101,6 +131,16 @@ stddef.h
 -
 stdint.h
 -
+
+/home/parallels/RoboMaster/VideoCapture/protocol.cpp
+protocol.h
+/home/parallels/RoboMaster/VideoCapture/protocol.h
+UDPClient.h
+/home/parallels/RoboMaster/VideoCapture/UDPClient.h
+
+/home/parallels/RoboMaster/VideoCapture/protocol.h
+protocol.pb-c.h
+/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
 
 /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
 protobuf-c.h
