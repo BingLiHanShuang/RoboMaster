@@ -5,6 +5,9 @@
 #include "ReceiveHandler.h"
 #include "UDPServer.h"
 #include "UDPClient.h"
+#include "protocol.h"
+#include <time.h>
+
 #define video_path "/home/parallels/Video"
 #include "protocol.pb-c.h"
 #include <pthread.h>
@@ -53,21 +56,27 @@ void* thread_message_handler(void *arg){
                 VideoRecord* messagevideoRecord=video_record__unpack(NULL,message->data.len,message->data.data);
 
                 if(messagevideoRecord->control==VIDEO_RECORD__CONTROL_TYPE__Start){
+                    cout<<"start recording"<<endl;
+                    unsigned long timestamp=(unsigned long)time(NULL);
 
-                    string name=string(messagevideoRecord->devicename)+"_"+string(messagevideoRecord->deviceid)+"_"+".avi";
+                    string name=string(messagevideoRecord->devicename)+"_"+string(messagevideoRecord->deviceid)+"_"+to_string(timestamp)+".avi";
                     videoRecorder.CreateVideo(string(video_path)+"/"+name);
                     videoRecorder.SetStutus(1);
                     extern pthread_mutex_t thread_video_record_mutex;
                     extern pthread_cond_t thread_video_record_cond;
                     pthread_cond_signal(&thread_video_record_cond);
                     pthread_mutex_unlock(&thread_video_record_mutex);
+                    VideoRecord_Status(videoRecorder.GetStatus());
                 }
                 else if(messagevideoRecord->control==VIDEO_RECORD__CONTROL_TYPE__Stop){
+                    cout<<"stop recording"<<endl;
                     videoRecorder.SetStutus(2);
+                    VideoRecord_Status(videoRecorder.GetStatus());
 
                 }
                 else if(messagevideoRecord->control==VIDEO_RECORD__CONTROL_TYPE__Status){
-
+                    cout<<"check status"<<endl;
+                    VideoRecord_Status(videoRecorder.GetStatus());
                 }
                 else{
 

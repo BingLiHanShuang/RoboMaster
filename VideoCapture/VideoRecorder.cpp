@@ -68,7 +68,7 @@ int VideoRecorder::SetStutus(int data) {
 pthread_mutex_t thread_video_record_mutex=PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t thread_video_record_cond=PTHREAD_COND_INITIALIZER;
 void* thread_video_record(void *arg){
-    videoRecorder.OpenCamera(1);
+    videoRecorder.OpenCamera(0);
 
     while(1){
         pthread_mutex_lock(&thread_video_record_mutex);

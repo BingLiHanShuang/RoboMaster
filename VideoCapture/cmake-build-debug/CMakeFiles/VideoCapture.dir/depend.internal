@@ -4,6 +4,11 @@
 CMakeFiles/VideoCapture.dir/protobuf-c.c.o
  /home/parallels/RoboMaster/VideoCapture/protobuf-c.c
  /home/parallels/RoboMaster/VideoCapture/protobuf-c.h
+CMakeFiles/VideoCapture.dir/protocol.c.o
+ /home/parallels/RoboMaster/VideoCapture/protobuf-c.h
+ /home/parallels/RoboMaster/VideoCapture/protocol.c
+ /home/parallels/RoboMaster/VideoCapture/protocol.h
+ /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
 CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o
  /home/parallels/RoboMaster/VideoCapture/protobuf-c.h
  /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.c
@@ -16,6 +21,7 @@ CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o
  /home/parallels/RoboMaster/VideoCapture/UDPServer.h
  /home/parallels/RoboMaster/VideoCapture/VideoRecorder.h
  /home/parallels/RoboMaster/VideoCapture/protobuf-c.h
+ /home/parallels/RoboMaster/VideoCapture/protocol.h
  /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h
  /usr/local/include/opencv2/calib3d/calib3d.hpp
  /usr/local/include/opencv2/contrib/contrib.hpp
@@ -154,3 +160,9 @@ CMakeFiles/VideoCapture.dir/main.cpp.o
  /usr/local/include/opencv2/video/background_segm.hpp
  /usr/local/include/opencv2/video/tracking.hpp
  /usr/local/include/opencv2/video/video.hpp
+CMakeFiles/VideoCapture.dir/protocol.cpp.o
+ /home/parallels/RoboMaster/VideoCapture/UDPClient.h
+ /home/parallels/RoboMaster/VideoCapture/protobuf-c.h
+ /home/parallels/RoboMaster/VideoCapture/protocol.cpp
+ /home/parallels/RoboMaster/VideoCapture/protocol.h
+ /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h

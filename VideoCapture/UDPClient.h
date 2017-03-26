@@ -5,7 +5,6 @@
 #ifndef SERIALINTERFACE_UDPCLIENT_H
 #define SERIALINTERFACE_UDPCLIENT_H
 
-#include <iostream>
 #include<sys/types.h>
 #include<sys/socket.h>
 #include<unistd.h>
@@ -17,6 +16,7 @@
 #include<netdb.h>
 #include<stdarg.h>
 #include<string.h>
+#include <iostream>
 
 using namespace std;
 class UDPClient {
