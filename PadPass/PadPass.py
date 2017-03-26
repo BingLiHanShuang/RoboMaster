@@ -6,7 +6,7 @@ import PassRecognization
 import cv2
 
 
-raw_image = cv2.imread("test.jpg")
+raw_image = cv2.imread("7_62159_981436527.jpg")
 res_pad= PadRecognization.recognize(raw_image)
 res_pass= PassRecognization.recognize(raw_image)
 cv2.imshow("test",raw_image)
