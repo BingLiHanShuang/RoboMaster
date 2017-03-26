@@ -22,7 +22,7 @@ i=1000
 while True:
 
     success, frame = cap.read()
-    # frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/plane/1.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/plane/1.jpg")
     green = np.uint8([[[0,0,255 ]]])
 
     lower_green = np.array([50, 90, 0])
@@ -52,7 +52,7 @@ while True:
     if(len(pict_array)>0):
         box=pict_dict[max(pict_array)]
 
-        datainterface.SendQRCode([frame.shape[0],frame.shape[1]],box)
+        #datainterface.SendQRCode([frame.shape[0],frame.shape[1]],box)
 
         cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
 
