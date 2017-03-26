@@ -17,8 +17,9 @@
  * ...........//payload
  * FF //end
  */
-struct ScanData scanData;
-struct PadPass padPass;
+ScanData scanData;
+PadPassData padPassData;
+VideoRecordStatusData videoRecordStatusData;
 
 void enque_safe(BufferData* res,uint8_t data){
     if(data==0xff){
@@ -67,16 +68,12 @@ void presendtoserial(void *payload, uint32_t size) {
     for(int i=0;i<result_len;i++){result[i]=result_temp.data[i];}
 
 
-    sendtoserial(result,result_len);
+    serial_send(result,result_len);
     free(result_temp.data);//free 1
     free(result);//free 2
 
 }
-void sendtoserial(void *payload, uint32_t size){//abstruct for serial
-    //writetofile(payload,size);
-    print((uint8_t *) payload, size);
-    //serial->send((uint8_t *) payload, size);
-}
+
 int CRC32(uint8_t *buf, uint8_t size) {//calculate CRC32 code in case of data loss
     unsigned int i, crc;
     crc = 0xFFFFFFFF;
@@ -99,19 +96,9 @@ int DeserializeInt(uint8_t *data) {//deserialize int from memory
 }
 
 void SerializeInt(uint8_t *data,int val) {
-
     for (int i = 0; i < 4; ++i) {
         data[i]|=0b11111111&(val>>(i*8));
     }
-
-
-
-
-    //data[0]=
-    //    int result = 0;
-    //    result = data[0] | data[1] << 8 | data[2] << 16 | data[3] << 24;
-
-    //return result;
 }
 int ExtractRaw(uint8_t *original,uint8_t *output) {//process escape character to convert data frame to original data
 
@@ -146,20 +133,26 @@ void SaveScanResult(ScanResult *mscanResult) {
         scanData.vertex[i].y=mscanResult->position[i]->y;
     }
     scanData.angle=mscanResult->angle;
-    scanData.flag_read=0;
     scanData.size.x=mscanResult->picrutesize->x;
     scanData.size.y=mscanResult->picrutesize->y;
     strcpy(scanData.text,mscanResult->result);
+    scanData.flag_read=0;
+    callback_ScanResult();
+
 };
 void SavePadPass(PadPass * mpadPass){
     assert(mpadPass->has_password==1&&mpadPass->password.len==5);//密码长度为5位
     assert(mpadPass->has_pad==1&&mpadPass->pad.len==9);//九宫格中的数字为9个
-    memcpy(padPass.Pad,mpadPass->pad.data,mpadPass->pad.len* sizeof(uint8_t));//将九宫格拷贝至全局变量
-    memcpy(padPass.Pass,mpadPass->password.data,mpadPass->password.len* sizeof(uint8_t));//将密码拷贝至全局变量
-    padPass.flag_read=1;
+    memcpy(padPassData.Pad,mpadPass->pad.data,mpadPass->pad.len* sizeof(uint8_t));//将九宫格拷贝至全局变量
+    memcpy(padPassData.Pass,mpadPass->password.data,mpadPass->password.len* sizeof(uint8_t));//将密码拷贝至全局变量
+    padPassData.flag_read=0;
+    callback_PadPass();
 
-
-
+}
+void SaveVideoRecordStatus(VideoRecord * mVideoRecord){
+    videoRecordStatusData.status=mVideoRecord->status;
+    videoRecordStatusData.flag_read=0;
+    callback_VideoRecordStatus();
 }
 void print(uint8_t * data,int len){//for debug
 #define general
@@ -210,8 +203,9 @@ void DispatchMessage() {//process the received buffer
         pad_pass__free_unpacked(padPass_temp,NULL);
 
     }
-    if(message_temp->messagetype==MESSAGE__MESSAGE_TYPE__VideoRecord){
+    if(message_temp->messagetype==MESSAGE__MESSAGE_TYPE__VideoRecord){//读取串口状态
         VideoRecord* videoRecord_temp=video_record__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
+        SaveVideoRecordStatus(videoRecord_temp);
         video_record__free_unpacked(videoRecord_temp,NULL);
 
     }
@@ -269,14 +263,14 @@ void VideoRecord_Stop(){
     MessageSend(MESSAGE__MESSAGE_TYPE__VideoRecord,data);
 
 }
-void VideoRecord_Status(VideoRecord__StatusType type){
+void VideoRecord_Status(){
 
 
     VideoRecord videoRecord=VIDEO_RECORD__INIT;
     videoRecord.has_control=1;
     videoRecord.control=VIDEO_RECORD__CONTROL_TYPE__Status;
-    videoRecord.has_status=1;
-    videoRecord.status=type;
+//    videoRecord.has_status=1;
+//    videoRecord.status=type;
 
     ProtobufCBinaryData data;
     uint8_t buffer[100];
