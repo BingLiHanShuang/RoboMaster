@@ -201,28 +201,28 @@ CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o.provides: CMakeFiles/VideoCaptu
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o.provides.build: CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o
 
 
-CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
-CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o: ../VideoRecord.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o -c /home/parallels/RoboMaster/VideoCapture/VideoRecord.cpp
+CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
+CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o: ../VideoRecorder.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o -c /home/parallels/RoboMaster/VideoCapture/VideoRecorder.cpp
 
-CMakeFiles/VideoCapture.dir/VideoRecord.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VideoCapture.dir/VideoRecord.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/parallels/RoboMaster/VideoCapture/VideoRecord.cpp > CMakeFiles/VideoCapture.dir/VideoRecord.cpp.i
+CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/parallels/RoboMaster/VideoCapture/VideoRecorder.cpp > CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.i
 
-CMakeFiles/VideoCapture.dir/VideoRecord.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VideoCapture.dir/VideoRecord.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/parallels/RoboMaster/VideoCapture/VideoRecord.cpp -o CMakeFiles/VideoCapture.dir/VideoRecord.cpp.s
+CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/parallels/RoboMaster/VideoCapture/VideoRecorder.cpp -o CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.s
 
-CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.requires:
+CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.requires:
 
-.PHONY : CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.requires
+.PHONY : CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.requires
 
-CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.provides: CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.requires
-	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.provides.build
-.PHONY : CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.provides
+CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.provides: CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.requires
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.provides.build
+.PHONY : CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.provides
 
-CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.provides.build: CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o
+CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.provides.build: CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o
 
 
 # Object files for target VideoCapture
@@ -233,7 +233,7 @@ VideoCapture_OBJECTS = \
 "CMakeFiles/VideoCapture.dir/protobuf-c.c.o" \
 "CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o" \
 "CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o" \
-"CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o"
+"CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o"
 
 # External object files for target VideoCapture
 VideoCapture_EXTERNAL_OBJECTS =
@@ -244,7 +244,7 @@ VideoCapture: CMakeFiles/VideoCapture.dir/UDPServer.cpp.o
 VideoCapture: CMakeFiles/VideoCapture.dir/protobuf-c.c.o
 VideoCapture: CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o
 VideoCapture: CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o
-VideoCapture: CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o
+VideoCapture: CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o
 VideoCapture: CMakeFiles/VideoCapture.dir/build.make
 VideoCapture: /usr/local/lib/libopencv_core.a
 VideoCapture: /usr/local/lib/libopencv_flann.a
@@ -314,7 +314,7 @@ CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/UDPServer.cpp.
 CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/protobuf-c.c.o.requires
 CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o.requires
 CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o.requires
-CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/VideoRecord.cpp.o.requires
+CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.requires
 
 .PHONY : CMakeFiles/VideoCapture.dir/requires
 

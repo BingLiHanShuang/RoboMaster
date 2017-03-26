@@ -27,7 +27,7 @@ public:
     void Recording();
     int GetStatus();
     int SetStutus(int data);
-    ~VideoRecord();
+    ~VideoRecorder();
 
 };
 
