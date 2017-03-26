@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include "DataType.h"
 #include "protocol_config.h"
+#include "protocol_sdk.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -80,23 +81,7 @@ static const unsigned int crc32tab[] = {
             0xb3667a2eL, 0xc4614ab8L, 0x5d681b02L, 0x2a6f2b94L,
             0xb40bbe37L, 0xc30c8ea1L, 0x5a05df1bL, 0x2d02ef8dL
 };
-struct Point{
-        float x;
-        float y;
-};
-struct ScanData{
-        char flag_read;//
-        struct Point vertex[4];
-        struct Point size;
-        float angle;
-        char text[50];
-};
 
-struct PadPass{
-    uint8_t Pad[9];//九宫格密码盘
-    uint8_t Pass[5];//密码
-    uint8_t flag_read;//
-};
 int CRC32(uint8_t *buf, uint8_t size);
 uint8_t uart_buffer_1[256];
 int uart_buffer_index_1;
@@ -104,6 +89,7 @@ void GetMessage(uint8_t data);
 int DeserializeInt(uint8_t *data);
 void SaveScanResult(ScanResult *scanResult);
 void SavePadPass(PadPass * mpadPass);
+void SaveVideoRecordStatus(VideoRecord * mVideoRecord);
 void VideoRecord_Start();
 void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data);
 void presendtoserial(void *payload, uint32_t size);
@@ -112,9 +98,10 @@ void enque_int(BufferData* res,uint32_t data);
 void enque_uint8(BufferData* res,uint8_t data);
 void sendtoserial(void *payload, uint32_t size);
 void VideoRecord_Stop();
-void VideoRecord_Status(VideoRecord__StatusType type);
-extern struct ScanData scanData;
-extern struct PadPass padPass;
+void VideoRecord_Status();
+extern ScanData scanData;
+extern PadPassData padPassData;
+extern VideoRecordStatusData videoRecordStatusData;
 #ifdef __cplusplus
 }
 #endif
