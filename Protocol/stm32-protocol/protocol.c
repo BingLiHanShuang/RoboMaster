@@ -3,7 +3,6 @@
 //
 #include <string.h>
 #include <stdlib.h>
-#include <printf.h>
 #include "protocol.h"
 #include "DataType.h"
 #include <stdint.h>
@@ -162,11 +161,7 @@ int DeserializeInt(uint8_t *data) {//deserialize int from memory
     return result;
 }
 
-void SerializeInt(uint8_t *data,int val) {
-    for (int i = 0; i < 4; ++i) {
-        data[i]|=0b11111111&(val>>(i*8));
-    }
-}
+
 int ExtractRaw(uint8_t *original,uint8_t *output) {//process escape character to convert data frame to original data
 
     int i = 0, j = 0;
@@ -329,6 +324,11 @@ void VideoRecord_Stop(){
 
     MessageSend(MESSAGE__MESSAGE_TYPE__VideoRecord,data);
 
+}
+void SerializeInt(uint8_t *data,int val) {
+    for (int i = 0; i < 4; ++i) {
+        data[i]|=0b11111111&(val>>(i*8));
+    }
 }
 void VideoRecord_Status(){
 

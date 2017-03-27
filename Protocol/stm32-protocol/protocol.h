@@ -7,6 +7,7 @@
 
 #include "protocol.pb-c.h"
 #include <stdint.h>
+#include <stdio.h>
 #include "DataType.h"
 #include "protocol_config.h"
 #include "protocol_sdk.h"
@@ -21,6 +22,8 @@ int CRC32(uint8_t *buf, uint8_t size);
 extern uint8_t uart_buffer_1[256];
 extern int uart_buffer_index_1;
 void GetMessage(uint8_t data);
+void SerializeInt(uint8_t *data,int val);
+int ExtractRaw(uint8_t *original,uint8_t *output);
 int DeserializeInt(uint8_t *data);
 void SaveScanResult(ScanResult *scanResult);
 void SavePadPass(PadPass * mpadPass);
