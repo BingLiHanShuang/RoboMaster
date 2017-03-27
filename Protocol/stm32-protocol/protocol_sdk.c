@@ -8,6 +8,7 @@
  */
 void serial_send(void *payload, uint32_t size){
     //串口发送代码,请把串口发送的部分放入这个函数
+    print(payload,size);
 
 }
 void serial_receive(uint8_t data){
