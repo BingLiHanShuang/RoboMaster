@@ -9,6 +9,8 @@
 void serial_send(void *payload, uint32_t size){
     //串口发送代码,请把串口发送的部分放入这个函数
     print(payload,size);
+    //USART2_send((uint8_t*)payload,size);
+
 
 }
 void serial_receive(uint8_t data){
@@ -27,7 +29,14 @@ void callback_PadPass(){
 
 }
 void callback_VideoRecordStatus(){
+	
     //录像结果接收回调,接收到数据后会执行这个函数
+	/*
+	if(videoRecordStatusData.status==0)//录像未开始
+
+	if(videoRecordStatusData.status==1)//正在录像
+	if(videoRecordStatusData.status==2)//录像已停止
+	*/
 
 }
 
