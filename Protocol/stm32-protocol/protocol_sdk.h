@@ -3,6 +3,10 @@
 #define STM32_PROTOCOL_SDK_H
 
 #include <stdint.h>
+#include "DataType.h"
+extern ScanData scanData;                  //无人机
+extern PadPassData padPassData;             //大幅
+extern VideoRecordStatusData videoRecordStatusData;  //luxiang
 void serial_send(void *payload, uint32_t size);
 void serial_receive(uint8_t data);
 void callback_ScanResult();
