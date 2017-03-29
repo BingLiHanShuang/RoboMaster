@@ -1,6 +1,8 @@
 #include "protocol_sdk.h"
 #include "protocol.h"
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*
  * 串口操作接口
@@ -48,3 +50,6 @@ void VideoRecord_Stop();//停止录像
 void VideoRecord_Status();//完成录像
 
 
+#ifdef __cplusplus
+}
+#endif

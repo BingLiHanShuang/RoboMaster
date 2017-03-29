@@ -16,7 +16,7 @@ extern "C" {
 #endif
 
 void DispatchMessage();
-static const unsigned int crc32tab[];
+extern const unsigned int crc32tab[];
 
 int CRC32(uint8_t *buf, uint8_t size);
 extern uint8_t uart_buffer_1[256];
