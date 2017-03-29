@@ -16,11 +16,14 @@
  * ...........//payload
  * FF //end
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 ScanData scanData;
 PadPassData padPassData;
 VideoRecordStatusData videoRecordStatusData;
 uint8_t uart_buffer_1[256];
-static const unsigned int crc32tab[] = {
+const unsigned int crc32tab[] = {
         0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL,
         0x076dc419L, 0x706af48fL, 0xe963a535L, 0x9e6495a3L,
         0x0edb8832L, 0x79dcb8a4L, 0xe0d5e91eL, 0x97d2d988L,
@@ -325,11 +328,7 @@ void VideoRecord_Stop(){
     MessageSend(MESSAGE__MESSAGE_TYPE__VideoRecord,data);
 
 }
-void SerializeInt(uint8_t *data,int val) {
-    for (int i = 0; i < 4; ++i) {
-        data[i]|=0b11111111&(val>>(i*8));
-    }
-}
+
 void VideoRecord_Status(){
 
 
@@ -347,3 +346,6 @@ void VideoRecord_Status(){
     MessageSend(MESSAGE__MESSAGE_TYPE__VideoRecord,data);
 
 }
+#ifdef __cplusplus
+}
+#endif
