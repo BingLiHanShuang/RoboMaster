@@ -7,8 +7,10 @@
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/protobuf-c.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/protocol_config.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/protocol_sdk.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DataType.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/protocol.pb-c.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/protocol_sdk.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/protocol.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/protocol.pb-c.h" isTestSource="false" />
