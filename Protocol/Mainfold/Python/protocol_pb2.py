@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='protocol.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x0eprotocol.proto\" \n\x08PosPoint\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\"h\n\nScanResult\x12\x1b\n\x08position\x18\x01 \x03(\x0b\x32\t.PosPoint\x12\x1e\n\x0bpicrutesize\x18\x04 \x01(\x0b\x32\t.PosPoint\x12\x0e\n\x06result\x18\x02 \x01(\t\x12\r\n\x05\x61ngle\x18\x03 \x01(\x02\"(\n\x07PadPass\x12\x0b\n\x03pad\x18\x01 \x01(\x0c\x12\x10\n\x08password\x18\x02 \x01(\x0c\"\x84\x02\n\x0bVideoRecord\x12)\n\x07\x63ontrol\x18\x01 \x01(\x0e\x32\x18.VideoRecord.ControlType\x12\'\n\x06status\x18\x02 \x01(\x0e\x32\x17.VideoRecord.StatusType\x12\x12\n\nDeviceName\x18\x03 \x01(\t\x12\x10\n\x08\x44\x65viceId\x18\x04 \x01(\t\x12\x10\n\x08Operator\x18\x05 \x01(\t\"8\n\x0b\x43ontrolType\x12\x08\n\x04NULL\x10\x00\x12\t\n\x05Start\x10\x01\x12\x08\n\x04Stop\x10\x02\x12\n\n\x06Status\x10\x03\"/\n\nStatusType\x12\t\n\x05NULL1\x10\x00\x12\r\n\tRecording\x10\x01\x12\x07\n\x03Off\x10\x02\"\x89\x01\n\x07Message\x12)\n\x0bmessagetype\x18\x01 \x01(\x0e\x32\x14.Message.MessageType\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"E\n\x0bMessageType\x12\x08\n\x04NULL\x10\x00\x12\x0e\n\nScanResult\x10\x01\x12\x0b\n\x07PadPass\x10\x02\x12\x0f\n\x0bVideoRecord\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x0eprotocol.proto\" \n\x08PosPoint\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\"\x83\x01\n\nScanResult\x12\x1b\n\x08position\x18\x01 \x03(\x0b\x32\t.PosPoint\x12\x1e\n\x0bpicrutesize\x18\x04 \x01(\x0b\x32\t.PosPoint\x12\x0e\n\x06result\x18\x02 \x01(\t\x12\r\n\x05\x61ngle\x18\x03 \x01(\x02\x12\x19\n\x06\x63\x65nter\x18\x05 \x01(\x0b\x32\t.PosPoint\"(\n\x07PadPass\x12\x0b\n\x03pad\x18\x01 \x01(\x0c\x12\x10\n\x08password\x18\x02 \x01(\x0c\"\xf9\x01\n\x0bVideoRecord\x12)\n\x07\x63ontrol\x18\x01 \x01(\x0e\x32\x18.VideoRecord.ControlType\x12\'\n\x06status\x18\x02 \x01(\x0e\x32\x17.VideoRecord.StatusType\x12\x12\n\nDeviceName\x18\x03 \x01(\t\x12\x10\n\x08\x44\x65viceId\x18\x04 \x01(\t\x12\x10\n\x08Operator\x18\x05 \x01(\t\"8\n\x0b\x43ontrolType\x12\x08\n\x04NULL\x10\x00\x12\t\n\x05Start\x10\x01\x12\x08\n\x04Stop\x10\x02\x12\n\n\x06Status\x10\x03\"$\n\nStatusType\x12\r\n\tRecording\x10\x00\x12\x07\n\x03Off\x10\x01\"\x89\x01\n\x07Message\x12)\n\x0bmessagetype\x18\x01 \x01(\x0e\x32\x14.Message.MessageType\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"E\n\x0bMessageType\x12\x08\n\x04NULL\x10\x00\x12\x0e\n\nScanResult\x10\x01\x12\x0b\n\x07PadPass\x10\x02\x12\x0f\n\x0bVideoRecord\x10\x03\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -50,8 +50,8 @@ _VIDEORECORD_CONTROLTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=356,
-  serialized_end=412,
+  serialized_start=384,
+  serialized_end=440,
 )
 _sym_db.RegisterEnumDescriptor(_VIDEORECORD_CONTROLTYPE)
 
@@ -62,22 +62,18 @@ _VIDEORECORD_STATUSTYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='NULL1', index=0, number=0,
+      name='Recording', index=0, number=0,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='Recording', index=1, number=1,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Off', index=2, number=2,
+      name='Off', index=1, number=1,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=414,
-  serialized_end=461,
+  serialized_start=442,
+  serialized_end=478,
 )
 _sym_db.RegisterEnumDescriptor(_VIDEORECORD_STATUSTYPE)
 
@@ -106,8 +102,8 @@ _MESSAGE_MESSAGETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=532,
-  serialized_end=601,
+  serialized_start=549,
+  serialized_end=618,
 )
 _sym_db.RegisterEnumDescriptor(_MESSAGE_MESSAGETYPE)
 
@@ -185,6 +181,13 @@ _SCANRESULT = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='center', full_name='ScanResult.center', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -197,8 +200,8 @@ _SCANRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=52,
-  serialized_end=156,
+  serialized_start=53,
+  serialized_end=184,
 )
 
 
@@ -235,8 +238,8 @@ _PADPASS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=158,
-  serialized_end=198,
+  serialized_start=186,
+  serialized_end=226,
 )
 
 
@@ -296,8 +299,8 @@ _VIDEORECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=201,
-  serialized_end=461,
+  serialized_start=229,
+  serialized_end=478,
 )
 
 
@@ -335,12 +338,13 @@ _MESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=464,
-  serialized_end=601,
+  serialized_start=481,
+  serialized_end=618,
 )
 
 _SCANRESULT.fields_by_name['position'].message_type = _POSPOINT
 _SCANRESULT.fields_by_name['picrutesize'].message_type = _POSPOINT
+_SCANRESULT.fields_by_name['center'].message_type = _POSPOINT
 _VIDEORECORD.fields_by_name['control'].enum_type = _VIDEORECORD_CONTROLTYPE
 _VIDEORECORD.fields_by_name['status'].enum_type = _VIDEORECORD_STATUSTYPE
 _VIDEORECORD_CONTROLTYPE.containing_type = _VIDEORECORD

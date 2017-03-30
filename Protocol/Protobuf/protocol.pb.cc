@@ -52,6 +52,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ScanResult, picrutesize_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ScanResult, result_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ScanResult, angle_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ScanResult, center_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PadPass, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -78,9 +79,9 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(PosPoint)},
   { 6, -1, sizeof(ScanResult)},
-  { 14, -1, sizeof(PadPass)},
-  { 20, -1, sizeof(VideoRecord)},
-  { 29, -1, sizeof(Message)},
+  { 15, -1, sizeof(PadPass)},
+  { 21, -1, sizeof(VideoRecord)},
+  { 30, -1, sizeof(Message)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -138,6 +139,8 @@ void TableStruct::InitDefaultsImpl() {
   _Message_default_instance_.DefaultConstruct();
   _ScanResult_default_instance_.get_mutable()->picrutesize_ = const_cast< ::PosPoint*>(
       ::PosPoint::internal_default_instance());
+  _ScanResult_default_instance_.get_mutable()->center_ = const_cast< ::PosPoint*>(
+      ::PosPoint::internal_default_instance());
 }
 
 void InitDefaults() {
@@ -148,24 +151,24 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
       "\n\016protocol.proto\" \n\010PosPoint\022\t\n\001x\030\001 \001(\002\022"
-      "\t\n\001y\030\002 \001(\002\"h\n\nScanResult\022\033\n\010position\030\001 \003"
-      "(\0132\t.PosPoint\022\036\n\013picrutesize\030\004 \001(\0132\t.Pos"
-      "Point\022\016\n\006result\030\002 \001(\t\022\r\n\005angle\030\003 \001(\002\"(\n\007"
-      "PadPass\022\013\n\003pad\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\"\204"
-      "\002\n\013VideoRecord\022)\n\007control\030\001 \001(\0162\030.VideoR"
-      "ecord.ControlType\022\'\n\006status\030\002 \001(\0162\027.Vide"
-      "oRecord.StatusType\022\022\n\nDeviceName\030\003 \001(\t\022\020"
-      "\n\010DeviceId\030\004 \001(\t\022\020\n\010Operator\030\005 \001(\t\"8\n\013Co"
-      "ntrolType\022\010\n\004NULL\020\000\022\t\n\005Start\020\001\022\010\n\004Stop\020\002"
-      "\022\n\n\006Status\020\003\"/\n\nStatusType\022\t\n\005NULL1\020\000\022\r\n"
-      "\tRecording\020\001\022\007\n\003Off\020\002\"\211\001\n\007Message\022)\n\013mes"
-      "sagetype\030\001 \001(\0162\024.Message.MessageType\022\014\n\004"
-      "data\030\002 \001(\014\"E\n\013MessageType\022\010\n\004NULL\020\000\022\016\n\nS"
-      "canResult\020\001\022\013\n\007PadPass\020\002\022\017\n\013VideoRecord\020"
-      "\003b\006proto3"
+      "\t\n\001y\030\002 \001(\002\"\203\001\n\nScanResult\022\033\n\010position\030\001 "
+      "\003(\0132\t.PosPoint\022\036\n\013picrutesize\030\004 \001(\0132\t.Po"
+      "sPoint\022\016\n\006result\030\002 \001(\t\022\r\n\005angle\030\003 \001(\002\022\031\n"
+      "\006center\030\005 \001(\0132\t.PosPoint\"(\n\007PadPass\022\013\n\003p"
+      "ad\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\"\371\001\n\013VideoReco"
+      "rd\022)\n\007control\030\001 \001(\0162\030.VideoRecord.Contro"
+      "lType\022\'\n\006status\030\002 \001(\0162\027.VideoRecord.Stat"
+      "usType\022\022\n\nDeviceName\030\003 \001(\t\022\020\n\010DeviceId\030\004"
+      " \001(\t\022\020\n\010Operator\030\005 \001(\t\"8\n\013ControlType\022\010\n"
+      "\004NULL\020\000\022\t\n\005Start\020\001\022\010\n\004Stop\020\002\022\n\n\006Status\020\003"
+      "\"$\n\nStatusType\022\r\n\tRecording\020\000\022\007\n\003Off\020\001\"\211"
+      "\001\n\007Message\022)\n\013messagetype\030\001 \001(\0162\024.Messag"
+      "e.MessageType\022\014\n\004data\030\002 \001(\014\"E\n\013MessageTy"
+      "pe\022\010\n\004NULL\020\000\022\016\n\nScanResult\020\001\022\013\n\007PadPass\020"
+      "\002\022\017\n\013VideoRecord\020\003b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 609);
+      descriptor, 626);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "protocol.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -217,7 +220,6 @@ bool VideoRecord_StatusType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
-    case 2:
       return true;
     default:
       return false;
@@ -225,7 +227,6 @@ bool VideoRecord_StatusType_IsValid(int value) {
 }
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const VideoRecord_StatusType VideoRecord::NULL1;
 const VideoRecord_StatusType VideoRecord::Recording;
 const VideoRecord_StatusType VideoRecord::Off;
 const VideoRecord_StatusType VideoRecord::StatusType_MIN;
@@ -539,6 +540,7 @@ const int ScanResult::kPositionFieldNumber;
 const int ScanResult::kPicrutesizeFieldNumber;
 const int ScanResult::kResultFieldNumber;
 const int ScanResult::kAngleFieldNumber;
+const int ScanResult::kCenterFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ScanResult::ScanResult()
@@ -564,6 +566,11 @@ ScanResult::ScanResult(const ScanResult& from)
   } else {
     picrutesize_ = NULL;
   }
+  if (from.has_center()) {
+    center_ = new ::PosPoint(*from.center_);
+  } else {
+    center_ = NULL;
+  }
   angle_ = from.angle_;
   // @@protoc_insertion_point(copy_constructor:ScanResult)
 }
@@ -584,6 +591,9 @@ void ScanResult::SharedDtor() {
   result_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) {
     delete picrutesize_;
+  }
+  if (this != internal_default_instance()) {
+    delete center_;
   }
 }
 
@@ -618,6 +628,10 @@ void ScanResult::Clear() {
     delete picrutesize_;
   }
   picrutesize_ = NULL;
+  if (GetArenaNoVirtual() == NULL && center_ != NULL) {
+    delete center_;
+  }
+  center_ = NULL;
   angle_ = 0;
 }
 
@@ -683,6 +697,17 @@ bool ScanResult::MergePartialFromCodedStream(
         break;
       }
 
+      // .PosPoint center = 5;
+      case 5: {
+        if (tag == 42u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_center()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0 ||
@@ -734,6 +759,12 @@ void ScanResult::SerializeWithCachedSizes(
       4, *this->picrutesize_, output);
   }
 
+  // .PosPoint center = 5;
+  if (this->has_center()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, *this->center_, output);
+  }
+
   // @@protoc_insertion_point(serialize_end:ScanResult)
 }
 
@@ -771,6 +802,13 @@ void ScanResult::SerializeWithCachedSizes(
         4, *this->picrutesize_, false, target);
   }
 
+  // .PosPoint center = 5;
+  if (this->has_center()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        5, *this->center_, false, target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:ScanResult)
   return target;
 }
@@ -802,6 +840,13 @@ size_t ScanResult::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->picrutesize_);
+  }
+
+  // .PosPoint center = 5;
+  if (this->has_center()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->center_);
   }
 
   // float angle = 3;
@@ -843,6 +888,9 @@ void ScanResult::MergeFrom(const ScanResult& from) {
   if (from.has_picrutesize()) {
     mutable_picrutesize()->::PosPoint::MergeFrom(from.picrutesize());
   }
+  if (from.has_center()) {
+    mutable_center()->::PosPoint::MergeFrom(from.center());
+  }
   if (from.angle() != 0) {
     set_angle(from.angle());
   }
@@ -874,6 +922,7 @@ void ScanResult::InternalSwap(ScanResult* other) {
   position_.UnsafeArenaSwap(&other->position_);
   result_.Swap(&other->result_);
   std::swap(picrutesize_, other->picrutesize_);
+  std::swap(center_, other->center_);
   std::swap(angle_, other->angle_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1019,6 +1068,45 @@ void ScanResult::set_angle(float value) {
   
   angle_ = value;
   // @@protoc_insertion_point(field_set:ScanResult.angle)
+}
+
+// .PosPoint center = 5;
+bool ScanResult::has_center() const {
+  return this != internal_default_instance() && center_ != NULL;
+}
+void ScanResult::clear_center() {
+  if (GetArenaNoVirtual() == NULL && center_ != NULL) delete center_;
+  center_ = NULL;
+}
+const ::PosPoint& ScanResult::center() const {
+  // @@protoc_insertion_point(field_get:ScanResult.center)
+  return center_ != NULL ? *center_
+                         : *::PosPoint::internal_default_instance();
+}
+::PosPoint* ScanResult::mutable_center() {
+  
+  if (center_ == NULL) {
+    center_ = new ::PosPoint;
+  }
+  // @@protoc_insertion_point(field_mutable:ScanResult.center)
+  return center_;
+}
+::PosPoint* ScanResult::release_center() {
+  // @@protoc_insertion_point(field_release:ScanResult.center)
+  
+  ::PosPoint* temp = center_;
+  center_ = NULL;
+  return temp;
+}
+void ScanResult::set_allocated_center(::PosPoint* center) {
+  delete center_;
+  center_ = center;
+  if (center) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:ScanResult.center)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -33,13 +33,13 @@ hsv_green = cv2.cvtColor(green,cv2.COLOR_BGR2HSV)
 #print hsv_green
 
 
-frame=cv2.imread("/Users/wzq/Downloads/MobileFile/IMG_20170317_205844.jpg")
+frame=cv2.imread("50.jpg")
 begin = datetime.datetime.now()
 
 frame=resize(frame)
 frame = cv2.GaussianBlur(frame, (5, 5), 1)
 hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-lower_white = np.array([0, 0, 140])
+lower_white = np.array([0, 0, 150])
 upper_white = np.array([255, 255, 255])
 mask = cv2.inRange(hsv, lower_white, upper_white)
 
@@ -141,7 +141,7 @@ for cnt in contours:
         if  w*h<160 or w*h>380 or h>w:
             continue
         # if(rect[1])
-        print w,h,w*h
+        #print w,h,w*h
 
         mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
         cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
@@ -154,7 +154,7 @@ for cnt in contours:
         # cv2.imshow("a",mask[y1:y1+h1, x1:x1+w1])
         # cv2.waitKey(0)
         mask_rect_color= mask[y1:y1+h1, x1:x1+w1].mean()
-        print mask_rect_color
+        #print mask_rect_color
         #cv2.imshow("a",mask[y1:y1+h1, x1:x1+w1])
         #cv2.waitKey(0)
         if(mask_rect_color<180):
