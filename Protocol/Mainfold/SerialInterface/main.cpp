@@ -12,7 +12,7 @@
 using namespace std;
 int main(void)
 {
-    serial=new Serial("/dev/ttyUSB1");
+    serial=new Serial("/dev/ttyUSB2");
     udpClient=new UDPClient();
     pthread_t ntid_server;
     pthread_t ntid_queue;
