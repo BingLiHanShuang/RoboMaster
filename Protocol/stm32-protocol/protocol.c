@@ -200,6 +200,8 @@ void SaveScanResult(ScanResult *mscanResult) {
     scanData.angle=mscanResult->angle;
     scanData.size.x=mscanResult->picrutesize->x;
     scanData.size.y=mscanResult->picrutesize->y;
+    scanData.center.x=mscanResult->center->x;
+    scanData.center.y=mscanResult->center->y;
     strcpy(scanData.text,mscanResult->result);
     scanData.flag_read=0;
     callback_ScanResult();
