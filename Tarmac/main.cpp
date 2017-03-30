@@ -167,7 +167,10 @@ int main()
 
         pthread_mutex_lock(&mutex_stack_image);
         img0=stack_image.top();
+        stack_image.pop();
         while(stack_image.size()>0){
+            IplImage* temp=stack_image.top();
+            delete temp;
             stack_image.pop();
         }
         pthread_mutex_unlock(&mutex_stack_image);
@@ -198,9 +201,14 @@ int main()
         }
         cvClearMemStorage(storage);//清空存储
         result.clear();
+        delete img_hsv;
+        delete img0;
+
         //cout << ans / (double)cnt << "****" << endl;
         cvWaitKey(1);
     }
+    delete storage;
+    
     cvReleaseImage(&img0);
     cvClearMemStorage(storage);
     return 0;
