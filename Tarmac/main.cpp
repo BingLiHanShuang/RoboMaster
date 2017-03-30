@@ -9,8 +9,14 @@
 #include <string.h>
 #include<vector>
 #include<iostream>
+#include <stack>
+#include <pthread.h>
+
 using namespace std;
 using namespace cv;
+stack<IplImage *> stack_image;
+pthread_mutex_t mutex_stack_image=PTHREAD_MUTEX_INITIALIZER;
+
 int cnt = 0;
 double ans = 0;
 const float pi = 3.1415926;
@@ -125,10 +131,28 @@ vector<CvBox2D> findcircle(IplImage* img, CvMemStorage* storage)
     cvReleaseImage(&timg);
     return vEllipse;
 }
+void* thread_readimage(void *arg){
+    CvCapture* capture = cvCreateCameraCapture(0);
+    IplImage* img0 = NULL;
+    while(1){
+        img0 = cvQueryFrame(capture);
+        pthread_mutex_lock(&mutex_stack_image);
+        stack_image.push(img0);
+        pthread_mutex_unlock(&mutex_stack_image);
 
+    }
+
+
+
+}
 int main()
 {
-    CvCapture* capture = cvCreateCameraCapture(0);
+    pthread_t ntid_readimage;
+
+//    CvCapture* capture = cvCreateCameraCapture(0);
+
+
+    pthread_create(&ntid_readimage,NULL,thread_readimage,NULL);
     IplImage* img0 = NULL;
     IplImage* img_hsv = NULL;
     CvMemStorage* storage = 0;
@@ -138,7 +162,15 @@ int main()
     storage = cvCreateMemStorage(0);
     while (true)
     {
-        img0 = cvQueryFrame(capture);
+//        img0 = cvQueryFrame(capture);
+        while(!stack_image.size());
+
+        pthread_mutex_lock(&mutex_stack_image);
+        img0=stack_image.top();
+        while(stack_image.size()>0){
+            stack_image.pop();
+        }
+        pthread_mutex_unlock(&mutex_stack_image);
         img_hsv = colorFilter(img0);
         result = findcircle(img_hsv, storage);
         int ds = 0x3f3f3f3f3f3f3f3f;
