@@ -273,7 +273,7 @@ const ProtobufCMessageDescriptor pos_point__descriptor =
   (ProtobufCMessageInit) pos_point__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCFieldDescriptor scan_result__field_descriptors[4] =
+static const ProtobufCFieldDescriptor scan_result__field_descriptors[5] =
 {
   {
     "position",
@@ -323,9 +323,22 @@ static const ProtobufCFieldDescriptor scan_result__field_descriptors[4] =
     0,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
+  {
+    "center",
+    5,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_MESSAGE,
+    0,   /* quantifier_offset */
+    offsetof(ScanResult, center),
+    &pos_point__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
 };
 static const unsigned scan_result__field_indices_by_name[] = {
   2,   /* field[2] = angle */
+  4,   /* field[4] = center */
   3,   /* field[3] = picrutesize */
   0,   /* field[0] = position */
   1,   /* field[1] = result */
@@ -333,7 +346,7 @@ static const unsigned scan_result__field_indices_by_name[] = {
 static const ProtobufCIntRange scan_result__number_ranges[1 + 1] =
 {
   { 1, 0 },
-  { 0, 4 }
+  { 0, 5 }
 };
 const ProtobufCMessageDescriptor scan_result__descriptor =
 {
@@ -343,7 +356,7 @@ const ProtobufCMessageDescriptor scan_result__descriptor =
   "ScanResult",
   "",
   sizeof(ScanResult),
-  4,
+  5,
   scan_result__field_descriptors,
   scan_result__field_indices_by_name,
   1,  scan_result__number_ranges,
@@ -433,20 +446,18 @@ const ProtobufCEnumDescriptor video_record__control_type__descriptor =
   video_record__control_type__value_ranges,
   NULL,NULL,NULL,NULL   /* reserved[1234] */
 };
-static const ProtobufCEnumValue video_record__status_type__enum_values_by_number[3] =
+static const ProtobufCEnumValue video_record__status_type__enum_values_by_number[2] =
 {
-  { "NULL1", "VIDEO_RECORD__STATUS_TYPE__NULL1", 0 },
-  { "Recording", "VIDEO_RECORD__STATUS_TYPE__Recording", 1 },
-  { "Off", "VIDEO_RECORD__STATUS_TYPE__Off", 2 },
+  { "Recording", "VIDEO_RECORD__STATUS_TYPE__Recording", 0 },
+  { "Off", "VIDEO_RECORD__STATUS_TYPE__Off", 1 },
 };
 static const ProtobufCIntRange video_record__status_type__value_ranges[] = {
-{0, 0},{0, 3}
+{0, 0},{0, 2}
 };
-static const ProtobufCEnumValueIndex video_record__status_type__enum_values_by_name[3] =
+static const ProtobufCEnumValueIndex video_record__status_type__enum_values_by_name[2] =
 {
-  { "NULL1", 0 },
-  { "Off", 2 },
-  { "Recording", 1 },
+  { "Off", 1 },
+  { "Recording", 0 },
 };
 const ProtobufCEnumDescriptor video_record__status_type__descriptor =
 {
@@ -455,9 +466,9 @@ const ProtobufCEnumDescriptor video_record__status_type__descriptor =
   "StatusType",
   "VideoRecord__StatusType",
   "",
-  3,
+  2,
   video_record__status_type__enum_values_by_number,
-  3,
+  2,
   video_record__status_type__enum_values_by_name,
   1,
   video_record__status_type__value_ranges,

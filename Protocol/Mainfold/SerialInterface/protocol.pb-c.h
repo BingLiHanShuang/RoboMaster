@@ -4,7 +4,7 @@
 #ifndef PROTOBUF_C_protocol_2eproto__INCLUDED
 #define PROTOBUF_C_protocol_2eproto__INCLUDED
 
-#include "protobuf-c.h"
+#include <protobuf-c/protobuf-c.h>
 
 PROTOBUF_C__BEGIN_DECLS
 
@@ -32,9 +32,8 @@ typedef enum _VideoRecord__ControlType {
     PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(VIDEO_RECORD__CONTROL_TYPE)
 } VideoRecord__ControlType;
 typedef enum _VideoRecord__StatusType {
-  VIDEO_RECORD__STATUS_TYPE__NULL1 = 0,
-  VIDEO_RECORD__STATUS_TYPE__Recording = 1,
-  VIDEO_RECORD__STATUS_TYPE__Off = 2
+  VIDEO_RECORD__STATUS_TYPE__Recording = 0,
+  VIDEO_RECORD__STATUS_TYPE__Off = 1
     PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(VIDEO_RECORD__STATUS_TYPE)
 } VideoRecord__StatusType;
 typedef enum _Message__MessageType {
@@ -69,10 +68,11 @@ struct  _ScanResult
   char *result;
   protobuf_c_boolean has_angle;
   float angle;
+  PosPoint *center;
 };
 #define SCAN_RESULT__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&scan_result__descriptor) \
-    , 0,NULL, NULL, NULL, 0,0 }
+    , 0,NULL, NULL, NULL, 0,0, NULL }
 
 
 struct  _PadPass

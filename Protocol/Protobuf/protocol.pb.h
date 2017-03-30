@@ -81,14 +81,13 @@ inline bool VideoRecord_ControlType_Parse(
     VideoRecord_ControlType_descriptor(), name, value);
 }
 enum VideoRecord_StatusType {
-  VideoRecord_StatusType_NULL1 = 0,
-  VideoRecord_StatusType_Recording = 1,
-  VideoRecord_StatusType_Off = 2,
+  VideoRecord_StatusType_Recording = 0,
+  VideoRecord_StatusType_Off = 1,
   VideoRecord_StatusType_VideoRecord_StatusType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   VideoRecord_StatusType_VideoRecord_StatusType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool VideoRecord_StatusType_IsValid(int value);
-const VideoRecord_StatusType VideoRecord_StatusType_StatusType_MIN = VideoRecord_StatusType_NULL1;
+const VideoRecord_StatusType VideoRecord_StatusType_StatusType_MIN = VideoRecord_StatusType_Recording;
 const VideoRecord_StatusType VideoRecord_StatusType_StatusType_MAX = VideoRecord_StatusType_Off;
 const int VideoRecord_StatusType_StatusType_ARRAYSIZE = VideoRecord_StatusType_StatusType_MAX + 1;
 
@@ -319,6 +318,15 @@ class ScanResult : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::PosPoint* release_picrutesize();
   void set_allocated_picrutesize(::PosPoint* picrutesize);
 
+  // .PosPoint center = 5;
+  bool has_center() const;
+  void clear_center();
+  static const int kCenterFieldNumber = 5;
+  const ::PosPoint& center() const;
+  ::PosPoint* mutable_center();
+  ::PosPoint* release_center();
+  void set_allocated_center(::PosPoint* center);
+
   // float angle = 3;
   void clear_angle();
   static const int kAngleFieldNumber = 3;
@@ -332,6 +340,7 @@ class ScanResult : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::RepeatedPtrField< ::PosPoint > position_;
   ::google::protobuf::internal::ArenaStringPtr result_;
   ::PosPoint* picrutesize_;
+  ::PosPoint* center_;
   float angle_;
   mutable int _cached_size_;
   friend struct  protobuf_protocol_2eproto::TableStruct;
@@ -540,8 +549,6 @@ class VideoRecord : public ::google::protobuf::Message /* @@protoc_insertion_poi
   }
 
   typedef VideoRecord_StatusType StatusType;
-  static const StatusType NULL1 =
-    VideoRecord_StatusType_NULL1;
   static const StatusType Recording =
     VideoRecord_StatusType_Recording;
   static const StatusType Off =
@@ -936,6 +943,45 @@ inline void ScanResult::set_angle(float value) {
   
   angle_ = value;
   // @@protoc_insertion_point(field_set:ScanResult.angle)
+}
+
+// .PosPoint center = 5;
+inline bool ScanResult::has_center() const {
+  return this != internal_default_instance() && center_ != NULL;
+}
+inline void ScanResult::clear_center() {
+  if (GetArenaNoVirtual() == NULL && center_ != NULL) delete center_;
+  center_ = NULL;
+}
+inline const ::PosPoint& ScanResult::center() const {
+  // @@protoc_insertion_point(field_get:ScanResult.center)
+  return center_ != NULL ? *center_
+                         : *::PosPoint::internal_default_instance();
+}
+inline ::PosPoint* ScanResult::mutable_center() {
+  
+  if (center_ == NULL) {
+    center_ = new ::PosPoint;
+  }
+  // @@protoc_insertion_point(field_mutable:ScanResult.center)
+  return center_;
+}
+inline ::PosPoint* ScanResult::release_center() {
+  // @@protoc_insertion_point(field_release:ScanResult.center)
+  
+  ::PosPoint* temp = center_;
+  center_ = NULL;
+  return temp;
+}
+inline void ScanResult::set_allocated_center(::PosPoint* center) {
+  delete center_;
+  center_ = center;
+  if (center) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:ScanResult.center)
 }
 
 // -------------------------------------------------------------------

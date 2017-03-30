@@ -21,24 +21,24 @@ public static partial class ProtocolReflection {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
           "Cg5wcm90b2NvbC5wcm90byIgCghQb3NQb2ludBIJCgF4GAEgASgCEgkKAXkY",
-          "AiABKAIiaAoKU2NhblJlc3VsdBIbCghwb3NpdGlvbhgBIAMoCzIJLlBvc1Bv",
-          "aW50Eh4KC3BpY3J1dGVzaXplGAQgASgLMgkuUG9zUG9pbnQSDgoGcmVzdWx0",
-          "GAIgASgJEg0KBWFuZ2xlGAMgASgCIigKB1BhZFBhc3MSCwoDcGFkGAEgASgM",
-          "EhAKCHBhc3N3b3JkGAIgASgMIoQCCgtWaWRlb1JlY29yZBIpCgdjb250cm9s",
-          "GAEgASgOMhguVmlkZW9SZWNvcmQuQ29udHJvbFR5cGUSJwoGc3RhdHVzGAIg",
-          "ASgOMhcuVmlkZW9SZWNvcmQuU3RhdHVzVHlwZRISCgpEZXZpY2VOYW1lGAMg",
-          "ASgJEhAKCERldmljZUlkGAQgASgJEhAKCE9wZXJhdG9yGAUgASgJIjgKC0Nv",
-          "bnRyb2xUeXBlEggKBE5VTEwQABIJCgVTdGFydBABEggKBFN0b3AQAhIKCgZT",
-          "dGF0dXMQAyIvCgpTdGF0dXNUeXBlEgkKBU5VTEwxEAASDQoJUmVjb3JkaW5n",
-          "EAESBwoDT2ZmEAIiiQEKB01lc3NhZ2USKQoLbWVzc2FnZXR5cGUYASABKA4y",
-          "FC5NZXNzYWdlLk1lc3NhZ2VUeXBlEgwKBGRhdGEYAiABKAwiRQoLTWVzc2Fn",
-          "ZVR5cGUSCAoETlVMTBAAEg4KClNjYW5SZXN1bHQQARILCgdQYWRQYXNzEAIS",
-          "DwoLVmlkZW9SZWNvcmQQA2IGcHJvdG8z"));
+          "AiABKAIigwEKClNjYW5SZXN1bHQSGwoIcG9zaXRpb24YASADKAsyCS5Qb3NQ",
+          "b2ludBIeCgtwaWNydXRlc2l6ZRgEIAEoCzIJLlBvc1BvaW50Eg4KBnJlc3Vs",
+          "dBgCIAEoCRINCgVhbmdsZRgDIAEoAhIZCgZjZW50ZXIYBSABKAsyCS5Qb3NQ",
+          "b2ludCIoCgdQYWRQYXNzEgsKA3BhZBgBIAEoDBIQCghwYXNzd29yZBgCIAEo",
+          "DCL5AQoLVmlkZW9SZWNvcmQSKQoHY29udHJvbBgBIAEoDjIYLlZpZGVvUmVj",
+          "b3JkLkNvbnRyb2xUeXBlEicKBnN0YXR1cxgCIAEoDjIXLlZpZGVvUmVjb3Jk",
+          "LlN0YXR1c1R5cGUSEgoKRGV2aWNlTmFtZRgDIAEoCRIQCghEZXZpY2VJZBgE",
+          "IAEoCRIQCghPcGVyYXRvchgFIAEoCSI4CgtDb250cm9sVHlwZRIICgROVUxM",
+          "EAASCQoFU3RhcnQQARIICgRTdG9wEAISCgoGU3RhdHVzEAMiJAoKU3RhdHVz",
+          "VHlwZRINCglSZWNvcmRpbmcQABIHCgNPZmYQASKJAQoHTWVzc2FnZRIpCgtt",
+          "ZXNzYWdldHlwZRgBIAEoDjIULk1lc3NhZ2UuTWVzc2FnZVR5cGUSDAoEZGF0",
+          "YRgCIAEoDCJFCgtNZXNzYWdlVHlwZRIICgROVUxMEAASDgoKU2NhblJlc3Vs",
+          "dBABEgsKB1BhZFBhc3MQAhIPCgtWaWRlb1JlY29yZBADYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::PosPoint), global::PosPoint.Parser, new[]{ "X", "Y" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ScanResult), global::ScanResult.Parser, new[]{ "Position", "Picrutesize", "Result", "Angle" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ScanResult), global::ScanResult.Parser, new[]{ "Position", "Picrutesize", "Result", "Angle", "Center" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PadPass), global::PadPass.Parser, new[]{ "Pad", "Password" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::VideoRecord), global::VideoRecord.Parser, new[]{ "Control", "Status", "DeviceName", "DeviceId", "Operator" }, null, new[]{ typeof(global::VideoRecord.Types.ControlType), typeof(global::VideoRecord.Types.StatusType) }, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Message), global::Message.Parser, new[]{ "Messagetype", "Data" }, null, new[]{ typeof(global::Message.Types.MessageType) }, null)
@@ -221,6 +221,7 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     Picrutesize = other.picrutesize_ != null ? other.Picrutesize.Clone() : null;
     result_ = other.result_;
     angle_ = other.angle_;
+    Center = other.center_ != null ? other.Center.Clone() : null;
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -271,6 +272,17 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     }
   }
 
+  /// <summary>Field number for the "center" field.</summary>
+  public const int CenterFieldNumber = 5;
+  private global::PosPoint center_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::PosPoint Center {
+    get { return center_; }
+    set {
+      center_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as ScanResult);
@@ -288,6 +300,7 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     if (!object.Equals(Picrutesize, other.Picrutesize)) return false;
     if (Result != other.Result) return false;
     if (Angle != other.Angle) return false;
+    if (!object.Equals(Center, other.Center)) return false;
     return true;
   }
 
@@ -298,6 +311,7 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     if (picrutesize_ != null) hash ^= Picrutesize.GetHashCode();
     if (Result.Length != 0) hash ^= Result.GetHashCode();
     if (Angle != 0F) hash ^= Angle.GetHashCode();
+    if (center_ != null) hash ^= Center.GetHashCode();
     return hash;
   }
 
@@ -321,6 +335,10 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
       output.WriteRawTag(34);
       output.WriteMessage(Picrutesize);
     }
+    if (center_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(Center);
+    }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -335,6 +353,9 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     }
     if (Angle != 0F) {
       size += 1 + 4;
+    }
+    if (center_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Center);
     }
     return size;
   }
@@ -356,6 +377,12 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
     }
     if (other.Angle != 0F) {
       Angle = other.Angle;
+    }
+    if (other.center_ != null) {
+      if (center_ == null) {
+        center_ = new global::PosPoint();
+      }
+      Center.MergeFrom(other.Center);
     }
   }
 
@@ -384,6 +411,13 @@ public sealed partial class ScanResult : pb::IMessage<ScanResult> {
             picrutesize_ = new global::PosPoint();
           }
           input.ReadMessage(picrutesize_);
+          break;
+        }
+        case 42: {
+          if (center_ == null) {
+            center_ = new global::PosPoint();
+          }
+          input.ReadMessage(center_);
           break;
         }
       }
@@ -776,9 +810,8 @@ public sealed partial class VideoRecord : pb::IMessage<VideoRecord> {
     }
 
     public enum StatusType {
-      [pbr::OriginalName("NULL1")] Null1 = 0,
-      [pbr::OriginalName("Recording")] Recording = 1,
-      [pbr::OriginalName("Off")] Off = 2,
+      [pbr::OriginalName("Recording")] Recording = 0,
+      [pbr::OriginalName("Off")] Off = 1,
     }
 
   }

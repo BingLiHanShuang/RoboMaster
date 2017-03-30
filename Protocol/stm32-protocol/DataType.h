@@ -17,6 +17,7 @@ typedef struct Point{
 typedef struct ScanData{
     struct Point vertex[4];
     struct Point size;
+    struct Point center;
     float angle;
     char text[50];
     uint8_t flag_read;//
