@@ -7,5 +7,5 @@ project(stm32)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.c protocol.c protocol.h protocol.pb-c.c protocol.pb-c.h protobuf-c.h protobuf-c.c DataType.h protocol_config.h)
+set(SOURCE_FILES main.c protocol.c protocol.h protocol.pb-c.c protocol.pb-c.h protobuf-c.h protobuf-c.c DataType.h protocol_config.h protocol_sdk.c protocol_sdk.h)
 add_executable(stm32 ${SOURCE_FILES})
