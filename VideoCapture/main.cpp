@@ -3,10 +3,38 @@
 #include <pthread.h>
 #include <signal.h>
 #include <unistd.h>
+#include <queue>
+#include <pthread.h>
 #include "ReceiveHandler.h"
 using namespace std;
 using namespace cv;
+queue<Mat> image;
+extern pthread_mutex_t thread_video_record_mutex;
+extern pthread_cond_t thread_video_record_cond;
+pthread_cond_t thread_video_capture_cond=PTHREAD_COND_INITIALIZER;
+pthread_mutex_t thread_video_capture_mutex=PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutex_image=PTHREAD_MUTEX_INITIALIZER;
+void* thread_video_capture(void *arg){
+    while(1) {
+        pthread_mutex_lock(&thread_video_capture_mutex);
+        while (videoRecorder.GetStatus() == 1) {
+            while(!image.empty()){
+                pthread_mutex_lock(&mutex_image);
+                Mat temp=image.front();
+                image.pop();
+                pthread_mutex_unlock(&mutex_image);
+                videoRecorder.SaveMat(temp);
 
+            }
+        }
+
+        pthread_cond_wait(&thread_video_capture_cond, &thread_video_capture_mutex);
+        pthread_mutex_unlock(&thread_video_capture_mutex);
+    }
+
+
+
+}
 int main() {
 
 
@@ -17,12 +45,27 @@ int main() {
 
     pthread_create(&ntid_message_handler,NULL,thread_server_udp,NULL);
     pthread_create(&ntid_server_udp,NULL,thread_message_handler,NULL);
-    pthread_create(&ntid_thread_video_record,NULL,thread_video_record,NULL);
+    pthread_create(&ntid_thread_video_record,NULL,thread_video_capture,NULL);
 
 
-    pthread_join (ntid_message_handler, NULL);
-    pthread_join (ntid_server_udp, NULL);
 
+    videoRecorder.OpenCamera(0);
+
+    while(1) {
+        pthread_mutex_lock(&thread_video_record_mutex);
+        while (videoRecorder.GetStatus() == 1){
+            Mat temp=videoRecorder.ReadMat();
+            pthread_mutex_lock(&mutex_image);
+            image.push(temp);
+            pthread_mutex_unlock(&mutex_image);
+
+        }
+        pthread_cond_wait(&thread_video_record_cond, &thread_video_record_mutex);
+        pthread_mutex_unlock(&thread_video_record_mutex);
+
+    }
+    pthread_join(ntid_message_handler, NULL);
+    pthread_join(ntid_server_udp, NULL);
 
 
 
