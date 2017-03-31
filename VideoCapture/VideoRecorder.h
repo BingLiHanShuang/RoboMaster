@@ -21,6 +21,8 @@ public:
     VideoRecorder(int deviceid);
     void OpenCamera(int deviceid);
     void CloseCamera();
+    void SaveMat(Mat mat);
+    Mat ReadMat();
     void CreateVideo(string path);
     void ReleaseVideo();
     void SaveOneFrame();

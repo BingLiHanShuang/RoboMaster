@@ -39,6 +39,15 @@ void VideoRecorder::CreateVideo(string path){
     status=0;
 
 }
+Mat VideoRecorder::ReadMat(){
+    Mat frame;
+    vcap>>frame;
+    return frame;
+}
+void VideoRecorder::SaveMat(Mat mat) {
+    video.write(mat);
+    frame_count++;
+}
 void VideoRecorder::ReleaseVideo() {
     if(video.isOpened())video.release();
 }
@@ -69,6 +78,8 @@ int VideoRecorder::SetStutus(int data) {
 pthread_mutex_t thread_video_record_mutex=PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t thread_video_record_cond=PTHREAD_COND_INITIALIZER;
 void* thread_video_record(void *arg){
+    /*
+
     videoRecorder.OpenCamera(1);
 
     while(1){
@@ -82,6 +93,9 @@ void* thread_video_record(void *arg){
 
     }
     videoRecorder.Recording();
+
+     */
+
 
 
 

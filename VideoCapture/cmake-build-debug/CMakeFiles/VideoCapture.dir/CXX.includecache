@@ -119,6 +119,10 @@ signal.h
 -
 unistd.h
 -
+queue
+-
+pthread.h
+-
 ReceiveHandler.h
 /home/parallels/RoboMaster/VideoCapture/ReceiveHandler.h
 
