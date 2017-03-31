@@ -8,7 +8,9 @@
 #include "protocol.h"
 #include <time.h>
 
-#define video_path "/home/parallels/Video"
+//#define video_path "/home/parallels/Video"
+#define video_path "/home/ubuntu/Video"
+
 #include "protocol.pb-c.h"
 #include <pthread.h>
 queue<Message*> data_queue;
@@ -66,6 +68,14 @@ void* thread_message_handler(void *arg){
                     extern pthread_cond_t thread_video_record_cond;
                     pthread_cond_signal(&thread_video_record_cond);
                     pthread_mutex_unlock(&thread_video_record_mutex);
+
+
+                    extern pthread_mutex_t thread_video_capture_mutex;
+                    extern pthread_cond_t thread_video_capture_cond;
+                    pthread_cond_signal(&thread_video_capture_cond);
+                    pthread_mutex_unlock(&thread_video_capture_mutex);
+
+
                     VideoRecord_Status(videoRecorder.GetStatus());
                 }
                 else if(messagevideoRecord->control==VIDEO_RECORD__CONTROL_TYPE__Stop){

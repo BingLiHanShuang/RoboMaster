@@ -189,7 +189,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="649" />
-    <option name="y" value="147" />
+    <option name="y" value="175" />
     <option name="width" value="1408" />
     <option name="height" value="899" />
   </component>
@@ -444,7 +444,7 @@
     <option name="totallyTimeSpent" value="54549000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="649" y="147" width="1408" height="899" extended-state="0" />
+    <frame x="649" y="175" width="1408" height="899" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25270757" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
