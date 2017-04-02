@@ -62,7 +62,7 @@ void* thread_message_handler(void *arg){
                     unsigned long timestamp=(unsigned long)time(NULL);
 
                     string name=string(messagevideoRecord->devicename)+"_"+string(messagevideoRecord->deviceid)+"_"+to_string(timestamp)+".avi";
-                    videoRecorder.CreateVideo(string(video_path)+"/"+name);
+                    videoRecorder.CreateVideo1((char*)(string(video_path)+"/"+name).c_str());
                     videoRecorder.SetStutus(1);
                     extern pthread_mutex_t thread_video_record_mutex;
                     extern pthread_cond_t thread_video_record_cond;
@@ -70,10 +70,10 @@ void* thread_message_handler(void *arg){
                     pthread_mutex_unlock(&thread_video_record_mutex);
 
 
-                    extern pthread_mutex_t thread_video_capture_mutex;
-                    extern pthread_cond_t thread_video_capture_cond;
-                    pthread_cond_signal(&thread_video_capture_cond);
-                    pthread_mutex_unlock(&thread_video_capture_mutex);
+//                    extern pthread_mutex_t thread_video_capture_mutex;
+//                    extern pthread_cond_t thread_video_capture_cond;
+//                    pthread_cond_signal(&thread_video_capture_cond);
+//                    pthread_mutex_unlock(&thread_video_capture_mutex);
 
 
                     VideoRecord_Status(videoRecorder.GetStatus());
