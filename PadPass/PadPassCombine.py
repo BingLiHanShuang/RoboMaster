@@ -146,7 +146,7 @@ def process(frame):
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         copy = result[i].copy()
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
-        ret, im_th = cv2.threshold(im_gray, 200, 255, cv2.THRESH_BINARY_INV)
+        ret, im_th = cv2.threshold(im_gray, 180, 255, cv2.THRESH_BINARY_INV)
         temp_dict={}
         max_index=-1
         for i in contours:
@@ -171,7 +171,7 @@ def process(frame):
             # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
             # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
-        cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
+        #cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
 
 
 
@@ -179,12 +179,17 @@ def process(frame):
 
     #cv2.imshow("RotImg",RotImg)
 
-    cv2.imshow("frame",frame)
+    #cv2.imshow("frame",frame)
     #cv2.imshow("mask",mask)
     #cv2.waitKey(0)
 count=0
+
 # error=[123,125,166,188,195,196,176,58]
-frame = cv2.imread("/Users/wzq/Downloads/pic_padpass/150.jpg")
+frame = cv2.imread("/Users/wzq/Downloads/pic_padpass/45.jpg")
+begin = datetime.datetime.now()
+
+end = datetime.datetime.now()
+print end-begin
 process(frame)
 cv2.waitKey(0)
 # for i in range(2,220):
