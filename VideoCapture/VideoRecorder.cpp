@@ -141,10 +141,11 @@ void VideoRecorder::Recording(){
         video.release();
 }
 void VideoRecorder::Release1() {
-    if(video_status==0)
+    if(video_status==0||file==NULL)
         return;
 
-    fclose(file);
+    //fclose(file);
+    //file==NULL;
     video_status==0;
 }
 void VideoRecorder::Recording1(){
