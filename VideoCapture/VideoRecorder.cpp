@@ -71,6 +71,7 @@ void VideoRecorder::CreateVideo(string path){
 }
 void VideoRecorder::CreateVideo1(char *path)
 {
+    Release1();
     vd->avifile = AVI_open_output_file(path);
     if (vd->avifile == NULL )
     {
