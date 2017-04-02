@@ -10,7 +10,7 @@ extern "C" {
  */
 void serial_send(void *payload, uint32_t size){
     //串口发送代码,请把串口发送的部分放入这个函数
-    print(payload,size);
+    //print(payload,size);
     //USART2_send((uint8_t*)payload,size);
 
 

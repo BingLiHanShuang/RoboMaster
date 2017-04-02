@@ -6,6 +6,25 @@
 #define VIDEOCAPTURE_VIDEORECORD_H
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/file.h>
+#include <string.h>
+#include <pthread.h>
+#include <linux/videodev2.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <time.h>
+#include <sys/time.h>
+#include <signal.h>
+#include <X11/Xlib.h>
+#include "v4l2uvc.h"
+#include "avilib.h"
 using namespace cv;
 using namespace std;
 class VideoRecorder {
@@ -15,18 +34,39 @@ private:
     int frame_count=0;
     VideoCapture vcap;
     VideoWriter video;
+    FILE *file = NULL;
+    struct vdIn *vd;
+    unsigned char *tmpbuffer;
+//    char *filename = NULL;
+//    char *avifilename = NULL;
+
+    char *sizestring = NULL;
+    char *fpsstring  = NULL;
+    char *separateur = NULL;
+    int width ;
+    int height;
+    int fps;
+    int camera_status=0;
+    int video_status=0;
 
 public:
     VideoRecorder();
     VideoRecorder(int deviceid);
+    VideoRecorder(char * devicefile);
     void OpenCamera(int deviceid);
+    void OpenCamera(char * devicefile);
+    void CreateVideo1(char *path);
     void CloseCamera();
     void SaveMat(Mat mat);
     Mat ReadMat();
     void CreateVideo(string path);
     void ReleaseVideo();
     void SaveOneFrame();
+    void SaveOneFrame1();
+
     void Recording();
+    void Recording1();
+    void Release1();
     int GetStatus();
     int SetStutus(int data);
     ~VideoRecorder();

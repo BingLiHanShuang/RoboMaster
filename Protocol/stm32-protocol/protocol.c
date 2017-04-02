@@ -222,7 +222,7 @@ void SaveVideoRecordStatus(VideoRecord * mVideoRecord){
     callback_VideoRecordStatus();
 }
 void print(uint8_t * data,int len){//for debug
-#define general
+#define hex_nospace
 #ifdef hex
     for (int i = 0; i < len; ++i) {
         printf("0x%02x,",data[i]);
@@ -233,6 +233,13 @@ void print(uint8_t * data,int len){//for debug
 #ifdef general
     for (int i = 0; i < len; ++i) {
         printf("%02x ",data[i]);
+    }
+    printf("\n");
+
+#endif
+#ifdef hex_nospace
+    for (int i = 0; i < len; ++i) {
+        printf("%02x",data[i]);
     }
     printf("\n");
 
@@ -292,6 +299,7 @@ void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data){
 
     uint8_t buffer[100];
     size_t buffer_len=message__pack(&message,buffer);
+    print(buffer,buffer_len);
     presendtoserial(buffer,buffer_len);
 }
 

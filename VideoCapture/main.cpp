@@ -45,21 +45,23 @@ int main() {
 
     pthread_create(&ntid_message_handler,NULL,thread_server_udp,NULL);
     pthread_create(&ntid_server_udp,NULL,thread_message_handler,NULL);
-    pthread_create(&ntid_thread_video_record,NULL,thread_video_capture,NULL);
+    //pthread_create(&ntid_thread_video_record,NULL,thread_video_capture,NULL);
 
 
 
-    videoRecorder.OpenCamera(0);
+    videoRecorder.OpenCamera("/dev/video0");
 
     while(1) {
         pthread_mutex_lock(&thread_video_record_mutex);
         while (videoRecorder.GetStatus() == 1){
-            Mat temp=videoRecorder.ReadMat();
-            pthread_mutex_lock(&mutex_image);
-            image.push(temp);
-            pthread_mutex_unlock(&mutex_image);
+            videoRecorder.SaveOneFrame1();
+//            Mat temp=videoRecorder.ReadMat();
+//            pthread_mutex_lock(&mutex_image);
+//            image.push(temp);
+//            pthread_mutex_unlock(&mutex_image);
 
         }
+        videoRecorder.Release1();
         pthread_cond_wait(&thread_video_record_cond, &thread_video_record_mutex);
         pthread_mutex_unlock(&thread_video_record_mutex);
 
