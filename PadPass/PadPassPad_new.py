@@ -179,7 +179,7 @@ def process(frame):
 
     #cv2.imshow("RotImg",RotImg)
 
-    #cv2.imshow("frame",frame)
+    cv2.imshow("frame",frame)
     #cv2.imshow("mask",mask)
     #cv2.waitKey(0)
 count=0
