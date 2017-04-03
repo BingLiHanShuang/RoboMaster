@@ -23,7 +23,10 @@ void TarmacSend(double x, double y){
     PosPoint posPoint=POS_POINT__INIT;
     posPoint.x=x;
     posPoint.y=y;
-
+    PosPoint sizea=POS_POINT__INIT;
+    sizea.x=640;
+    sizea.y=480;
+    scanResult.picrutesize=&sizea;
     scanResult.center=&posPoint;
 
 
