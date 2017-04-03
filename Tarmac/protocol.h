@@ -17,6 +17,7 @@ void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data);
 void presendtoserial(uint8_t *payload, size_t size);
 void VideoRecord_Status(size_t status);
 void TarmacSend(double x, double y);
+void print(uint8_t * data,int len);
 #ifdef __cplusplus
 
 }

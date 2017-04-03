@@ -192,7 +192,7 @@ int main()
 
 
             cout << result[dk].center.x << ' ' << result[dk].center.y << endl;
-            //TarmacSend(result[dk].center.x,result[dk].center.y);
+            TarmacSend(result[dk].center.x,result[dk].center.y);
         }
              //cvShowImage("shdlfj", img0);
 
