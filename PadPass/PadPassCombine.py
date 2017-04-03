@@ -42,19 +42,21 @@ def process(frame):
         if len(approx) == 4 or len(approx)==5 or len(approx)==6:
             x, y, w, h = cv2.boundingRect(cnt)
             #w,h,x,y=int(rect[0][1]),int(rect[0][1]),int(rect[1][0]),int(rect[1][1])
-            if  w*h<150 or w*h>380 or h>w:
+            if  w*h<350 or w*h>500 or h>w:
                 continue
             mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
             cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
             x1, y1, w1, h1 = cv2.boundingRect(cnt)
             mask_rect_color= mask[y1:y1+h1, x1:x1+w1].mean()
             print w, h, w * h, mask_rect_color
-            if(mask_rect_color<200):
+            if(mask_rect_color<225):
                 continue
-            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
             pos_rect.append([x,y,w,h])
-    # cv2.imshow("frame", frame)
-    # cv2.waitKey(0)
+    # if(len(pos_rect)!=10):
+    #     return
+    cv2.imshow("frame", frame)
+    cv2.waitKey(0)
     pos_rect.sort(key=lambda x:(x[0],x[1]))
     pos_rect_left=pos_rect[0:5]
     pos_rect_left.sort(key=lambda x:(x[1]))
@@ -146,14 +148,16 @@ def process(frame):
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         copy = result[i].copy()
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
-        ret, im_th = cv2.threshold(im_gray, 180, 255, cv2.THRESH_BINARY_INV)
+        ret, im_th = cv2.threshold(im_gray, 170 , 255, cv2.THRESH_BINARY_INV)
         temp_dict={}
         max_index=-1
         for i in contours:
             x2, y2, w2, h2 = cv2.boundingRect(i)
             area=w2*h2
-            if w2<2 or w2>15 or h2<5:
+
+            if w2<2 or w2>30 or h2<13:
                 continue
+            #print w2, h2, area
             # if x2<0.15*w2 or x2>0.85*w2:
             #     continue
             # if(w>0.8*w):
@@ -161,6 +165,8 @@ def process(frame):
             max_index=max([max_index,area])
             img_temp=im_th[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
             temp_dict[area]=img_temp
+            #cv2.rectangle(im_gray, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
+            #cv2.imshow(str(count),im_th )
         if max_index==-1:
             cv2.imshow("wzq",im_th)
             print -1
@@ -171,7 +177,7 @@ def process(frame):
             # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
             # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
-        #cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
+        cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
 
 
 
@@ -179,19 +185,25 @@ def process(frame):
 
     #cv2.imshow("RotImg",RotImg)
 
-    #cv2.imshow("frame",frame)
+    cv2.imshow("frame",frame)
     #cv2.imshow("mask",mask)
     #cv2.waitKey(0)
 count=0
 
-# error=[123,125,166,188,195,196,176,58]
-frame = cv2.imread("/Users/wzq/Downloads/pic_padpass/45.jpg")
-begin = datetime.datetime.now()
+cap=cv2.VideoCapture(1)
+cap.set(3, 640)
+cap.set(4, 480)
+while True:
 
-end = datetime.datetime.now()
-print end-begin
-process(frame)
-cv2.waitKey(0)
+    success, frame = cap.read()
+# error=[123,125,166,188,195,196,176,58]
+#frame = cv2.imread("/Users/wzq/Downloads/pic_padpass/45.jpg")
+    begin = datetime.datetime.now()
+
+# end = datetime.datetime.now()
+# print end-begin
+    process(frame)
+    cv2.waitKey(0)
 # for i in range(2,220):
 #     # if i in error:
 #     #     continue
