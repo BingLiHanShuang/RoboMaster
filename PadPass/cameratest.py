@@ -14,7 +14,7 @@ def resize(rawimg):  # resize img to 28*28
     return img
 while True:
     success, frame = cap.read()
-    frame=resize(frame)
+    #frame=resize(frame)
     count+=1
     cv2.imwrite("test/"+str(count)+".jpg",frame)
     cv2.imshow("",frame)

@@ -3,6 +3,7 @@
 //
 
 #include "protocol.h"
+#include <stdio.h>
 //#include "UDPClient.h"
 void sendtoserial(uint8_t *payload, size_t size);
 void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data){
@@ -20,14 +21,28 @@ void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data){
 }
 void TarmacSend(double x, double y){
     ScanResult scanResult=SCAN_RESULT__INIT;
-    PosPoint posPoint=POS_POINT__INIT;
-    posPoint.x=x;
-    posPoint.y=y;
-    PosPoint sizea=POS_POINT__INIT;
-    sizea.x=640;
-    sizea.y=480;
-    scanResult.picrutesize=&sizea;
-    scanResult.center=&posPoint;
+    PosPoint center=POS_POINT__INIT;
+//    posPoint.x=x;
+//    posPoint.y=y;
+
+    PosPoint picrutesize=POS_POINT__INIT;
+
+
+    scanResult.picrutesize=&picrutesize;
+    scanResult.picrutesize->has_x=1;
+    scanResult.picrutesize->has_y=1;
+
+    scanResult.picrutesize->x=640;
+    scanResult.picrutesize->y=480;
+
+    scanResult.center=&center;
+
+    scanResult.center->has_x=1;
+    scanResult.center->has_y=1;
+    scanResult.center->x=x;
+    scanResult.center->y=y;
+
+
 
 
     ProtobufCBinaryData data;
@@ -37,6 +52,30 @@ void TarmacSend(double x, double y){
 
     MessageSend(MESSAGE__MESSAGE_TYPE__ScanResult,data);
 
+}
+void print(uint8_t * data,int len){//for debug
+#define general
+#ifdef hex
+    for (int i = 0; i < len; ++i) {
+        printf("0x%02x,",data[i]);
+    }
+    printf("\n");
+
+#endif
+#ifdef general
+    for (int i = 0; i < len; ++i) {
+        printf("%02x ",data[i]);
+    }
+    printf("\n");
+
+#endif
+#ifdef hex_nospace
+    for (int i = 0; i < len; ++i) {
+        printf("%02x",data[i]);
+    }
+    printf("\n");
+
+#endif
 }
 void presendtoserial(uint8_t *payload, size_t size){
 
