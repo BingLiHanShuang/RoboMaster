@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include<vector>
-#include<iostream>
+#include <vector>
+#include <iostream>
 #include <stack>
 #include <pthread.h>
 
@@ -128,7 +128,11 @@ vector<CvBox2D> findcircle(IplImage* img, CvMemStorage* storage)
     }
     //cvShowImage("轮廓图", timg);
     //cvWaitKey(10000);
+    //cvReleaseMemStorage(&contours -> storage );
     cvReleaseImage(&timg);
+    cvReleaseImage(&img_canny);
+    cvReleaseImage(&img_dilate);
+    cvReleaseImage(&img_erode);
     return vEllipse;
 }
 void* thread_readimage(void *arg){
@@ -152,23 +156,22 @@ int main()
 //    CvCapture* capture = cvCreateCameraCapture(0);
 
     pthread_create(&ntid_readimage,NULL,thread_readimage,NULL);
-    IplImage* img0 = NULL;
-    IplImage* img_hsv = NULL;
-    CvMemStorage* storage = 0;
-    vector<CvBox2D> result;
+
     int dx = 0;
     int dy = 0;
-    storage = cvCreateMemStorage(0);
     while (true)
     {
+        CvMemStorage* storage = 0;
+        storage = cvCreateMemStorage(0);
+        vector<CvBox2D> result;
 //        img0 = cvQueryFrame(capture);
+        IplImage* img0 = NULL;
+        IplImage* img_hsv = NULL;
         while(!stack_image.size());
 
         pthread_mutex_lock(&mutex_stack_image);
         img0=stack_image.top();
-        while(stack_image.size()>0){
-            stack_image.pop();
-        }
+
         pthread_mutex_unlock(&mutex_stack_image);
         img_hsv = colorFilter(img0);
         result = findcircle(img_hsv, storage);
@@ -194,15 +197,19 @@ int main()
             cout << result[dk].center.x << ' ' << result[dk].center.y << endl;
             TarmacSend(result[dk].center.x,result[dk].center.y);
         }
-             //cvShowImage("shdlfj", img0);
-
-       cvClearMemStorage(storage);//清空存储
-        result.clear();
+        //cvShowImage("shdlfj", img0);
+        //cvReleaseImage(&img0);
+        cvReleaseImage(&img_hsv);
+        cvClearMemStorage(storage);//清空存储
+        vector<CvBox2D>(result).swap(result);
+        while(stack_image.size()>0){
+            IplImage* img1 = NULL;
+            img1 = stack_image.top();
+            //cvReleaseImage(&img1);
+            stack_image.pop();
+        }
         //cout << ans / (double)cnt << "****" << endl;
         cvWaitKey(1);
     }
-    cvReleaseImage(&img0);
-    cvReleaseImage(&img_hsv);
-    cvClearMemStorage(storage);
     return 0;
 }
