@@ -167,9 +167,7 @@ int main()
 
         pthread_mutex_lock(&mutex_stack_image);
         img0=stack_image.top();
-        while(stack_image.size()>0){
-            stack_image.pop();
-        }
+
         pthread_mutex_unlock(&mutex_stack_image);
         img_hsv = colorFilter(img0);
         result = findcircle(img_hsv, storage);
@@ -199,7 +197,13 @@ int main()
        cvReleaseImage(&img0);
        cvReleaseImage(&img_hsv);
        cvClearMemStorage(storage);//清空存储
-        vector<CvBox2D>(result).swap(result);
+       vector<CvBox2D>(result).swap(result);
+       while(stack_image.size()>0){
+            IplImage* img1 = NULL;
+            img1 = stack_image.top();
+            cvReleaseImage(&img1);
+            stack_image.pop();
+        }
         //cout << ans / (double)cnt << "****" << endl;
         cvWaitKey(1);
     }
