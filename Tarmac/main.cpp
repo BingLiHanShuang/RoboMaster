@@ -152,16 +152,17 @@ int main()
 //    CvCapture* capture = cvCreateCameraCapture(0);
 
     pthread_create(&ntid_readimage,NULL,thread_readimage,NULL);
-    IplImage* img0 = NULL;
-    IplImage* img_hsv = NULL;
-    CvMemStorage* storage = 0;
-    vector<CvBox2D> result;
+    
     int dx = 0;
     int dy = 0;
-    storage = cvCreateMemStorage(0);
     while (true)
     {
+        CvMemStorage* storage = 0;
+        storage = cvCreateMemStorage(0);
+        vector<CvBox2D> result;
 //        img0 = cvQueryFrame(capture);
+        IplImage* img0 = NULL;
+        IplImage* img_hsv = NULL;
         while(!stack_image.size());
 
         pthread_mutex_lock(&mutex_stack_image);
@@ -195,14 +196,12 @@ int main()
             TarmacSend(result[dk].center.x,result[dk].center.y);
         }
              //cvShowImage("shdlfj", img0);
-
+       cvReleaseImage(&img0);
+       cvReleaseImage(&img_hsv);
        cvClearMemStorage(storage);//清空存储
-        result.clear();
+        vector<CvBox2D>(result).swap(result);
         //cout << ans / (double)cnt << "****" << endl;
         cvWaitKey(1);
     }
-    cvReleaseImage(&img0);
-    cvReleaseImage(&img_hsv);
-    cvClearMemStorage(storage);
     return 0;
 }
