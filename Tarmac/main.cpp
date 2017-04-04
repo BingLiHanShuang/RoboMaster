@@ -128,7 +128,11 @@ vector<CvBox2D> findcircle(IplImage* img, CvMemStorage* storage)
     }
     //cvShowImage("轮廓图", timg);
     //cvWaitKey(10000);
+    cvReleaseMemStorage(&contours -> storage )；
     cvReleaseImage(&timg);
+    cvReleaseImage(&img_canny);
+    cvReleaseImage(&img_dilate);
+    cvReleaseImage(&img_erode);
     return vEllipse;
 }
 void* thread_readimage(void *arg){
