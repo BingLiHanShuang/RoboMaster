@@ -132,7 +132,10 @@ def process(frame):
             result.append(frame.copy()[y:y+height,x+ length*i:x + length*(i+1)])
             #cv2.rectangle(frame, (x+ length*i, y), (x + length*(i+1), y+ height), (0, 255, 0), 2)
         return result
+
     def slice_pass():
+        pass_final = ""
+        #global pass_final
         arg_line = 0
         x=pos_rect_left[arg_line][0]+pos_rect_left[arg_line][2]
         length= (pos_rect_right[arg_line][0] - pos_rect_left[arg_line][0] - pos_rect_left[arg_line][2])
@@ -167,11 +170,11 @@ def process(frame):
                 continue
             # print h2
             pad_rect.append([ x2, y2, w2, h2,w2*h2])
-            # img_temp = im_th[y2 - 1:y2 + h2 + 1, x2 - 1:x2 + w2 + 1].copy()
-            # name=recognize(img_temp)
+            img_temp = im_th[y2 - 1:y2 + h2 + 1, x2 - 1:x2 + w2 + 1].copy()
+            name=recognize(img_temp)
             # #cv2.rectangle(pass_area, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
-            # cv2.imshow(str(count)+"-"+str(name[0]),img_temp)
-            # count+=1
+            #cv2.imshow(str(count)+"-"+str(name[0]),img_temp)
+            #count+=1
             #print name
         pad_rect.sort(key=lambda x: (x[0]))
         pad_rect_filtered=[]
@@ -184,11 +187,27 @@ def process(frame):
 
                 filter_max=pad_rect_filtered[len(pad_rect_filtered)-1]
 
-                real_max=(present_max if present_max[4]>filter_max[4] else filter_max)
-                pad_rect_filtered.remove(filter_max)
-                pad_rect_filtered.append(real_max)
+                if abs(present_max[4]-filter_max[4])>10:
+                    pad_rect_filtered.append(present_max)
+                else:
+                    real_max=(present_max if present_max[4]>filter_max[4] else filter_max)
+                    pad_rect_filtered.remove(filter_max)
+                    pad_rect_filtered.append(real_max)
             else:
-                if abs(pad_rect[i][0]-pad_rect_filtered[len(pad_rect_filtered)-1][0])<10:#assume the maximum interval between two digit is 10
+                if len(pad_rect_filtered) == 0:
+                    pad_rect_filtered.append(pad_rect[i])
+                    pad_rect_filtered.append(pad_rect[i + 1])
+                    continue
+
+                filter_max = pad_rect_filtered[len(pad_rect_filtered) - 1]
+
+                    #pad_rect_filtered.append(pad_rect[i + 1])
+                if abs(pad_rect[i][0]-filter_max[0])<10:#assume the maximum interval between two digit is 10
+
+                    present_max = (pad_rect[i] if pad_rect[i][4] - filter_max[4] > 0 else filter_max)
+                    pad_rect_filtered.remove(filter_max)
+                    pad_rect_filtered.append(present_max)
+                    pad_rect_filtered.append(pad_rect[i + 1])
                     continue
                 pad_rect_filtered.append(pad_rect[i])
                 pad_rect_filtered.append(pad_rect[i+1])
@@ -199,25 +218,27 @@ def process(frame):
             x2,y2,w2,h2,area=pad_rect_filtered[i]
             img_temp = im_th[y2 - 1:y2 + h2 + 1, x2 - 1:x2 + w2 + 1].copy()
             result=recognize(img_temp)
+            pass_final+=str(result[0])
             cv2.imshow("pass-"+str(i)+"-"+str(result[0]),img_temp)
-            pad_rect_image.append(img_temp)
+            #pad_rect_image.append(img_temp)
 
 
 
 
         cv2.rectangle(frame, (x, y), (x + length * (1), y + height), (0, 255, 0), 2)
+        return pass_final
 
 
     slice_first_line()
     slice_second_line()
     slice_third_line()
-    slice_pass()
+    pass_final = slice_pass()
 
 
     end = datetime.datetime.now()
     print end-begin
 
-
+    pad_final=""
     for i in range(9):
         edge = cv2.Canny(result[i], 500, 2000, apertureSize=5)
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -247,14 +268,16 @@ def process(frame):
             print -1
             continue
         name= recognize(temp_dict[max_index])
-        print name
+        pad_final+=str(name[0])
+        #print name
         #cv2.imwrite("test/"+str(count)+".jpg",temp_dict[max_index])
             # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
             # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
         #cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
 
-
+    print "pad",pad_final
+    print "pass",pass_final
 
 
 
@@ -272,7 +295,7 @@ while True:
 
     success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/85.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/34.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
