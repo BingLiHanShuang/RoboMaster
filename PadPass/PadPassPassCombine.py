@@ -219,7 +219,7 @@ def process(frame):
             img_temp = im_th[y2 - 1:y2 + h2 + 1, x2 - 1:x2 + w2 + 1].copy()
             result=recognize(img_temp)
             pass_final+=str(result[0])
-            cv2.imshow("pass-"+str(i)+"-"+str(result[0]),img_temp)
+            #cv2.imshow("pass-"+str(i)+"-"+str(result[0]),img_temp)
             #pad_rect_image.append(img_temp)
 
 
@@ -244,7 +244,7 @@ def process(frame):
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         copy = result[i].copy()
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
-        ret, im_th = cv2.threshold(im_gray, 190 , 255, cv2.THRESH_BINARY_INV)
+        ret, im_th = cv2.threshold(im_gray, 200 , 255, cv2.THRESH_BINARY_INV)
         temp_dict={}
         max_index=-1
         for i in contours:
@@ -274,7 +274,7 @@ def process(frame):
             # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
             # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
-        #cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
+        cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
 
     print "pad",pad_final
     print "pass",pass_final
@@ -295,7 +295,7 @@ while True:
 
     success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/34.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/52.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
