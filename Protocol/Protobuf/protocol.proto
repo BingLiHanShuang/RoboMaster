@@ -10,7 +10,6 @@ message ScanResult{
 	string result=2;
 	float angle=3;
 	PosPoint center=5;
-
 }
 message PadPass{
 	bytes pad=1;
