@@ -1,5 +1,9 @@
 import cv2
 import numpy as np
+import sys
+# from keras.models import model_from_json
+sys.path.append('../Protocol/MainFold/Python/')
+import protocol
 from sklearn.externals import joblib
 from skimage.feature import hog
 import datetime
@@ -11,6 +15,31 @@ def recognize(image):
     roi_hog_fd = hog(roi, orientations=9, pixels_per_cell=(14, 14), cells_per_block=(1, 1), visualise=False)
     nbr = clf.predict(np.array([roi_hog_fd], 'float64'))
     return nbr
+# with open('model.json', 'r') as f:
+#     model = model_from_json(f.read())
+# model.load_weights('model.h5')
+# model.summary()
+def resize1(rawimg):  # resize img to 28*28
+    fx = 28.0 / rawimg.shape[0]
+    fy = 28.0 / rawimg.shape[1]
+    fx = fy = min(fx, fy)
+    img = cv2.resize(rawimg, None, fx=fx, fy=fy, interpolation=cv2.INTER_CUBIC)
+    outimg = np.ones((28, 28), dtype=np.uint8) * 255
+    w = img.shape[1]
+    h = img.shape[0]
+    x = (28 - w) / 2
+    y = (28 - h) / 2
+    outimg[y:y+h, x:x+w] = img
+    return outimg
+# def recognize(image):
+#     image=resize1(image)
+# #    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+#     res = resize(image)
+#     res = np.resize(res, (1, 28, 28, 1))
+#     predictions = model.predict(res)
+#     result = np.argmax(predictions)
+#     return [result]
+
 def resize(rawimg):  # resize img to 28*28
     fx = 640.0 / rawimg.shape[0]
     fy = 480.0 / rawimg.shape[1]
@@ -34,6 +63,10 @@ def process(frame):
     upper_white = np.array([255, 255, 255])
     mask = cv2.inRange(hsv, lower_white, upper_white)
 
+    # im_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # ret, im_th = cv2.threshold(im_gray, 200, 255, cv2.THRESH_BINARY)
+    # cv2.imshow("im_th",im_th)
+    # cv2.waitKey(0)
     contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     pos_rect=[]
@@ -51,12 +84,15 @@ def process(frame):
             print w, h, w * h, mask_rect_color
             if(mask_rect_color<190):
                 continue
-            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
             pos_rect.append([x,y,w,h])
     # if(len(pos_rect)!=10):
     #     return
-    #cv2.imshow("frame", frame)
-    #cv2.waitKey(0)
+    # cv2.imshow("frame", frame)
+    # cv2.waitKey(0)
+    if len(pos_rect)!=10:
+        return
+
     pos_rect.sort(key=lambda x:(x[0],x[1]))
     pos_rect_left=pos_rect[0:5]
     pos_rect_left.sort(key=lambda x:(x[1]))
@@ -142,10 +178,10 @@ def process(frame):
         length=length/3
         length=length*2
         height=(pos_rect_left[0][3]+pos_rect_right[0][3])/2
-        height=height*1.8
+        height=height*2.0
 
         y=(pos_rect_left[0][1]+pos_rect_right[0][1])/2
-        y=y-((pos_rect_left[0][3]+pos_rect_right[0][3])/2)*2.1
+        y=y-((pos_rect_left[0][3]+pos_rect_right[0][3])/2)*2.5
 
         y=int(y)
         x=int(x)
@@ -158,7 +194,7 @@ def process(frame):
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         copy = pass_area.copy()
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
-        ret, im_th = cv2.threshold(im_gray, 200 , 255, cv2.THRESH_BINARY_INV)
+        ret, im_th = cv2.threshold(im_gray, 190 , 255, cv2.THRESH_BINARY)
 
         pad_rect=[]
         max_index=-1
@@ -244,7 +280,7 @@ def process(frame):
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         copy = result[i].copy()
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
-        ret, im_th = cv2.threshold(im_gray, 200 , 255, cv2.THRESH_BINARY_INV)
+        ret, im_th = cv2.threshold(im_gray, 190 , 255, cv2.THRESH_BINARY)
         temp_dict={}
         max_index=-1
         for i in contours:
@@ -264,7 +300,7 @@ def process(frame):
             #cv2.rectangle(im_gray, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
             #cv2.imshow(str(count),im_th )
         if max_index==-1:
-            cv2.imshow("wzq",im_th)
+            #cv2.imshow("wzq",im_th)
             print -1
             continue
         name= recognize(temp_dict[max_index])
@@ -276,6 +312,7 @@ def process(frame):
         count += 1
         cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
 
+    datainterface.SendPadPass(pad_final, pass_final)
     print "pad",pad_final
     print "pass",pass_final
 
@@ -283,11 +320,11 @@ def process(frame):
 
     #cv2.imshow("RotImg",RotImg)
 
-    cv2.imshow("frame",frame)
+    #cv2.imshow("frame",frame)
     #cv2.imshow("mask",mask)
     #cv2.waitKey(0)
 count=0
-
+datainterface=protocol.Protocol('192.168.1.100',6000)
 cap=cv2.VideoCapture(1)
 cap.set(3, 640)
 cap.set(4, 480)
@@ -295,13 +332,10 @@ while True:
 
     success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/52.jpg")
+    #frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/57.jpg")
     begin = datetime.datetime.now()
-
-# end = datetime.datetime.now()
-# print end-begin
     process(frame)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
 # for i in range(2,220):
 #     # if i in error:
 #     #     continue

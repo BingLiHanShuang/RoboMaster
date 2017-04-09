@@ -1,7 +1,7 @@
 import protocol
 import time
 import random
-a=protocol.Protocol('127.0.0.1',6000)
+a=protocol.Protocol('192.168.1.100',6000)
 def GeneratePad():
     num_origin=[1,2,3,4,5,6,7,8,9]
     num_res=""
@@ -19,11 +19,15 @@ def GeneraatePass():
         num_origin.remove(num_origin[index])
     return num_res
 
-while True:
 
-    send_pad=GeneratePad()
-    send_pass=GeneraatePass()
-    print send_pad,send_pass
-    a.SendPadPass(send_pad,send_pass)
+while True:
+    send_pass = GeneraatePass()
+    for i in range(5):
+        b=raw_input()
+        send_pad=GeneratePad()
+        a.SendPadPass(send_pad, send_pass)
+
+        print send_pad,send_pass
+
     time.sleep(1.5)
     #print 1

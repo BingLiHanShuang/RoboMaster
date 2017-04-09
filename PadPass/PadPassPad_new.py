@@ -185,7 +185,7 @@ def process(frame):
 count=0
 
 # error=[123,125,166,188,195,196,176,58]
-frame = cv2.imread("/Users/wzq/Downloads/pic_padpass/45.jpg")
+frame = cv2.imread("/Users/wzq/Downloads/pic_padpass/128.jpg")
 begin = datetime.datetime.now()
 
 end = datetime.datetime.now()
