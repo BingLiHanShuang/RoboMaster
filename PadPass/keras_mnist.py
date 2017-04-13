@@ -56,27 +56,22 @@ y_test=temp
 model = Sequential()
 
 model.add(Conv2D(32, 5,5,
-                 input_shape=(1,28, 28),border_mode='same'))
+                 input_shape=(1,28, 28),border_mode='valid'))
 model.add(Activation('relu'))
 
-model.add(MaxPooling2D(pool_size=(2, 2),border_mode='same'))
+model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
 model.add(Dropout(0.5))
 
-model.add(Conv2D(64, 5, 5, border_mode='same'))
+model.add(Conv2D(64, 5, 5, border_mode='valid'))
 model.add(Activation('relu'))
 
-model.add(MaxPooling2D(pool_size=(2, 2),border_mode='same'))
+model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
 model.add(Dropout(0.5))
-
-# model.add(Conv2D(256, 3, 3, activation='relu', border_mode='valid'))
-# model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
-# model.add(Dropout(0.5))
 
 model.add(Flatten())
 model.add(Dense(1024))
 model.add(Activation('relu'))
 
-# model.add(Dropout(0.5))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 
@@ -91,7 +86,7 @@ model.summary()
 model.compile(loss='categorical_crossentropy',
               optimizer=keras.optimizers.Adadelta(),
               metrics=['accuracy'])
-#model.load_weights('model_handwrite.h5')
+model.load_weights('model_handwrite.h5')
 #
 # graph_def = sess.graph.as_graph_def()
 # tf.train.write_graph(graph_def, logdir='.', name='model.pb', as_text=False)
