@@ -18,7 +18,7 @@ from keras import backend as K
 # K.set_session(sess)
 batch_size = 128
 num_classes = 10
-epochs = 5
+epochs = 2
 img_rows=28
 img_cols=28
 
@@ -26,8 +26,8 @@ img_cols=28
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
 # if K.image_data_format() == 'channels_first':
-x_train = x_train.reshape(x_train.shape[0], 1, img_rows, img_cols)
-x_test = x_test.reshape(x_test.shape[0], 1 , img_rows, img_cols)
+x_train = x_train.reshape(x_train.shape[0],1, img_rows, img_cols)
+x_test = x_test.reshape(x_test.shape[0], 1, img_rows, img_cols)
 input_shape = (1, img_rows, img_cols)
 # else:
 #     x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
@@ -55,43 +55,46 @@ y_test=temp
 
 model = Sequential()
 
+
+# model.add(Flatten(input_shape=(28, 28, 1)))
+# model.add(Dense(512))
+# model.add(Activation('relu'))
+# model.add(Dropout(0.2))
+# model.add(Dense(512))
+# model.add(Activation('relu'))
+# model.add(Dropout(0.2))
+# model.add(Dense(10))
+# model.add(Activation('softmax'))
+
+
+
+
 model.add(Conv2D(32, 5,5,
-                 input_shape=(1,28, 28),border_mode='same'))
+                 input_shape=(1,28,28),border_mode='valid'))
 model.add(Activation('relu'))
 
-model.add(MaxPooling2D(pool_size=(2, 2),border_mode='same'))
+model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
 model.add(Dropout(0.5))
 
-model.add(Conv2D(64, 5, 5, border_mode='same'))
+model.add(Conv2D(64, 5, 5, border_mode='valid'))
 model.add(Activation('relu'))
 
-model.add(MaxPooling2D(pool_size=(2, 2),border_mode='same'))
+model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
 model.add(Dropout(0.5))
-
-# model.add(Conv2D(256, 3, 3, activation='relu', border_mode='valid'))
-# model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
-# model.add(Dropout(0.5))
-
 model.add(Flatten())
 model.add(Dense(1024))
 model.add(Activation('relu'))
 
-# model.add(Dropout(0.5))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 
-# model.add(Dense(512, activation='relu', input_shape=(784,)))
-# model.add(Dropout(0.2))
-# model.add(Dense(512, activation='relu'))
-# model.add(Dropout(0.2))
-# model.add(Dense(10, activation='softmax'))
 
 model.summary()
 
 model.compile(loss='categorical_crossentropy',
               optimizer=keras.optimizers.Adadelta(),
               metrics=['accuracy'])
-#model.load_weights('model_handwrite.h5')
+# model.load_weights('model_handwrite.h5')
 #
 # graph_def = sess.graph.as_graph_def()
 # tf.train.write_graph(graph_def, logdir='.', name='model.pb', as_text=False)
