@@ -12,12 +12,12 @@ count=[0]*10
 for i,j in zip(x_train,y_train):
     i=255-i
     count[j]+=1
-    cv2.imwrite(dir+str(j)+"/"+str(count[j])+".jpg",i)
+    cv2.imwrite(dir+str(j)+"/"+str(count[j])+".bmp",i)
 
 for i,j in zip(x_test,y_test):
     i=255-i
     count[j]+=1
-    cv2.imwrite(dir+str(j)+"/"+str(count[j])+".jpg",i)
+    cv2.imwrite(dir+str(j)+"/"+str(count[j])+".bmp",i)
 
 print 1
 # for i in range(len(x_train)):

@@ -3,6 +3,8 @@ import numpy as np
 from sklearn.externals import joblib
 from skimage.feature import hog
 import datetime
+from keras import backend as K
+K.set_image_dim_ordering('th')
 from keras.models import model_from_json
 
 
@@ -31,7 +33,7 @@ def recognize1(img):
     gray=img
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     res = resize1(gray)
-    res = np.resize(res, (1,28,28,1))
+    res = np.resize(res, (1,1,28,28))
     predictions = model.predict(res)
     result = np.argmax(predictions)
     return result
