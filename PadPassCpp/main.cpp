@@ -10,6 +10,7 @@
 using namespace std;
 using namespace cv;
 using namespace keras;
+static int count_digit=0;
 KerasModel m("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
 Mat resizeimg(Mat rawimg);
 Mat resize_resize(Mat rawimage){
@@ -103,7 +104,7 @@ void slice_third_line(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect
         Rect rect=Rect(x1+ length1*i,y1,length1,height1);
         Mat mat(frame_copy,rect);
         image_digit.push_back(mat);
-//        imshow(to_string(i),mat);
+        //imshow(to_string(i),mat);
     }
 
 }
@@ -190,8 +191,11 @@ void process(Mat frame){
         Mat image_max=temp_dict[max_index];
         image_digit_final.push_back(image_max);
     }
+    count_digit=0;
     for (int i = 0; i < 9; ++i) {
+
         resizeimg(image_digit_final[i]);
+        count_digit++;
     }
     //利用卷积神经网络进行识别
 
@@ -206,8 +210,6 @@ int predict(cv::Mat img){   //预测数字 conv
         for (int j = 0; j < img.cols; j++) {
             uchar temp=img.at<uchar>(i, j);
             r.push_back(temp/255);
-
-//            r.push_back(img.at<uchar>(i, j)/255.0);
         }
         d.push_back(r);
     }
@@ -221,8 +223,8 @@ int predict(cv::Mat img){   //预测数字 conv
 
     auto max = max_element(predictions.begin(), predictions.end());
     int index = (int)distance(predictions.begin(), max);
-    imshow("predict"+to_string(index),img);
-    waitKey(0);
+    imshow(to_string(count_digit)+"-"+to_string(index),img);
+//    waitKey(0);
     return index;
 }
 Mat resizeimg(Mat rawimg){
@@ -249,73 +251,6 @@ Mat resizeimg(Mat rawimg){
     predict(outimg);
     return outimg;
 
-//    static  int count=0;
-//    float fx=28/(float)rawimg.size().width;
-//    float fy=28/(float)rawimg.size().height;
-//    fx = fy = min(fx, fy);
-//    Mat resized;
-//    resize(rawimg,resized,Size(),fx,fy,INTER_CUBIC);
-//    imshow(to_string(count),resized);
-//
-//    int w = resized.size().width;
-//    int h = resized.size().height;
-//    int x = (28 - w) / 2;
-//    int y = (28 - h) / 2;
-    vector<vector<float>> result(28, vector<float>(28));
-//    for (int i = 0; i < w; ++i) {
-//        for (int j = 0; j < x+w; ++j) {
-//            Vec3b intensity = resized.at<uchar>(i, j);
-//
-////            float temp=(float)resized.at<Vec3b>(j,i)[0];
-////            int a=temp>0?1:0;
-//            cout<<((int)intensity[0]);
-//        }
-//        cout<<endl;
-//    }
-//    for (int i = 0; i < h; ++i) {
-//        for (int j = 0; j <w; ++j) {
-//            float temp=(float)resized.at<uchar>(i,j);
-//            result[i+y][j+x]=temp;
-//
-//        }
-//        //cout<<endl;
-//
-//
-//    }
-//    for (int i = 0; i < 28; ++i) {
-//        for (int j = 0; j < 28; ++j) {
-//            cout<<(result[i][j]>0?1:0);
-//
-//        }
-//        cout<<endl;
-//    }
-//
-//
-//    Mat mat(28, 28, CV_64F);
-//    for(int i = 0; i < result.size(); ++i)
-//        mat.row(i) = Mat(result[i]);
-//    cout << mat << endl;
-//    imshow("test",mat);
-//    waitKey(0);
-//
-//
-//    vector<vector<vector<float>>> input_neural;
-//    input_neural.push_back(result);
-//
-//
-//
-//    DataChunk *sample = new DataChunk2D();
-//    sample->set_data(input_neural);
-//
-//    std::cout << sample->get_3d().size() << std::endl;
-//
-//
-//    m.compute_output(sample);
-//
-//    count++;
-//    waitKey(0);
-//    return resized;
-
 
 
 }
@@ -329,30 +264,20 @@ void recognize(Mat mat){
 
 }
 int main() {
-//    DataChunk *sample = new DataChunk2D();
-//    sample->read_from_file("/Users/wzq/keras2cpp/example/sample_mnist.dat");
-//    std::cout << sample->get_3d().size() << std::endl;
-//    m.compute_output(sample);
 
-    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test/543.jpg");
-    Mat frame1=imread("/Users/wzq/Downloads/mnist/0/3781.jpg",1);
-    Mat im_th;
-   // threshold(frame1,im_th,230,255,THRESH_BINARY_INV);
-
-//imshow("im_th",im_th);
-//    waitKey(0);
-   // predict(im_th);
-
-//    frame=resize_resize(frame);
+    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test/796.jpg");
     clock_t tStart;
-    tStart= clock();
-//    m.compute_output(sample);
-    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
-    tStart= clock();
-    process(frame);
-    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+//    tStart= clock();
+////    m.compute_output(sample);
+//    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     tStart= clock();
     process(frame);
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+    imshow("frame",frame);
+    waitKey(0);
+
+//    tStart= clock();
+//    process(frame);
+//    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     return 0;
 }
