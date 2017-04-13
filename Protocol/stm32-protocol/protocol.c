@@ -116,6 +116,7 @@ void enque_uint8(BufferData* res,uint8_t data){
     return;
 }
 void presendtoserial(void *payload, uint32_t size) {
+    print(payload,size);
     BufferData result_temp;
     result_temp.len=0;
     result_temp.data=(uint8_t*)malloc(sizeof(uint8_t)*512);//malloc 1
@@ -222,7 +223,11 @@ void SaveVideoRecordStatus(VideoRecord * mVideoRecord){
     callback_VideoRecordStatus();
 }
 void print(uint8_t * data,int len){//for debug
+<<<<<<< Updated upstream
 #define hex_nospace
+=======
+#define nohex
+>>>>>>> Stashed changes
 #ifdef hex
     for (int i = 0; i < len; ++i) {
         printf("0x%02x,",data[i]);
@@ -237,12 +242,19 @@ void print(uint8_t * data,int len){//for debug
     printf("\n");
 
 #endif
+<<<<<<< Updated upstream
 #ifdef hex_nospace
+=======
+#ifdef nohex
+>>>>>>> Stashed changes
     for (int i = 0; i < len; ++i) {
         printf("%02x",data[i]);
     }
     printf("\n");
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 #endif
 }
 void DispatchMessage() {//process the received buffer
