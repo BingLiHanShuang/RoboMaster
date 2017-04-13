@@ -26,6 +26,8 @@ def resize1(rawimg):  # resize img to 28*28
     x = (28 - w) / 2
     y = (28 - h) / 2
     outimg[y:y+h, x:x+w] = img
+    cv2.imshow("out",outimg)
+    cv2.waitKey(0)
     return outimg
 
 

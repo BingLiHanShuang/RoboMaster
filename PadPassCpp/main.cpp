@@ -168,6 +168,7 @@ void process(Mat frame){
         cvtColor(copy,im_gray,COLOR_BGR2GRAY);
         Mat im_th;
         threshold(im_gray,im_th,230,255,THRESH_BINARY_INV);
+
         map<int,Mat> temp_dict;
         int max_index=-1;
         for (int j = 0; j < contours.size(); ++j) {
@@ -195,19 +196,71 @@ void process(Mat frame){
     //利用卷积神经网络进行识别
 
 }
-Mat resizeimg(Mat &rawimg){
-    static  int count=0;
-    float fx=28/(float)rawimg.size().width;
-    float fy=28/(float)rawimg.size().height;
-    fx = fy = min(fx, fy);
-    Mat resized;
-    resize(rawimg,resized,Size(),fx,fy,INTER_CUBIC);
-    imshow(to_string(count),resized);
+int predict(cv::Mat img){   //预测数字 conv
+//    cv::bitwise_not(img, img);
 
-    int w = resized.size().width;
-    int h = resized.size().height;
-    int x = (28 - w) / 2;
-    int y = (28 - h) / 2;
+    vector<vector<vector<float>>> data;
+    vector<vector<float>> d;
+    for (int i = 0; i < img.rows; i++) {
+        vector<float> r;
+        for (int j = 0; j < img.cols; j++) {
+            uchar temp=img.at<uchar>(i, j);
+            r.push_back(temp>0?0:1);
+
+//            r.push_back(img.at<uchar>(i, j)/255.0);
+        }
+        d.push_back(r);
+    }
+    data.push_back(d);
+
+    DataChunk * dc = new DataChunk2D();
+    dc->set_data(data); //Mat 转 DataChunk
+
+    vector<float> predictions = m.compute_output(dc);
+//    predictions[10] = 0;
+
+    auto max = max_element(predictions.begin(), predictions.end());
+    int index = (int)distance(predictions.begin(), max);
+    imshow("predict"+to_string(index),img);
+    waitKey(0);
+    return index;
+}
+Mat resizeimg(Mat &rawimg){
+    int width=28;
+    cv::Mat outimg(width, width, CV_8U, 255);
+
+
+
+    outimg = cv::Scalar(0,0,0);
+    float fc = (float)width / rawimg.cols;
+    float fr = (float)width / rawimg.rows;
+    fc = min(fc, fr);
+    fr = fc;
+    cv::Size size;
+    size.width = rawimg.cols * fc;
+    size.height = rawimg.rows * fr;
+    if(size.width == 0 || size.height == 0)return outimg;
+    cv::resize(rawimg, rawimg, size);
+    int w = rawimg.cols, h = rawimg.rows;
+    int x = (width - w)/2, y = (width - h)/2;
+    rawimg.copyTo(outimg(cv::Rect(x, y, w, h)));
+    //imshow("test",outimg);
+    //waitKey(0);
+    predict(outimg);
+    return outimg;
+
+//    static  int count=0;
+//    float fx=28/(float)rawimg.size().width;
+//    float fy=28/(float)rawimg.size().height;
+//    fx = fy = min(fx, fy);
+//    Mat resized;
+//    resize(rawimg,resized,Size(),fx,fy,INTER_CUBIC);
+//    imshow(to_string(count),resized);
+//
+//    int w = resized.size().width;
+//    int h = resized.size().height;
+//    int x = (28 - w) / 2;
+//    int y = (28 - h) / 2;
     vector<vector<float>> result(28, vector<float>(28));
 //    for (int i = 0; i < w; ++i) {
 //        for (int j = 0; j < x+w; ++j) {
@@ -219,38 +272,49 @@ Mat resizeimg(Mat &rawimg){
 //        }
 //        cout<<endl;
 //    }
-    for (int i = 0; i < h; ++i) {
-        for (int j = 0; j <w; ++j) {
-            float temp=(float)resized.at<uchar>(i,j);
-            result[i+y][j+x]=temp/255;
-
-        }
-        //cout<<endl;
-
-
-    }
-    for (int i = 0; i < 28; ++i) {
-        for (int j = 0; j < 28; ++j) {
-            cout<<(result[i][j]>0?1:0);
-
-        }
-        cout<<endl;
-    }
-    vector<vector<vector<float>>> input_neural;
-    input_neural.push_back(result);
-
-
-    DataChunk *sample = new DataChunk2D();
-    sample->set_data(input_neural);
-
-    std::cout << sample->get_3d().size() << std::endl;
-
-
-    m.compute_output(sample);
-
-    count++;
-    waitKey(0);
-    return resized;
+//    for (int i = 0; i < h; ++i) {
+//        for (int j = 0; j <w; ++j) {
+//            float temp=(float)resized.at<uchar>(i,j);
+//            result[i+y][j+x]=temp;
+//
+//        }
+//        //cout<<endl;
+//
+//
+//    }
+//    for (int i = 0; i < 28; ++i) {
+//        for (int j = 0; j < 28; ++j) {
+//            cout<<(result[i][j]>0?1:0);
+//
+//        }
+//        cout<<endl;
+//    }
+//
+//
+//    Mat mat(28, 28, CV_64F);
+//    for(int i = 0; i < result.size(); ++i)
+//        mat.row(i) = Mat(result[i]);
+//    cout << mat << endl;
+//    imshow("test",mat);
+//    waitKey(0);
+//
+//
+//    vector<vector<vector<float>>> input_neural;
+//    input_neural.push_back(result);
+//
+//
+//
+//    DataChunk *sample = new DataChunk2D();
+//    sample->set_data(input_neural);
+//
+//    std::cout << sample->get_3d().size() << std::endl;
+//
+//
+//    m.compute_output(sample);
+//
+//    count++;
+//    waitKey(0);
+//    return resized;
 
 
 
@@ -265,16 +329,24 @@ void recognize(Mat mat){
 
 }
 int main() {
-    DataChunk *sample = new DataChunk2D();
-    sample->read_from_file("/Users/wzq/keras2cpp/example/sample_mnist.dat");
-    std::cout << sample->get_3d().size() << std::endl;
-    m.compute_output(sample);
+//    DataChunk *sample = new DataChunk2D();
+//    sample->read_from_file("/Users/wzq/keras2cpp/example/sample_mnist.dat");
+//    std::cout << sample->get_3d().size() << std::endl;
+//    m.compute_output(sample);
 
     Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test/543.jpg");
+    Mat frame1=imread("/Users/wzq/Downloads/mnist/0/3781.jpg",1);
+    Mat im_th;
+    threshold(frame1,im_th,230,255,THRESH_BINARY_INV);
+
+//imshow("im_th",im_th);
+//    waitKey(0);
+    predict(im_th);
+
 //    frame=resize_resize(frame);
     clock_t tStart;
     tStart= clock();
-    m.compute_output(sample);
+//    m.compute_output(sample);
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     tStart= clock();
     process(frame);
