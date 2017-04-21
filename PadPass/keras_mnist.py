@@ -123,4 +123,4 @@ with open("model_handwrite.json", "w") as json_file:
 model.save_weights("model_handwrite.h5")
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
-print('Test accuracy:', score[1])
+print('Test accuracy:', scoraaie[1])
