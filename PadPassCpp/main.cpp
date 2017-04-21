@@ -265,7 +265,7 @@ void recognize(Mat mat){
 }
 int main() {
 
-    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test/796.jpg");
+    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test/994.jpg");
     clock_t tStart;
 //    tStart= clock();
 ////    m.compute_output(sample);

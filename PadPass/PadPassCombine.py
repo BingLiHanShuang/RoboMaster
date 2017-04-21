@@ -26,8 +26,8 @@ def resize1(rawimg):  # resize img to 28*28
     x = (28 - w) / 2
     y = (28 - h) / 2
     outimg[y:y+h, x:x+w] = img
-    cv2.imshow("out",outimg)
-    cv2.waitKey(0)
+    # cv2.imshow("out",outimg)
+    # cv2.waitKey(0)
     return outimg
 
 
@@ -64,37 +64,54 @@ def process(frame):
 
     frame=resize(frame)
     frame = cv2.GaussianBlur(frame, (5, 5), 1)
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    lower_white = np.array([0, 0, 180])
-    upper_white = np.array([255, 255, 255])
-    mask = cv2.inRange(hsv, lower_white, upper_white)
 
-    contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    # cv2.imshow("a",mask)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # bw = cv2.adaptiveThreshold(gray, 200, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 25, 25)
+    edge = cv2.Canny(gray, 500, 1500, apertureSize=5)
+
+    # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    # lower_white = np.array([0, 0, 100])
+    # upper_white = np.array([255, 255, 255])
+    # mask = cv2.inRange(hsv, lower_white, upper_white)
+
+    contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    # cv2.imshow("edge",edge)
     # cv2.waitKey(0)
     pos_rect=[]
     for cnt in contours:
         approx = cv2.approxPolyDP(cnt, 0.04 * cv2.arcLength(cnt, True), True)
-        if len(approx) == 4 or len(approx)==5 or len(approx)==6:
+        if len(approx) >=4 or len(approx) <=10:
             x, y, w, h = cv2.boundingRect(cnt)
             #w,h,x,y=int(rect[0][1]),int(rect[0][1]),int(rect[1][0]),int(rect[1][1])
-            if  w*h<100 or w*h>300 or h>w or w/float(h)<=1:
+            if  w*h<300 or w*h>520  or h>w or w/float(h)<=1:
                 continue
            # mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
 #            cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
             x1, y1, w1, h1 = cv2.boundingRect(cnt)
-            mask_rect_color= mask[y1:y1+h1, x1:x1+w1].mean()
-            if(mask_rect_color<205):
+            mask_rect_color= gray[y1:y1+h1, x1:x1+w1].mean()
+            if(mask_rect_color>80 or mask_rect_color<40):
                 continue
             print w, h, w * h, mask_rect_color
 
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-            pos_rect.append([x,y,w,h])
+            pos_rect.append((x,y,w,h))
     # if(len(pos_rect)!=10):
     #     return
-   # cv2.imshow("frame", frame)
-    #cv2.waitKey(0)
+    #pos_rect=list(set(pos_rect))
+    cv2.imshow("frame", frame)
+    cv2.waitKey(0)
     pos_rect.sort(key=lambda x:(x[0],x[1]))
+    pos_rect_new=[]
+    pos_rect_new.append(pos_rect[0])
+    for i in range(len(pos_rect)-1):
+        distance=abs(pos_rect[i][0]-pos_rect[i+1][0])+abs(pos_rect[i][1]-pos_rect[i+1][1])
+        if distance <10:
+            continue
+        pos_rect_new.append(pos_rect[i+1])
+    pos_rect=pos_rect_new
+
+
     pos_rect_left=pos_rect[0:5]
     pos_rect_left.sort(key=lambda x:(x[1]))
     pos_rect_right=pos_rect[5:10]
@@ -185,9 +202,14 @@ def process(frame):
         edge = cv2.Canny(result[i], 500, 2000, apertureSize=5)
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         copy = result[i].copy()
+
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
 
-        ret, im_th = cv2.threshold(im_gray, 230  , 255, cv2.THRESH_BINARY_INV)
+        ret, im_th = cv2.threshold(im_gray, 100  , 255, cv2.THRESH_BINARY_INV)
+        # cv2.imshow("im_gray", im_gray)
+        # cv2.imshow("im_th", im_th)
+        #
+        # cv2.waitKey(0)
         temp_dict={}
         max_index=-1
         for i in contours:
@@ -238,7 +260,7 @@ while True:
 
     #success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/543.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test2/1279.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()

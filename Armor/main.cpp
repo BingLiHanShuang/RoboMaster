@@ -34,6 +34,7 @@ void GetDiffImage(IplImage* src1, IplImage* src2, IplImage* dst, int nThre)
 			}
 		}
 	}
+
 }
 
 vector<CvBox2D> ArmorDetect(vector<CvBox2D> vEllipse)
