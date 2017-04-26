@@ -13,6 +13,11 @@ with open('model_handwrite.json', 'r') as f:
 model.load_weights('model_handwrite.h5')
 model.summary()
 
+with open('model_led.json', 'r') as f:
+    model_led = model_from_json(f.read())
+model_led.load_weights('model_led.h5')
+model_led.summary()
+
 
 clf = joblib.load("digits_cls1.pkl")
 def resize1(rawimg):  # resize img to 28*28
@@ -38,6 +43,16 @@ def recognize1(img):
     res = np.resize(res, (1,1,28,28))
     predictions = model.predict(res)
     result = np.argmax(predictions)
+    # print result,predictions
+    return result
+def recognize_led(img):
+    gray=img
+    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    res = resize1(gray)
+    res = np.resize(res, (1,1,28,28))
+    predictions = model_led.predict(res)
+    result = np.argmax(predictions)
+    # print result,predictions
     return result
 def recognize(image):
     roi = cv2.resize(image, (28, 28), interpolation=cv2.INTER_AREA)
@@ -84,13 +99,13 @@ def process(frame):
         if len(approx) >=4 or len(approx) <=10:
             x, y, w, h = cv2.boundingRect(cnt)
             #w,h,x,y=int(rect[0][1]),int(rect[0][1]),int(rect[1][0]),int(rect[1][1])
-            if  w*h<300 or w*h>520  or h>w or w/float(h)<=1:
+            if  w*h<350 or w*h>550  or h>w or w/float(h)<=1 or w/float(h)>=3 or x<10 or x>400:
                 continue
            # mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
 #            cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
             x1, y1, w1, h1 = cv2.boundingRect(cnt)
             mask_rect_color= gray[y1:y1+h1, x1:x1+w1].mean()
-            if(mask_rect_color>80 or mask_rect_color<40):
+            if(mask_rect_color>80 or mask_rect_color<50):
                 continue
             print w, h, w * h, mask_rect_color
 
@@ -99,8 +114,8 @@ def process(frame):
     # if(len(pos_rect)!=10):
     #     return
     #pos_rect=list(set(pos_rect))
-    cv2.imshow("frame", frame)
-    cv2.waitKey(0)
+    #cv2.imshow("frame", frame)
+    #cv2.waitKey(0)
     pos_rect.sort(key=lambda x:(x[0],x[1]))
     pos_rect_new=[]
     pos_rect_new.append(pos_rect[0])
@@ -189,6 +204,61 @@ def process(frame):
             #cv2.rectangle(frame, (x+ length*i, y), (x + length*(i+1), y+ height), (0, 255, 0), 2)
         return result
 
+    def slice_led():
+        arg_line=0
+        x=pos_rect_left[arg_line][0]+pos_rect_left[arg_line][2]
+        y=(pos_rect_left[arg_line][1]+pos_rect_right[arg_line][1])/2
+        length=0
+        height=(pos_rect_left[arg_line][3]+pos_rect_right[arg_line][3])/2
+        for i in range(2):
+            length+=(pos_rect_right[i][0]-pos_rect_left[i][0]-pos_rect_left[i][2])
+        length=(length)/2
+
+        led_x=(270/950.0)*length+x
+        led_width=(415/950.0)*length
+
+        led_height = (155 / 57.0) * height
+        led_y = y - led_height*1.2
+
+        led_y=int(led_y)
+        led_x=int(led_x)
+        led_width=int(led_width)
+        led_height=int(led_height)
+        led_screen=frame.copy()[led_y:led_y + led_height, led_x:led_x + led_width]
+
+        hsv = cv2.cvtColor(led_screen, cv2.COLOR_BGR2HSV)
+        lower_white = np.array([0, 0, 190])
+        upper_white = np.array([255, 255, 255])
+        kernel = np.ones((3, 3), np.uint8)
+
+        mask = cv2.inRange(hsv, lower_white, upper_white)
+
+        mask = cv2.dilate(mask, kernel, iterations=1)
+
+        digitCnts = []
+        contours1, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        for i,cnt in enumerate(contours1):
+            x1, y1, w1, h1 = cv2.boundingRect(cnt)
+            # print x1, y1, w1, h1
+
+            if (h1 < 10):
+                continue
+            digitCnts.append(cnt)
+            res=recognize_led(mask[y1:y1+h1, x1:x1+w1])
+            #cv2.imshow("led"+str(i)+"-"+str(res),mask[y1:y1+h1, x1:x1+w1])
+
+
+            #cv2.rectangle(frame, (x1, y1), (x1 + w1, y1 + h1), (0, 0, 255), 2)
+        #digitCnts = contours.sort_contours(digitCnts,method="left-to-right")[0]
+        #for i,j in enumerate(digitCnts):
+
+
+
+
+        #cv2.imshow("led_screen",mask)
+        #cv2.waitKey(0)
+
+    slice_led()
     slice_first_line()
     slice_second_line()
     slice_third_line()
@@ -196,16 +266,17 @@ def process(frame):
 
 
 
-
+    digit_pad=[]
 
     for i in range(9):
         edge = cv2.Canny(result[i], 500, 2000, apertureSize=5)
         contours, hierarchy = cv2.findContours(edge.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         copy = result[i].copy()
+        #cv2.imshow("origin",copy)
 
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
 
-        ret, im_th = cv2.threshold(im_gray, 100  , 255, cv2.THRESH_BINARY_INV)
+        ret, im_th = cv2.threshold(im_gray, 105  , 255, cv2.THRESH_BINARY_INV)
         # cv2.imshow("im_gray", im_gray)
         # cv2.imshow("im_th", im_th)
         #
@@ -232,25 +303,52 @@ def process(frame):
             cv2.imshow("wzq",im_th)
             print -1
             continue
+        digit_pad.append(temp_dict[max_index].copy())
+
         name= recognize1(temp_dict[max_index])
-        print name
-        #cv2.imwrite("test/"+str(count)+".jpg",temp_dict[max_index])
-            # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
-            # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
+        # print name
+        # #cv2.imwrite("test/"+str(count)+".jpg",temp_dict[max_index])
+        #     # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
+        #     # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
         cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
 
         #cv2.imshow("im_gray",im_gray)
-        #cv2.imshow("max_rect"+str(count), temp_dict[max_index].copy())
+    #     #cv2.imshow("max_rect"+str(count), temp_dict[max_index].copy())
+    # for i in range(len(digit_pad)):
+    #     contours, hierarchy = cv2.findContours(digit_pad[i].copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    #     temp_dict={}
+    #     max_index=-1
+    #     for j in contours:
+    #         x2, y2, w2, h2 = cv2.boundingRect(j)
+    #         area=w2*h2
+    #
+    #         if w2<2 or h2<2:
+    #             continue
+    #         #print w2, h2, area
+    #         # if x2<0.15*w2 or x2>0.85*w2:
+    #         #     continue
+    #         # if(w>0.8*w):
+    #         #     continue
+    #         max_index=max([max_index,area])
+    #         img_temp=digit_pad[i][y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
+    #         temp_dict[area]=img_temp
+    #     name = recognize1(temp_dict[max_index])
+        #cv2.imshow(str(i) + "-" + str(name), temp_dict[max_index].copy())
+
+
+
+
+
     end = datetime.datetime.now()
     print end-begin
     #cv2.waitKey(0)
 
     #cv2.imshow("RotImg",RotImg)
 
-    cv2.imshow("frame",frame)
+    #cv2.imshow("frame",frame)
     #cv2.imshow("mask",mask)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
 count=0
 
 cap=cv2.VideoCapture(1)
@@ -260,7 +358,7 @@ while True:
 
     #success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test2/1279.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test2/1275.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
