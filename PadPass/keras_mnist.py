@@ -18,7 +18,7 @@ from keras import backend as K
 # K.set_session(sess)
 batch_size = 128
 num_classes = 10
-epochs = 30
+epochs = 0
 img_rows=28
 img_cols=28
 
@@ -123,4 +123,4 @@ with open("model_handwrite.json", "w") as json_file:
 model.save_weights("model_handwrite.h5")
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
-print('Test accuracy:', scoraaie[1])
+print('Test accuracy:', score[1])
