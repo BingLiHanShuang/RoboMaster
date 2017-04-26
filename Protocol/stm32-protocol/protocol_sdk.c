@@ -41,6 +41,10 @@ void callback_VideoRecordStatus(){
 	*/
 
 }
+void callback_UltraSonic(){
+    //测距信息到达回调
+
+};
 
 /*
  * 发送接口,下面的函数已经实现,直接调用

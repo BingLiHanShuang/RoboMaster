@@ -19,6 +19,7 @@ typedef struct _PosPoint PosPoint;
 typedef struct _ScanResult ScanResult;
 typedef struct _PadPass PadPass;
 typedef struct _VideoRecord VideoRecord;
+typedef struct _UltraSonic UltraSonic;
 typedef struct _Message Message;
 
 
@@ -40,7 +41,8 @@ typedef enum _Message__MessageType {
   MESSAGE__MESSAGE_TYPE__NULL = 0,
   MESSAGE__MESSAGE_TYPE__ScanResult = 1,
   MESSAGE__MESSAGE_TYPE__PadPass = 2,
-  MESSAGE__MESSAGE_TYPE__VideoRecord = 3
+  MESSAGE__MESSAGE_TYPE__VideoRecord = 3,
+  MESSAGE__MESSAGE_TYPE__UltraSonic = 4
     PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(MESSAGE__MESSAGE_TYPE)
 } Message__MessageType;
 
@@ -102,6 +104,17 @@ struct  _VideoRecord
 #define VIDEO_RECORD__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&video_record__descriptor) \
     , 0,0, 0,0, NULL, NULL, NULL }
+
+
+struct  _UltraSonic
+{
+  ProtobufCMessage base;
+  protobuf_c_boolean has_height;
+  float height;
+};
+#define ULTRA_SONIC__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&ultra_sonic__descriptor) \
+    , 0,0 }
 
 
 struct  _Message
@@ -193,6 +206,25 @@ VideoRecord *
 void   video_record__free_unpacked
                      (VideoRecord *message,
                       ProtobufCAllocator *allocator);
+/* UltraSonic methods */
+void   ultra_sonic__init
+                     (UltraSonic         *message);
+size_t ultra_sonic__get_packed_size
+                     (const UltraSonic   *message);
+size_t ultra_sonic__pack
+                     (const UltraSonic   *message,
+                      uint8_t             *out);
+size_t ultra_sonic__pack_to_buffer
+                     (const UltraSonic   *message,
+                      ProtobufCBuffer     *buffer);
+UltraSonic *
+       ultra_sonic__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   ultra_sonic__free_unpacked
+                     (UltraSonic *message,
+                      ProtobufCAllocator *allocator);
 /* Message methods */
 void   message__init
                      (Message         *message);
@@ -226,6 +258,9 @@ typedef void (*PadPass_Closure)
 typedef void (*VideoRecord_Closure)
                  (const VideoRecord *message,
                   void *closure_data);
+typedef void (*UltraSonic_Closure)
+                 (const UltraSonic *message,
+                  void *closure_data);
 typedef void (*Message_Closure)
                  (const Message *message,
                   void *closure_data);
@@ -241,6 +276,7 @@ extern const ProtobufCMessageDescriptor pad_pass__descriptor;
 extern const ProtobufCMessageDescriptor video_record__descriptor;
 extern const ProtobufCEnumDescriptor    video_record__control_type__descriptor;
 extern const ProtobufCEnumDescriptor    video_record__status_type__descriptor;
+extern const ProtobufCMessageDescriptor ultra_sonic__descriptor;
 extern const ProtobufCMessageDescriptor message__descriptor;
 extern const ProtobufCEnumDescriptor    message__message_type__descriptor;
 

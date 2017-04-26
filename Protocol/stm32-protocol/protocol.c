@@ -22,6 +22,7 @@ extern "C" {
 ScanData scanData;
 PadPassData padPassData;
 VideoRecordStatusData videoRecordStatusData;
+UltraSonicData ultraSonicData;
 uint8_t uart_buffer_1[256];
 const unsigned int crc32tab[] = {
         0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL,
@@ -222,12 +223,11 @@ void SaveVideoRecordStatus(VideoRecord * mVideoRecord){
     videoRecordStatusData.flag_read=0;
     callback_VideoRecordStatus();
 }
+void SaveUltraSonic(UltraSonic *mUltraSonic){
+    ultraSonicData.height=mUltraSonic->height;
+    callback_UltraSonic();
+}
 void print(uint8_t * data,int len){//for debug
-<<<<<<< Updated upstream
-#define hex_nospace
-=======
-#define nohex
->>>>>>> Stashed changes
 #ifdef hex
     for (int i = 0; i < len; ++i) {
         printf("0x%02x,",data[i]);
@@ -242,19 +242,12 @@ void print(uint8_t * data,int len){//for debug
     printf("\n");
 
 #endif
-<<<<<<< Updated upstream
 #ifdef hex_nospace
-=======
-#ifdef nohex
->>>>>>> Stashed changes
+
     for (int i = 0; i < len; ++i) {
         printf("%02x",data[i]);
     }
     printf("\n");
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 #endif
 }
 void DispatchMessage() {//process the received buffer
@@ -293,9 +286,12 @@ void DispatchMessage() {//process the received buffer
         VideoRecord* videoRecord_temp=video_record__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
         SaveVideoRecordStatus(videoRecord_temp);
         video_record__free_unpacked(videoRecord_temp,NULL);
-
     }
-
+    if(message_temp->messagetype==MESSAGE__MESSAGE_TYPE__UltraSonic){//超声波测距
+        UltraSonic * ultraSonic_temp=ultra_sonic__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
+        SaveUltraSonic(ultraSonic_temp);
+        ultra_sonic__free_unpacked(ultraSonic_temp,NULL);
+    }
 
     message__free_unpacked(message_temp, NULL);
 

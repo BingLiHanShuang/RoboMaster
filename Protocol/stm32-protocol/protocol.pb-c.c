@@ -179,6 +179,49 @@ void   video_record__free_unpacked
   assert(message->base.descriptor == &video_record__descriptor);
   protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
 }
+void   ultra_sonic__init
+                     (UltraSonic         *message)
+{
+  static UltraSonic init_value = ULTRA_SONIC__INIT;
+  *message = init_value;
+}
+size_t ultra_sonic__get_packed_size
+                     (const UltraSonic *message)
+{
+  assert(message->base.descriptor == &ultra_sonic__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t ultra_sonic__pack
+                     (const UltraSonic *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &ultra_sonic__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t ultra_sonic__pack_to_buffer
+                     (const UltraSonic *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &ultra_sonic__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+UltraSonic *
+       ultra_sonic__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (UltraSonic *)
+     protobuf_c_message_unpack (&ultra_sonic__descriptor,
+                                allocator, len, data);
+}
+void   ultra_sonic__free_unpacked
+                     (UltraSonic *message,
+                      ProtobufCAllocator *allocator)
+{
+  assert(message->base.descriptor == &ultra_sonic__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
 void   message__init
                      (Message         *message)
 {
@@ -564,21 +607,61 @@ const ProtobufCMessageDescriptor video_record__descriptor =
   (ProtobufCMessageInit) video_record__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCEnumValue message__message_type__enum_values_by_number[4] =
+static const ProtobufCFieldDescriptor ultra_sonic__field_descriptors[1] =
+{
+  {
+    "height",
+    1,
+    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_TYPE_FLOAT,
+    offsetof(UltraSonic, has_height),
+    offsetof(UltraSonic, height),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned ultra_sonic__field_indices_by_name[] = {
+  0,   /* field[0] = height */
+};
+static const ProtobufCIntRange ultra_sonic__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor ultra_sonic__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "UltraSonic",
+  "UltraSonic",
+  "UltraSonic",
+  "",
+  sizeof(UltraSonic),
+  1,
+  ultra_sonic__field_descriptors,
+  ultra_sonic__field_indices_by_name,
+  1,  ultra_sonic__number_ranges,
+  (ProtobufCMessageInit) ultra_sonic__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCEnumValue message__message_type__enum_values_by_number[5] =
 {
   { "NULL", "MESSAGE__MESSAGE_TYPE__NULL", 0 },
   { "ScanResult", "MESSAGE__MESSAGE_TYPE__ScanResult", 1 },
   { "PadPass", "MESSAGE__MESSAGE_TYPE__PadPass", 2 },
   { "VideoRecord", "MESSAGE__MESSAGE_TYPE__VideoRecord", 3 },
+  { "UltraSonic", "MESSAGE__MESSAGE_TYPE__UltraSonic", 4 },
 };
 static const ProtobufCIntRange message__message_type__value_ranges[] = {
-{0, 0},{0, 4}
+{0, 0},{0, 5}
 };
-static const ProtobufCEnumValueIndex message__message_type__enum_values_by_name[4] =
+static const ProtobufCEnumValueIndex message__message_type__enum_values_by_name[5] =
 {
   { "NULL", 0 },
   { "PadPass", 2 },
   { "ScanResult", 1 },
+  { "UltraSonic", 4 },
   { "VideoRecord", 3 },
 };
 const ProtobufCEnumDescriptor message__message_type__descriptor =
@@ -588,9 +671,9 @@ const ProtobufCEnumDescriptor message__message_type__descriptor =
   "MessageType",
   "Message__MessageType",
   "",
-  4,
+  5,
   message__message_type__enum_values_by_number,
-  4,
+  5,
   message__message_type__enum_values_by_name,
   1,
   message__message_type__value_ranges,

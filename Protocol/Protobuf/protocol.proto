@@ -32,12 +32,16 @@ message VideoRecord{
 	string DeviceId=4;
 	string Operator=5;
 }
+message UltraSonic{
+	float height=1;
+}
 message Message {
 	enum MessageType{
 		NULL = 0;
 		ScanResult=1;
 		PadPass=2;
 		VideoRecord=3;
+		UltraSonic=4;
 	}
 	MessageType messagetype = 1;  
 	bytes data = 2;

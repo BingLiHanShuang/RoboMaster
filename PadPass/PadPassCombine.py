@@ -245,7 +245,7 @@ def process(frame):
                 continue
             digitCnts.append(cnt)
             res=recognize_led(mask[y1:y1+h1, x1:x1+w1])
-            #cv2.imshow("led"+str(i)+"-"+str(res),mask[y1:y1+h1, x1:x1+w1])
+            cv2.imshow("led"+str(i)+"-"+str(res),mask[y1:y1+h1, x1:x1+w1])
 
 
             #cv2.rectangle(frame, (x1, y1), (x1 + w1, y1 + h1), (0, 0, 255), 2)
@@ -255,7 +255,7 @@ def process(frame):
 
 
 
-        #cv2.imshow("led_screen",mask)
+        cv2.imshow("led_screen",mask)
         #cv2.waitKey(0)
 
     slice_led()
@@ -275,7 +275,7 @@ def process(frame):
         #cv2.imshow("origin",copy)
 
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
-
+        
         ret, im_th = cv2.threshold(im_gray, 105  , 255, cv2.THRESH_BINARY_INV)
         # cv2.imshow("im_gray", im_gray)
         # cv2.imshow("im_th", im_th)
@@ -346,9 +346,9 @@ def process(frame):
 
     #cv2.imshow("RotImg",RotImg)
 
-    #cv2.imshow("frame",frame)
+    cv2.imshow("frame",frame)
     #cv2.imshow("mask",mask)
-    #cv2.waitKey(0)
+    cv2.waitKey(0)
 count=0
 
 cap=cv2.VideoCapture(1)

@@ -33,4 +33,7 @@ typedef struct  VideoRecordStatusData{
     uint8_t flag_read;//
 
 } VideoRecordStatusData;
+typedef struct  UltraSonicData{
+    float height;
+} UltraSonicData;
 #endif //STM32_DATATYPE_H

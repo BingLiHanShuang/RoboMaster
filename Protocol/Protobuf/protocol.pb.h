@@ -42,6 +42,9 @@ extern PosPointDefaultTypeInternal _PosPoint_default_instance_;
 class ScanResult;
 class ScanResultDefaultTypeInternal;
 extern ScanResultDefaultTypeInternal _ScanResult_default_instance_;
+class UltraSonic;
+class UltraSonicDefaultTypeInternal;
+extern UltraSonicDefaultTypeInternal _UltraSonic_default_instance_;
 class VideoRecord;
 class VideoRecordDefaultTypeInternal;
 extern VideoRecordDefaultTypeInternal _VideoRecord_default_instance_;
@@ -106,12 +109,13 @@ enum Message_MessageType {
   Message_MessageType_ScanResult = 1,
   Message_MessageType_PadPass = 2,
   Message_MessageType_VideoRecord = 3,
+  Message_MessageType_UltraSonic = 4,
   Message_MessageType_Message_MessageType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   Message_MessageType_Message_MessageType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool Message_MessageType_IsValid(int value);
 const Message_MessageType Message_MessageType_MessageType_MIN = Message_MessageType_NULL_;
-const Message_MessageType Message_MessageType_MessageType_MAX = Message_MessageType_VideoRecord;
+const Message_MessageType Message_MessageType_MessageType_MAX = Message_MessageType_UltraSonic;
 const int Message_MessageType_MessageType_ARRAYSIZE = Message_MessageType_MessageType_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* Message_MessageType_descriptor();
@@ -644,6 +648,89 @@ class VideoRecord : public ::google::protobuf::Message /* @@protoc_insertion_poi
 };
 // -------------------------------------------------------------------
 
+class UltraSonic : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:UltraSonic) */ {
+ public:
+  UltraSonic();
+  virtual ~UltraSonic();
+
+  UltraSonic(const UltraSonic& from);
+
+  inline UltraSonic& operator=(const UltraSonic& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const UltraSonic& default_instance();
+
+  static inline const UltraSonic* internal_default_instance() {
+    return reinterpret_cast<const UltraSonic*>(
+               &_UltraSonic_default_instance_);
+  }
+
+  void Swap(UltraSonic* other);
+
+  // implements Message ----------------------------------------------
+
+  inline UltraSonic* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  UltraSonic* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const UltraSonic& from);
+  void MergeFrom(const UltraSonic& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output)
+      const PROTOBUF_FINAL {
+    return InternalSerializeWithCachedSizesToArray(
+        ::google::protobuf::io::CodedOutputStream::IsDefaultSerializationDeterministic(), output);
+  }
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(UltraSonic* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // float height = 1;
+  void clear_height();
+  static const int kHeightFieldNumber = 1;
+  float height() const;
+  void set_height(float value);
+
+  // @@protoc_insertion_point(class_scope:UltraSonic)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  float height_;
+  mutable int _cached_size_;
+  friend struct  protobuf_protocol_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Message) */ {
  public:
   Message();
@@ -718,6 +805,8 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
     Message_MessageType_PadPass;
   static const MessageType VideoRecord =
     Message_MessageType_VideoRecord;
+  static const MessageType UltraSonic =
+    Message_MessageType_UltraSonic;
   static inline bool MessageType_IsValid(int value) {
     return Message_MessageType_IsValid(value);
   }
@@ -1282,6 +1371,24 @@ inline void VideoRecord::set_allocated_operator_(::std::string* operator_) {
 
 // -------------------------------------------------------------------
 
+// UltraSonic
+
+// float height = 1;
+inline void UltraSonic::clear_height() {
+  height_ = 0;
+}
+inline float UltraSonic::height() const {
+  // @@protoc_insertion_point(field_get:UltraSonic.height)
+  return height_;
+}
+inline void UltraSonic::set_height(float value) {
+  
+  height_ = value;
+  // @@protoc_insertion_point(field_set:UltraSonic.height)
+}
+
+// -------------------------------------------------------------------
+
 // Message
 
 // .Message.MessageType messagetype = 1;
@@ -1351,6 +1458,8 @@ inline void Message::set_allocated_data(::std::string* data) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
