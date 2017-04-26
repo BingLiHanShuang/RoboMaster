@@ -24,6 +24,8 @@ class PadPassDefaultTypeInternal : public ::google::protobuf::internal::Explicit
 } _PadPass_default_instance_;
 class VideoRecordDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<VideoRecord> {
 } _VideoRecord_default_instance_;
+class UltraSonicDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<UltraSonic> {
+} _UltraSonic_default_instance_;
 class MessageDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Message> {
 } _Message_default_instance_;
 
@@ -32,7 +34,7 @@ namespace protobuf_protocol_2eproto {
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[5];
+::google::protobuf::Metadata file_level_metadata[6];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[3];
 
 }  // namespace
@@ -69,6 +71,11 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, deviceid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoRecord, operator__),
   ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UltraSonic, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UltraSonic, height_),
+  ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -81,7 +88,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 6, -1, sizeof(ScanResult)},
   { 15, -1, sizeof(PadPass)},
   { 21, -1, sizeof(VideoRecord)},
-  { 30, -1, sizeof(Message)},
+  { 30, -1, sizeof(UltraSonic)},
+  { 35, -1, sizeof(Message)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -89,6 +97,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_ScanResult_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_PadPass_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_VideoRecord_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_UltraSonic_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_Message_default_instance_),
 };
 
@@ -110,7 +119,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 5);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 6);
 }
 
 }  // namespace
@@ -124,8 +133,10 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[2].reflection;
   _VideoRecord_default_instance_.Shutdown();
   delete file_level_metadata[3].reflection;
-  _Message_default_instance_.Shutdown();
+  _UltraSonic_default_instance_.Shutdown();
   delete file_level_metadata[4].reflection;
+  _Message_default_instance_.Shutdown();
+  delete file_level_metadata[5].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
@@ -136,6 +147,7 @@ void TableStruct::InitDefaultsImpl() {
   _ScanResult_default_instance_.DefaultConstruct();
   _PadPass_default_instance_.DefaultConstruct();
   _VideoRecord_default_instance_.DefaultConstruct();
+  _UltraSonic_default_instance_.DefaultConstruct();
   _Message_default_instance_.DefaultConstruct();
   _ScanResult_default_instance_.get_mutable()->picrutesize_ = const_cast< ::PosPoint*>(
       ::PosPoint::internal_default_instance());
@@ -161,14 +173,15 @@ void AddDescriptorsImpl() {
       "usType\022\022\n\nDeviceName\030\003 \001(\t\022\020\n\010DeviceId\030\004"
       " \001(\t\022\020\n\010Operator\030\005 \001(\t\"8\n\013ControlType\022\010\n"
       "\004NULL\020\000\022\t\n\005Start\020\001\022\010\n\004Stop\020\002\022\n\n\006Status\020\003"
-      "\"$\n\nStatusType\022\r\n\tRecording\020\000\022\007\n\003Off\020\001\"\211"
-      "\001\n\007Message\022)\n\013messagetype\030\001 \001(\0162\024.Messag"
-      "e.MessageType\022\014\n\004data\030\002 \001(\014\"E\n\013MessageTy"
-      "pe\022\010\n\004NULL\020\000\022\016\n\nScanResult\020\001\022\013\n\007PadPass\020"
-      "\002\022\017\n\013VideoRecord\020\003b\006proto3"
+      "\"$\n\nStatusType\022\r\n\tRecording\020\000\022\007\n\003Off\020\001\"\034"
+      "\n\nUltraSonic\022\016\n\006height\030\001 \001(\002\"\231\001\n\007Message"
+      "\022)\n\013messagetype\030\001 \001(\0162\024.Message.MessageT"
+      "ype\022\014\n\004data\030\002 \001(\014\"U\n\013MessageType\022\010\n\004NULL"
+      "\020\000\022\016\n\nScanResult\020\001\022\013\n\007PadPass\020\002\022\017\n\013Video"
+      "Record\020\003\022\016\n\nUltraSonic\020\004b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 626);
+      descriptor, 672);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "protocol.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -243,6 +256,7 @@ bool Message_MessageType_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
@@ -254,6 +268,7 @@ const Message_MessageType Message::NULL_;
 const Message_MessageType Message::ScanResult;
 const Message_MessageType Message::PadPass;
 const Message_MessageType Message::VideoRecord;
+const Message_MessageType Message::UltraSonic;
 const Message_MessageType Message::MessageType_MIN;
 const Message_MessageType Message::MessageType_MAX;
 const int Message::MessageType_ARRAYSIZE;
@@ -2085,6 +2100,229 @@ void VideoRecord::set_allocated_operator_(::std::string* operator_) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int UltraSonic::kHeightFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+UltraSonic::UltraSonic()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_protocol_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:UltraSonic)
+}
+UltraSonic::UltraSonic(const UltraSonic& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  height_ = from.height_;
+  // @@protoc_insertion_point(copy_constructor:UltraSonic)
+}
+
+void UltraSonic::SharedCtor() {
+  height_ = 0;
+  _cached_size_ = 0;
+}
+
+UltraSonic::~UltraSonic() {
+  // @@protoc_insertion_point(destructor:UltraSonic)
+  SharedDtor();
+}
+
+void UltraSonic::SharedDtor() {
+}
+
+void UltraSonic::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* UltraSonic::descriptor() {
+  protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_protocol_2eproto::file_level_metadata[4].descriptor;
+}
+
+const UltraSonic& UltraSonic::default_instance() {
+  protobuf_protocol_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+UltraSonic* UltraSonic::New(::google::protobuf::Arena* arena) const {
+  UltraSonic* n = new UltraSonic;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void UltraSonic::Clear() {
+// @@protoc_insertion_point(message_clear_start:UltraSonic)
+  height_ = 0;
+}
+
+bool UltraSonic::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:UltraSonic)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // float height = 1;
+      case 1: {
+        if (tag == 13u) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &height_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:UltraSonic)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:UltraSonic)
+  return false;
+#undef DO_
+}
+
+void UltraSonic::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:UltraSonic)
+  // float height = 1;
+  if (this->height() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->height(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:UltraSonic)
+}
+
+::google::protobuf::uint8* UltraSonic::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:UltraSonic)
+  // float height = 1;
+  if (this->height() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->height(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:UltraSonic)
+  return target;
+}
+
+size_t UltraSonic::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:UltraSonic)
+  size_t total_size = 0;
+
+  // float height = 1;
+  if (this->height() != 0) {
+    total_size += 1 + 4;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UltraSonic::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:UltraSonic)
+  GOOGLE_DCHECK_NE(&from, this);
+  const UltraSonic* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const UltraSonic>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:UltraSonic)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:UltraSonic)
+    MergeFrom(*source);
+  }
+}
+
+void UltraSonic::MergeFrom(const UltraSonic& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:UltraSonic)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.height() != 0) {
+    set_height(from.height());
+  }
+}
+
+void UltraSonic::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:UltraSonic)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UltraSonic::CopyFrom(const UltraSonic& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:UltraSonic)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UltraSonic::IsInitialized() const {
+  return true;
+}
+
+void UltraSonic::Swap(UltraSonic* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void UltraSonic::InternalSwap(UltraSonic* other) {
+  std::swap(height_, other->height_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata UltraSonic::GetMetadata() const {
+  protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_protocol_2eproto::file_level_metadata[4];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// UltraSonic
+
+// float height = 1;
+void UltraSonic::clear_height() {
+  height_ = 0;
+}
+float UltraSonic::height() const {
+  // @@protoc_insertion_point(field_get:UltraSonic.height)
+  return height_;
+}
+void UltraSonic::set_height(float value) {
+  
+  height_ = value;
+  // @@protoc_insertion_point(field_set:UltraSonic.height)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Message::kMessagetypeFieldNumber;
 const int Message::kDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -2132,7 +2370,7 @@ void Message::SetCachedSize(int size) const {
 }
 const ::google::protobuf::Descriptor* Message::descriptor() {
   protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protocol_2eproto::file_level_metadata[4].descriptor;
+  return protobuf_protocol_2eproto::file_level_metadata[5].descriptor;
 }
 
 const Message& Message::default_instance() {
@@ -2331,7 +2569,7 @@ void Message::InternalSwap(Message* other) {
 
 ::google::protobuf::Metadata Message::GetMetadata() const {
   protobuf_protocol_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protocol_2eproto::file_level_metadata[4];
+  return protobuf_protocol_2eproto::file_level_metadata[5];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS

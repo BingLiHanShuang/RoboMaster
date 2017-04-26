@@ -28,6 +28,7 @@ int DeserializeInt(uint8_t *data);
 void SaveScanResult(ScanResult *scanResult);
 void SavePadPass(PadPass * mpadPass);
 void SaveVideoRecordStatus(VideoRecord * mVideoRecord);
+void SaveUltraSonic(UltraSonic *mUltraSonic);
 void VideoRecord_Start();
 void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data);
 void presendtoserial(void *payload, uint32_t size);
@@ -41,6 +42,8 @@ void VideoRecord_Status();
 extern ScanData scanData;
 extern PadPassData padPassData;
 extern VideoRecordStatusData videoRecordStatusData;
+extern UltraSonicData ultraSonicData;
+
 #ifdef __cplusplus
 }
 #endif

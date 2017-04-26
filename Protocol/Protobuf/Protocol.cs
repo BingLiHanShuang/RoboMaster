@@ -30,10 +30,11 @@ public static partial class ProtocolReflection {
           "LlN0YXR1c1R5cGUSEgoKRGV2aWNlTmFtZRgDIAEoCRIQCghEZXZpY2VJZBgE",
           "IAEoCRIQCghPcGVyYXRvchgFIAEoCSI4CgtDb250cm9sVHlwZRIICgROVUxM",
           "EAASCQoFU3RhcnQQARIICgRTdG9wEAISCgoGU3RhdHVzEAMiJAoKU3RhdHVz",
-          "VHlwZRINCglSZWNvcmRpbmcQABIHCgNPZmYQASKJAQoHTWVzc2FnZRIpCgtt",
-          "ZXNzYWdldHlwZRgBIAEoDjIULk1lc3NhZ2UuTWVzc2FnZVR5cGUSDAoEZGF0",
-          "YRgCIAEoDCJFCgtNZXNzYWdlVHlwZRIICgROVUxMEAASDgoKU2NhblJlc3Vs",
-          "dBABEgsKB1BhZFBhc3MQAhIPCgtWaWRlb1JlY29yZBADYgZwcm90bzM="));
+          "VHlwZRINCglSZWNvcmRpbmcQABIHCgNPZmYQASIcCgpVbHRyYVNvbmljEg4K",
+          "BmhlaWdodBgBIAEoAiKZAQoHTWVzc2FnZRIpCgttZXNzYWdldHlwZRgBIAEo",
+          "DjIULk1lc3NhZ2UuTWVzc2FnZVR5cGUSDAoEZGF0YRgCIAEoDCJVCgtNZXNz",
+          "YWdlVHlwZRIICgROVUxMEAASDgoKU2NhblJlc3VsdBABEgsKB1BhZFBhc3MQ",
+          "AhIPCgtWaWRlb1JlY29yZBADEg4KClVsdHJhU29uaWMQBGIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -41,6 +42,7 @@ public static partial class ProtocolReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::ScanResult), global::ScanResult.Parser, new[]{ "Position", "Picrutesize", "Result", "Angle", "Center" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PadPass), global::PadPass.Parser, new[]{ "Pad", "Password" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::VideoRecord), global::VideoRecord.Parser, new[]{ "Control", "Status", "DeviceName", "DeviceId", "Operator" }, null, new[]{ typeof(global::VideoRecord.Types.ControlType), typeof(global::VideoRecord.Types.StatusType) }, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::UltraSonic), global::UltraSonic.Parser, new[]{ "Height" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Message), global::Message.Parser, new[]{ "Messagetype", "Data" }, null, new[]{ typeof(global::Message.Types.MessageType) }, null)
         }));
   }
@@ -819,6 +821,123 @@ public sealed partial class VideoRecord : pb::IMessage<VideoRecord> {
 
 }
 
+public sealed partial class UltraSonic : pb::IMessage<UltraSonic> {
+  private static readonly pb::MessageParser<UltraSonic> _parser = new pb::MessageParser<UltraSonic>(() => new UltraSonic());
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<UltraSonic> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::ProtocolReflection.Descriptor.MessageTypes[4]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public UltraSonic() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public UltraSonic(UltraSonic other) : this() {
+    height_ = other.height_;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public UltraSonic Clone() {
+    return new UltraSonic(this);
+  }
+
+  /// <summary>Field number for the "height" field.</summary>
+  public const int HeightFieldNumber = 1;
+  private float height_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float Height {
+    get { return height_; }
+    set {
+      height_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as UltraSonic);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(UltraSonic other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Height != other.Height) return false;
+    return true;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Height != 0F) hash ^= Height.GetHashCode();
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Height != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Height);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Height != 0F) {
+      size += 1 + 4;
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(UltraSonic other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Height != 0F) {
+      Height = other.Height;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          input.SkipLastField();
+          break;
+        case 13: {
+          Height = input.ReadFloat();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
 public sealed partial class Message : pb::IMessage<Message> {
   private static readonly pb::MessageParser<Message> _parser = new pb::MessageParser<Message>(() => new Message());
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -826,7 +945,7 @@ public sealed partial class Message : pb::IMessage<Message> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::ProtocolReflection.Descriptor.MessageTypes[4]; }
+    get { return global::ProtocolReflection.Descriptor.MessageTypes[5]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -971,6 +1090,7 @@ public sealed partial class Message : pb::IMessage<Message> {
       [pbr::OriginalName("ScanResult")] ScanResult = 1,
       [pbr::OriginalName("PadPass")] PadPass = 2,
       [pbr::OriginalName("VideoRecord")] VideoRecord = 3,
+      [pbr::OriginalName("UltraSonic")] UltraSonic = 4,
     }
 
   }
