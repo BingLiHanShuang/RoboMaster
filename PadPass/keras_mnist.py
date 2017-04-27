@@ -18,7 +18,7 @@ from keras import backend as K
 # K.set_session(sess)
 batch_size = 128
 num_classes = 10
-epochs = 0
+epochs = 1
 img_rows=28
 img_cols=28
 
@@ -75,19 +75,21 @@ input_shape=(1,28, 28),border_mode='valid'))
 model.add(Activation('relu'))
 
 model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
-model.add(Dropout(0.5))
+#model.add(Dropout(0.5))
 
 model.add(Conv2D(64, 5, 5, border_mode='valid'))
 model.add(Activation('relu'))
 
 model.add(MaxPooling2D(pool_size=(2, 2),border_mode='valid'))
-model.add(Dropout(0.5))
+#model.add(Dropout(0.5))
 
 model.add(Flatten())
 model.add(Dense(1024))
 model.add(Activation('relu'))
+model.add(Dropout(0.5))
 
 model.add(Dense(num_classes))
+
 model.add(Activation('softmax'))
 
 
@@ -97,7 +99,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer=keras.optimizers.Adadelta(),
               metrics=['accuracy'])
 
-model.load_weights('model_handwrite.h5')
+#model.load_weights('model_handwrite.h5')
 #
 # graph_def = sess.graph.as_graph_def()
 # tf.train.write_graph(graph_def, logdir='.', name='model.pb', as_text=False)

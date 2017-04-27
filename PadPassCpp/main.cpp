@@ -234,8 +234,8 @@ Mat resizeimg(Mat rawimg){
 
 
     outimg = cv::Scalar(0,0,0);
-    float fc = (float)width / rawimg.cols;
-    float fr = (float)width / rawimg.rows;
+    float fc = (float)25 / rawimg.cols;
+    float fr = (float)25 / rawimg.rows;
     fc = min(fc, fr);
     fr = fc;
     cv::Size size;

@@ -21,8 +21,8 @@ model_led.summary()
 
 clf = joblib.load("digits_cls1.pkl")
 def resize1(rawimg):  # resize img to 28*28
-    fx = 28.0 / rawimg.shape[0]
-    fy = 28.0 / rawimg.shape[1]
+    fx = 25.0 / rawimg.shape[0]
+    fy = 25.0 / rawimg.shape[1]
     fx = fy = min(fx, fy)
     img = cv2.resize(rawimg, None, fx=fx, fy=fy, interpolation=cv2.INTER_CUBIC)
     outimg = np.zeros((28, 28), dtype=np.uint8) * 255
@@ -40,9 +40,11 @@ def recognize1(img):
     gray=img
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     res = resize1(gray)
+    img1=res
     res = np.resize(res, (1,1,28,28))
     predictions = model.predict(res)
     result = np.argmax(predictions)
+    #cv2.imshow(str(count) + "-" + str(result), img1)
     # print result,predictions
     return result
 def recognize_led(img):
@@ -245,7 +247,7 @@ def process(frame):
                 continue
             digitCnts.append(cnt)
             res=recognize_led(mask[y1:y1+h1, x1:x1+w1])
-            cv2.imshow("led"+str(i)+"-"+str(res),mask[y1:y1+h1, x1:x1+w1])
+            #cv2.imshow("led"+str(i)+"-"+str(res),mask[y1:y1+h1, x1:x1+w1])
 
 
             #cv2.rectangle(frame, (x1, y1), (x1 + w1, y1 + h1), (0, 0, 255), 2)
@@ -255,7 +257,7 @@ def process(frame):
 
 
 
-        cv2.imshow("led_screen",mask)
+        #cv2.imshow("led_screen",mask)
         #cv2.waitKey(0)
 
     slice_led()
@@ -275,12 +277,13 @@ def process(frame):
         #cv2.imshow("origin",copy)
 
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
-        
+
         ret, im_th = cv2.threshold(im_gray, 105  , 255, cv2.THRESH_BINARY_INV)
         # cv2.imshow("im_gray", im_gray)
         # cv2.imshow("im_th", im_th)
         #
         # cv2.waitKey(0)
+
         temp_dict={}
         max_index=-1
         for i in contours:
@@ -305,36 +308,36 @@ def process(frame):
             continue
         digit_pad.append(temp_dict[max_index].copy())
 
-        name= recognize1(temp_dict[max_index])
+        #name= recognize1(temp_dict[max_index])
         # print name
         # #cv2.imwrite("test/"+str(count)+".jpg",temp_dict[max_index])
         #     # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
         #     # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
-        cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
+        #cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
 
         #cv2.imshow("im_gray",im_gray)
     #     #cv2.imshow("max_rect"+str(count), temp_dict[max_index].copy())
-    # for i in range(len(digit_pad)):
-    #     contours, hierarchy = cv2.findContours(digit_pad[i].copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #     temp_dict={}
-    #     max_index=-1
-    #     for j in contours:
-    #         x2, y2, w2, h2 = cv2.boundingRect(j)
-    #         area=w2*h2
-    #
-    #         if w2<2 or h2<2:
-    #             continue
-    #         #print w2, h2, area
-    #         # if x2<0.15*w2 or x2>0.85*w2:
-    #         #     continue
-    #         # if(w>0.8*w):
-    #         #     continue
-    #         max_index=max([max_index,area])
-    #         img_temp=digit_pad[i][y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
-    #         temp_dict[area]=img_temp
-    #     name = recognize1(temp_dict[max_index])
-        #cv2.imshow(str(i) + "-" + str(name), temp_dict[max_index].copy())
+    for i in range(len(digit_pad)):
+        contours, hierarchy = cv2.findContours(digit_pad[i].copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        temp_dict={}
+        max_index=-1
+        for j in contours:
+            x2, y2, w2, h2 = cv2.boundingRect(j)
+            area=w2*h2
+
+            if w2<2 or h2<2:
+                continue
+            #print w2, h2, area
+            # if x2<0.15*w2 or x2>0.85*w2:
+            #     continue
+            # if(w>0.8*w):
+            #     continue
+            max_index=max([max_index,area])
+            img_temp=digit_pad[i][y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
+            temp_dict[area]=img_temp
+        name = recognize1(temp_dict[max_index])
+        cv2.imshow(str(i) + "-" + str(name), temp_dict[max_index].copy())
 
 
 
@@ -358,7 +361,7 @@ while True:
 
     #success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test2/1275.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test2/1274.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
