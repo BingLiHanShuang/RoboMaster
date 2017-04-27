@@ -101,13 +101,13 @@ def process(frame):
         if len(approx) >=4 or len(approx) <=10:
             x, y, w, h = cv2.boundingRect(cnt)
             #w,h,x,y=int(rect[0][1]),int(rect[0][1]),int(rect[1][0]),int(rect[1][1])
-            if  w*h<350 or w*h>550  or h>w or w/float(h)<=1 or w/float(h)>=3 or x<10 or x>400:
+            if  w*h<350 or w*h>560  or h>w or w/float(h)<=1 or w/float(h)>=3 or x<10:
                 continue
            # mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
 #            cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
             x1, y1, w1, h1 = cv2.boundingRect(cnt)
             mask_rect_color= gray[y1:y1+h1, x1:x1+w1].mean()
-            if(mask_rect_color>80 or mask_rect_color<50):
+            if(mask_rect_color>100 or mask_rect_color<80):
                 continue
             print w, h, w * h, mask_rect_color
 
@@ -116,8 +116,10 @@ def process(frame):
     # if(len(pos_rect)!=10):
     #     return
     #pos_rect=list(set(pos_rect))
-    #cv2.imshow("frame", frame)
-    #cv2.waitKey(0)
+    cv2.imshow("frame", frame)
+    cv2.imshow("edge", edge)
+
+    cv2.waitKey(0)
     pos_rect.sort(key=lambda x:(x[0],x[1]))
     pos_rect_new=[]
     pos_rect_new.append(pos_rect[0])
@@ -247,7 +249,7 @@ def process(frame):
                 continue
             digitCnts.append(cnt)
             res=recognize_led(mask[y1:y1+h1, x1:x1+w1])
-            #cv2.imshow("led"+str(i)+"-"+str(res),mask[y1:y1+h1, x1:x1+w1])
+            cv2.imshow("led"+str(i)+"-"+str(res),mask[y1:y1+h1, x1:x1+w1])
 
 
             #cv2.rectangle(frame, (x1, y1), (x1 + w1, y1 + h1), (0, 0, 255), 2)
@@ -277,8 +279,12 @@ def process(frame):
         #cv2.imshow("origin",copy)
 
         im_gray = cv2.cvtColor(copy, cv2.COLOR_BGR2GRAY)
+        #cv2.adaptiveThreshold()
+        #ret, im_th = cv2.threshold(im_gray, 180  , 255, cv2.THRESH_BINARY_INV)
 
-        ret, im_th = cv2.threshold(im_gray, 105  , 255, cv2.THRESH_BINARY_INV)
+        im_th = cv2.adaptiveThreshold(im_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 25, 25)
+#        cv2.adaptiveThreshold()
+
         # cv2.imshow("im_gray", im_gray)
         # cv2.imshow("im_th", im_th)
         #
@@ -314,11 +320,12 @@ def process(frame):
         #     # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
         #     # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
-        #cv2.imshow(str(count)+"-"+str(name), temp_dict[max_index].copy())
+        cv2.imshow(str(count), temp_dict[max_index].copy())
 
         #cv2.imshow("im_gray",im_gray)
     #     #cv2.imshow("max_rect"+str(count), temp_dict[max_index].copy())
     for i in range(len(digit_pad)):
+#        cv2.dilate(mask, kernel, iterations=1)
         contours, hierarchy = cv2.findContours(digit_pad[i].copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         temp_dict={}
         max_index=-1
@@ -334,6 +341,8 @@ def process(frame):
             # if(w>0.8*w):
             #     continue
             max_index=max([max_index,area])
+            if y2-2>0:
+                y2-=1
             img_temp=digit_pad[i][y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
             temp_dict[area]=img_temp
         name = recognize1(temp_dict[max_index])
@@ -361,7 +370,7 @@ while True:
 
     #success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test2/1274.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1220.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
