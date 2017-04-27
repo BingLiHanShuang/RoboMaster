@@ -225,6 +225,7 @@ void SaveVideoRecordStatus(VideoRecord * mVideoRecord){
 }
 void SaveUltraSonic(UltraSonic *mUltraSonic){
     ultraSonicData.height=mUltraSonic->height;
+    ultraSonicData.flag_read=0;
     callback_UltraSonic();
 }
 void print(uint8_t * data,int len){//for debug

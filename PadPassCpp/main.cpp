@@ -11,8 +11,57 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 static int count_digit=0;
-KerasModel m("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
-Mat resizeimg(Mat rawimg);
+KerasModel model_handwrite_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
+KerasModel model_led_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
+int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
+
+    vector<vector<vector<float>>> data;
+    vector<vector<float>> d;
+    for (int i = 0; i < img.rows; i++) {
+        vector<float> r;
+        for (int j = 0; j < img.cols; j++) {
+            uchar temp=img.at<uchar>(i, j);
+            r.push_back(temp/255);
+        }
+        d.push_back(r);
+    }
+    data.push_back(d);
+
+    DataChunk * dc = new DataChunk2D();
+    dc->set_data(data); //Mat 转 DataChunk
+
+    vector<float> predictions = model.compute_output(dc);
+
+    auto max = max_element(predictions.begin(), predictions.end());
+    int index = (int)distance(predictions.begin(), max);
+    delete dc;
+    //imshow(to_string(count_digit)+"-"+to_string(index),img);
+//    waitKey(0);
+    return index;
+}
+Mat image_resize(Mat rawimg){
+    int width=28;
+    cv::Mat outimg(width, width, CV_8U, 255);
+
+    outimg = cv::Scalar(0,0,0);
+    float fc = (float)25 / rawimg.cols;
+    float fr = (float)25 / rawimg.rows;
+    fc = min(fc, fr);
+    fr = fc;
+    cv::Size size;
+    size.width = rawimg.cols * fc;
+    size.height = rawimg.rows * fr;
+    if(size.width == 0 || size.height == 0)return outimg;
+    cv::resize(rawimg, rawimg, size);
+    int w = rawimg.cols, h = rawimg.rows;
+    int x = (width - w)/2, y = (width - h)/2;
+    rawimg.copyTo(outimg(cv::Rect(x, y, w, h)));
+//    imshow("test",outimg);
+//    waitKey(0);
+//    //predict(outimg);
+//    image_predict(outimg,model_handwrite_digit);
+    return outimg;
+}
 Mat resize_resize(Mat rawimage){
     float fx=480.0 /(float) rawimage.size().width;
     float fy=640.0 /(float) rawimage.size().height;
@@ -28,10 +77,6 @@ bool sort_cmp_x_greater(const Rect &rect1, const Rect &rect2){
 bool sort_cmp_y_greater(const Rect &rect1, const Rect &rect2){
     if (rect1.y<rect2.y)return true;
     return false;
-}
-bool SortbyXaxis(const Point & a, const Point &b)
-{
-    return a.x < b.x;
 }
 void slice_first_line(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right,vector<Mat> &image_digit){
     int arg_line=0;
@@ -112,7 +157,7 @@ void slice_third_line(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect
     }
 
 }
-void slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right,vector<Mat> &image_digit){
+Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
     int arg_line=0;
     float x=pos_rect_left[arg_line].x+pos_rect_left[arg_line].width;
     float y=(pos_rect_left[arg_line].y+pos_rect_right[arg_line].y)/2;
@@ -142,25 +187,14 @@ void slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right,
     Scalar upper_red=Scalar(255, 255, 255);
     inRange(frame_led_screen,lower_red,upper_red,mask_led_screen);//红色LED掩码
     dilate(mask_led_screen, mask_led_screen, Mat(), Point(-1, -1), 2, 1, 1);
-    imshow("test",mask_led_screen);
-    waitKey(0);
+    Mat result=mask_led_screen.clone();
+    return result;
 
-    vector<vector<Point> > contours;
-    vector<Vec4i> hierarchy;
-    vector<Rect> rects_led;
+//
+//    imshow("test",mask_led_screen);
+//    waitKey(0);
 
-    findContours( mask_led_screen.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-    for (int i = 0; i < contours.size(); ++i) {
-        Rect rect=boundingRect(contours[i]);
-        if(rect.height<10)continue;
-        rects_led.push_back(rect);
-    }
-    sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
-    for (int i = 0; i < rects_led.size(); ++i) {
-        Mat mat(mask_led_screen,rects_led[i]);
-        image_digit.push_back(mat.clone());
-        //imshow(to_string(i),mat);
-    }
+
 
 }
 void extract_digit_from_slice(vector<Mat> &image_digit,vector<Mat> &image_digit_final){
@@ -175,7 +209,8 @@ void extract_digit_from_slice(vector<Mat> &image_digit,vector<Mat> &image_digit_
 
         cvtColor(copy,im_gray,COLOR_BGR2GRAY);
         Mat im_th;
-        threshold(im_gray,im_th,105,255,THRESH_BINARY_INV);
+        adaptiveThreshold(im_gray,im_th,255,ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,25,25);
+//        threshold(im_gray,im_th,105,255,THRESH_BINARY_INV);
 
         map<int,Mat> temp_dict;
         int max_index=-1;
@@ -197,6 +232,71 @@ void extract_digit_from_slice(vector<Mat> &image_digit,vector<Mat> &image_digit_
         }
         Mat image_max=temp_dict[max_index];
         image_digit_final.push_back(image_max);
+    }
+}
+void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &image_digit_final){
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    for (int i = 0; i < 9; ++i) {
+        map<int,Mat> temp_dict;
+        int max_index=-1;
+        findContours( image_digit_with_border[i].clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+        for (int j = 0; j < contours.size(); ++j) {
+            Rect rect=boundingRect(contours[j]);
+            int area=rect.height*rect.width;
+            if(rect.width<2||rect.height<2)continue;
+            max_index=max(max_index,area);
+            rect.y-=1;
+            rect.x-=1;
+            rect.height+=1;
+            rect.width+=1;
+            Mat img_temp(image_digit_with_border[i],rect);
+            temp_dict[area]=img_temp;
+        }
+
+        //resizeimg(temp_dict[max_index]);
+        image_digit_final.push_back(temp_dict[max_index]);
+        //count_digit++;
+    }
+}
+void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    vector<Rect> rects_led;
+
+    findContours( mask_led_screen.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+    for (int i = 0; i < contours.size(); ++i) {
+        Rect rect=boundingRect(contours[i]);
+        if(rect.height<10)continue;
+        rects_led.push_back(rect);
+    }
+    sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
+    for (int i = 0; i < rects_led.size(); ++i) {
+        Mat mat(mask_led_screen,rects_led[i]);
+        image_digit.push_back(mat.clone());
+        //imshow(to_string(i),mat);
+    }
+}
+void digit_recognize(vector<Mat> &image_digit){
+    vector<int> res;
+    for (int i = 0; i < image_digit.size(); ++i) {
+        Mat mat=image_resize(image_digit[i]);
+        int temp=image_predict(mat,model_handwrite_digit);
+        imshow(to_string(i+1)+"-"+to_string(temp),mat);
+        res.push_back(temp);
+    }
+    //waitKey(0);
+
+
+    //resizeimg(temp_dict[max_index]);
+}
+void led_digit_recognize(vector<Mat> &image_digit){
+    vector<int> res;
+    for (int i = 0; i < image_digit.size(); ++i) {
+        Mat mat=image_resize(image_digit[i]);
+
+        int temp=image_predict(mat,model_led_digit);
+        res.push_back(temp);
     }
 }
 void process(Mat frame){
@@ -231,19 +331,22 @@ void process(Mat frame){
             Scalar mask_rect_average=mean(mask_rect);
             if(mask_rect_average[0]<50||mask_rect_average[0]>80)continue;//通过平均颜色进行过滤
             pos_rect.push_back(rect);
-            //rectangle(frame,rect,Scalar(0,0,255),2);
+            rectangle(frame,rect,Scalar(0,0,255),2);
         }
     }
+//    imshow("frame",frame);
+//    waitKey(0);
 
     //将左右两边定位位点分开,并排序
     sort(pos_rect.begin(),pos_rect.end(),sort_cmp_x_greater);
 
     vector<Rect> pos_rect_new;
+    pos_rect_new.push_back(pos_rect[0]);
     for (int i = 0; i < (pos_rect.size()-1); ++i) {
         int distance=abs(pos_rect[i].x-pos_rect[i+1].x)+abs(pos_rect[i].y-pos_rect[i+1].y);
         if(distance<10)
             continue;
-        pos_rect_new.push_back(pos_rect[i]);
+        pos_rect_new.push_back(pos_rect[i+1]);
         rectangle(frame,pos_rect[i],Scalar(0,0,255),2);
         cout<<pos_rect[i]<<pos_rect[i].height*pos_rect[i].width<<endl;
     }
@@ -256,8 +359,8 @@ void process(Mat frame){
     }
 
     vector<Rect> pos_rect_left(pos_rect_new.begin(),pos_rect_new.begin()+5),pos_rect_right(pos_rect_new.begin()+5,pos_rect_new.end());
-    sort(pos_rect_left.begin(),pos_rect_left.end(),sort_cmp_y_greater);
-    sort(pos_rect_right.begin(),pos_rect_right.end(),sort_cmp_y_greater);
+    sort(pos_rect_left.begin(),pos_rect_left.end(),sort_cmp_y_greater);//左侧定位点
+    sort(pos_rect_right.begin(),pos_rect_right.end(),sort_cmp_y_greater);//右侧定位点
 
 
     vector<Mat> image_digit;
@@ -268,89 +371,30 @@ void process(Mat frame){
     slice_first_line(frame,pos_rect_left,pos_rect_right,image_digit);//切割出九宫格第一行
     slice_second_line(frame,pos_rect_left,pos_rect_right,image_digit);//切割出九宫格第二行
     slice_third_line(frame,pos_rect_left,pos_rect_right,image_digit);//切割出九宫格第三行
-    slice_led(frame,pos_rect_left,pos_rect_right,image_digit_led);////切割出LED
-    vector<Mat> image_digit_final;
+    Mat led_screen=slice_led(frame,pos_rect_left,pos_rect_right);////切割出LED
+    vector<Mat> image_digit_with_border,image_digit_final;
     //对切割出的图片进行处理获取纯数字边框
-    extract_digit_from_slice(image_digit,image_digit_final);//提取出九宫格中小矩形
+    extract_digit_from_slice(image_digit,image_digit_with_border);//提取出九宫格中小矩形
+
+
+    extract_minimum_digit(image_digit_with_border,image_digit_final);//提取出最后识别九宫格图形
+    extract_minimum_led_digit(led_screen,image_digit_led);//提取每个LED字符
+
+
+    digit_recognize(image_digit_final);
+    led_digit_recognize(image_digit_led);
+
+
+
+
 
 
     count_digit=0;
-    for (int i = 0; i < 9; ++i) {
-        map<int,Mat> temp_dict;
-        int max_index=-1;
-        findContours( image_digit_final[i].clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-        for (int j = 0; j < contours.size(); ++j) {
-            Rect rect=boundingRect(contours[j]);
-            int area=rect.height*rect.width;
-            if(rect.width<2||rect.height<2)continue;
-            max_index=max(max_index,area);
-            rect.y-=1;
-            rect.x-=1;
-            rect.height+=1;
-            rect.width+=1;
-            Mat img_temp(image_digit_final[i],rect);
-            temp_dict[area]=img_temp;
-        }
-        resizeimg(temp_dict[max_index]);
-        count_digit++;
-    }
+
     //利用卷积神经网络进行识别
 
 }
-int predict(cv::Mat img){   //预测数字 conv
-//    cv::bitwise_not(img, img);
 
-    vector<vector<vector<float>>> data;
-    vector<vector<float>> d;
-    for (int i = 0; i < img.rows; i++) {
-        vector<float> r;
-        for (int j = 0; j < img.cols; j++) {
-            uchar temp=img.at<uchar>(i, j);
-            r.push_back(temp/255);
-        }
-        d.push_back(r);
-    }
-    data.push_back(d);
-
-    DataChunk * dc = new DataChunk2D();
-    dc->set_data(data); //Mat 转 DataChunk
-
-    vector<float> predictions = m.compute_output(dc);
-//    predictions[10] = 0;
-
-    auto max = max_element(predictions.begin(), predictions.end());
-    int index = (int)distance(predictions.begin(), max);
-    //imshow(to_string(count_digit)+"-"+to_string(index),img);
-//    waitKey(0);
-    return index;
-}
-Mat resizeimg(Mat rawimg){
-    int width=28;
-    cv::Mat outimg(width, width, CV_8U, 255);
-
-
-
-    outimg = cv::Scalar(0,0,0);
-    float fc = (float)25 / rawimg.cols;
-    float fr = (float)25 / rawimg.rows;
-    fc = min(fc, fr);
-    fr = fc;
-    cv::Size size;
-    size.width = rawimg.cols * fc;
-    size.height = rawimg.rows * fr;
-    if(size.width == 0 || size.height == 0)return outimg;
-    cv::resize(rawimg, rawimg, size);
-    int w = rawimg.cols, h = rawimg.rows;
-    int x = (width - w)/2, y = (width - h)/2;
-    rawimg.copyTo(outimg(cv::Rect(x, y, w, h)));
-    //imshow("test",outimg);
-    //waitKey(0);
-    predict(outimg);
-    return outimg;
-
-
-
-}
 void recognize(Mat mat){
     Mat resized;
 
@@ -362,7 +406,7 @@ void recognize(Mat mat){
 }
 int main() {
 
-    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test2/1274.jpg");
+    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test2/1273.jpg");
     clock_t tStart;
 //    tStart= clock();
 ////    m.compute_output(sample);
