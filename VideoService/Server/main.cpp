@@ -18,7 +18,12 @@
 #include <sys/socket.h>
 #include "Structure.h"
 using namespace std;
-
+static pthread_t thread_fps;
+const char videodevice[] = "/dev/video0";	//摄像头地址
+const int imageWidth = 640;
+const int imageHeight = 480;
+unsigned int * image = 0;		//图片数据指针
+unsigned int framelen = 0;	//图片文件大小
 #define CLEAR(x) memset(&(x), 0, sizeof(x))
 struct buffer {
     void   *start;
@@ -37,15 +42,32 @@ static void xioctl(int fh, int request, void *arg)
         exit(EXIT_FAILURE);
     }
 }
-const char videodevice[] = "/dev/video1";	//摄像头地址
-const int imageWidth = 640;
-const int imageHeight = 480;
-unsigned int * image = 0;		//图片数据指针
-unsigned int framelen = 0;	//图片文件大小
+unsigned int fps_now = 0;	//当前发送的帧数
+unsigned int fps_last = 0;	//一秒前发送的帧数
+unsigned int fps_last_camera = 0;	//一秒前摄像头帧数
 volatile unsigned int framenum = 0;		//实时帧数
-volatile unsigned int lastframenum = 0;	//tcp服务器上次发送的帧数
+
+void *fps(void * pvoid){	//每秒统计一次帧数差
+    sleep(1);
+    while(1){
+        int delta_fps = fps_now - fps_last;
+        int delta_camera = framenum - fps_last_camera;
+        printlog("\rfps: %d  \tcamera: %d  \tfilesize: %dkb  ", delta_fps, delta_camera, framelen/1024);
+        printf("\rfps: %d  \tcamera: %d  \tfilesize: %dkb  ", delta_fps, delta_camera, framelen/1024);
+
+        fflush(stdout);
+        fps_last_camera = framenum;
+        fps_last = fps_now;
+        sleep(1);
+    }
+}
+
 int main() {
     flog = fopen("./image_server.log", "w+");
+    if(pthread_create(&thread_fps, NULL, fps, NULL) < 0){
+        printlog("create fps thread error/n");
+        return 1;
+    }
     //打开摄像头设备
     int fd = -1;
     //fd = open (videodevice, O_RDWR | O_NONBLOCK, 0);
@@ -184,14 +206,17 @@ int main() {
         xioctl(fd, VIDIOC_DQBUF, &buf);
         //pthread_mutex_lock(&frame_mutex);
         image = (unsigned int *)buffers[buf.index].start;
-        //framelen = buf.bytesused;
+        framelen = buf.bytesused;
         //pthread_mutex_unlock(&frame_mutex);
         //printlog("------------\n");
         framenum ++;
+        fps_now++;
         //printlog("取得一帧，framenum=%d\t%fkb\n", framenum, buf.bytesused/1024.0);
         //写入共享内存
         shared_package->image_size = framelen;
+        pthread_mutex_lock(&shared_package->image_lock);
         memcpy(shared_package->image_data, image, framelen);
+        pthread_mutex_unlock(&shared_package->image_lock);
         //printlog("\n");
 
         xioctl(fd, VIDIOC_QBUF, &buf);

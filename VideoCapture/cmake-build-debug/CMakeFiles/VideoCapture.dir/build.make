@@ -57,9 +57,57 @@ include CMakeFiles/VideoCapture.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/VideoCapture.dir/flags.make
 
+CMakeFiles/VideoCapture.dir/avilib.c.o: CMakeFiles/VideoCapture.dir/flags.make
+CMakeFiles/VideoCapture.dir/avilib.c.o: ../avilib.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/VideoCapture.dir/avilib.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/VideoCapture.dir/avilib.c.o   -c /home/parallels/RoboMaster/VideoCapture/avilib.c
+
+CMakeFiles/VideoCapture.dir/avilib.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/VideoCapture.dir/avilib.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/parallels/RoboMaster/VideoCapture/avilib.c > CMakeFiles/VideoCapture.dir/avilib.c.i
+
+CMakeFiles/VideoCapture.dir/avilib.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/VideoCapture.dir/avilib.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/parallels/RoboMaster/VideoCapture/avilib.c -o CMakeFiles/VideoCapture.dir/avilib.c.s
+
+CMakeFiles/VideoCapture.dir/avilib.c.o.requires:
+
+.PHONY : CMakeFiles/VideoCapture.dir/avilib.c.o.requires
+
+CMakeFiles/VideoCapture.dir/avilib.c.o.provides: CMakeFiles/VideoCapture.dir/avilib.c.o.requires
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/avilib.c.o.provides.build
+.PHONY : CMakeFiles/VideoCapture.dir/avilib.c.o.provides
+
+CMakeFiles/VideoCapture.dir/avilib.c.o.provides.build: CMakeFiles/VideoCapture.dir/avilib.c.o
+
+
+CMakeFiles/VideoCapture.dir/v4l2uvc.c.o: CMakeFiles/VideoCapture.dir/flags.make
+CMakeFiles/VideoCapture.dir/v4l2uvc.c.o: ../v4l2uvc.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/VideoCapture.dir/v4l2uvc.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/VideoCapture.dir/v4l2uvc.c.o   -c /home/parallels/RoboMaster/VideoCapture/v4l2uvc.c
+
+CMakeFiles/VideoCapture.dir/v4l2uvc.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/VideoCapture.dir/v4l2uvc.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/parallels/RoboMaster/VideoCapture/v4l2uvc.c > CMakeFiles/VideoCapture.dir/v4l2uvc.c.i
+
+CMakeFiles/VideoCapture.dir/v4l2uvc.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/VideoCapture.dir/v4l2uvc.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/parallels/RoboMaster/VideoCapture/v4l2uvc.c -o CMakeFiles/VideoCapture.dir/v4l2uvc.c.s
+
+CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.requires:
+
+.PHONY : CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.requires
+
+CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.provides: CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.requires
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.provides.build
+.PHONY : CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.provides
+
+CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.provides.build: CMakeFiles/VideoCapture.dir/v4l2uvc.c.o
+
+
 CMakeFiles/VideoCapture.dir/main.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/VideoCapture.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/VideoCapture.dir/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/main.cpp.o -c /home/parallels/RoboMaster/VideoCapture/main.cpp
 
 CMakeFiles/VideoCapture.dir/main.cpp.i: cmake_force
@@ -83,7 +131,7 @@ CMakeFiles/VideoCapture.dir/main.cpp.o.provides.build: CMakeFiles/VideoCapture.d
 
 CMakeFiles/VideoCapture.dir/UDPClient.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/UDPClient.cpp.o: ../UDPClient.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/VideoCapture.dir/UDPClient.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/VideoCapture.dir/UDPClient.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/UDPClient.cpp.o -c /home/parallels/RoboMaster/VideoCapture/UDPClient.cpp
 
 CMakeFiles/VideoCapture.dir/UDPClient.cpp.i: cmake_force
@@ -107,7 +155,7 @@ CMakeFiles/VideoCapture.dir/UDPClient.cpp.o.provides.build: CMakeFiles/VideoCapt
 
 CMakeFiles/VideoCapture.dir/UDPServer.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/UDPServer.cpp.o: ../UDPServer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/VideoCapture.dir/UDPServer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/VideoCapture.dir/UDPServer.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/UDPServer.cpp.o -c /home/parallels/RoboMaster/VideoCapture/UDPServer.cpp
 
 CMakeFiles/VideoCapture.dir/UDPServer.cpp.i: cmake_force
@@ -131,7 +179,7 @@ CMakeFiles/VideoCapture.dir/UDPServer.cpp.o.provides.build: CMakeFiles/VideoCapt
 
 CMakeFiles/VideoCapture.dir/protobuf-c.c.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/protobuf-c.c.o: ../protobuf-c.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/VideoCapture.dir/protobuf-c.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/VideoCapture.dir/protobuf-c.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/VideoCapture.dir/protobuf-c.c.o   -c /home/parallels/RoboMaster/VideoCapture/protobuf-c.c
 
 CMakeFiles/VideoCapture.dir/protobuf-c.c.i: cmake_force
@@ -155,7 +203,7 @@ CMakeFiles/VideoCapture.dir/protobuf-c.c.o.provides.build: CMakeFiles/VideoCaptu
 
 CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o: ../protocol.pb-c.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o   -c /home/parallels/RoboMaster/VideoCapture/protocol.pb-c.c
 
 CMakeFiles/VideoCapture.dir/protocol.pb-c.c.i: cmake_force
@@ -179,7 +227,7 @@ CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o.provides.build: CMakeFiles/VideoCa
 
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o: ../ReceiveHandler.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o -c /home/parallels/RoboMaster/VideoCapture/ReceiveHandler.cpp
 
 CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.i: cmake_force
@@ -203,7 +251,7 @@ CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o.provides.build: CMakeFiles/Vide
 
 CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o: ../VideoRecorder.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o -c /home/parallels/RoboMaster/VideoCapture/VideoRecorder.cpp
 
 CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.i: cmake_force
@@ -227,7 +275,7 @@ CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o.provides.build: CMakeFiles/Video
 
 CMakeFiles/VideoCapture.dir/protocol.c.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/protocol.c.o: ../protocol.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/VideoCapture.dir/protocol.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/VideoCapture.dir/protocol.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/VideoCapture.dir/protocol.c.o   -c /home/parallels/RoboMaster/VideoCapture/protocol.c
 
 CMakeFiles/VideoCapture.dir/protocol.c.i: cmake_force
@@ -251,7 +299,7 @@ CMakeFiles/VideoCapture.dir/protocol.c.o.provides.build: CMakeFiles/VideoCapture
 
 CMakeFiles/VideoCapture.dir/protocol.cpp.o: CMakeFiles/VideoCapture.dir/flags.make
 CMakeFiles/VideoCapture.dir/protocol.cpp.o: ../protocol.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/VideoCapture.dir/protocol.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/VideoCapture.dir/protocol.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoCapture.dir/protocol.cpp.o -c /home/parallels/RoboMaster/VideoCapture/protocol.cpp
 
 CMakeFiles/VideoCapture.dir/protocol.cpp.i: cmake_force
@@ -275,6 +323,8 @@ CMakeFiles/VideoCapture.dir/protocol.cpp.o.provides.build: CMakeFiles/VideoCaptu
 
 # Object files for target VideoCapture
 VideoCapture_OBJECTS = \
+"CMakeFiles/VideoCapture.dir/avilib.c.o" \
+"CMakeFiles/VideoCapture.dir/v4l2uvc.c.o" \
 "CMakeFiles/VideoCapture.dir/main.cpp.o" \
 "CMakeFiles/VideoCapture.dir/UDPClient.cpp.o" \
 "CMakeFiles/VideoCapture.dir/UDPServer.cpp.o" \
@@ -288,6 +338,8 @@ VideoCapture_OBJECTS = \
 # External object files for target VideoCapture
 VideoCapture_EXTERNAL_OBJECTS =
 
+VideoCapture: CMakeFiles/VideoCapture.dir/avilib.c.o
+VideoCapture: CMakeFiles/VideoCapture.dir/v4l2uvc.c.o
 VideoCapture: CMakeFiles/VideoCapture.dir/main.cpp.o
 VideoCapture: CMakeFiles/VideoCapture.dir/UDPClient.cpp.o
 VideoCapture: CMakeFiles/VideoCapture.dir/UDPServer.cpp.o
@@ -352,7 +404,7 @@ VideoCapture: /usr/lib/x86_64-linux-gnu/libQtCore.so
 VideoCapture: /usr/lib/x86_64-linux-gnu/libGLU.so
 VideoCapture: /usr/lib/x86_64-linux-gnu/libGL.so
 VideoCapture: CMakeFiles/VideoCapture.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable VideoCapture"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable VideoCapture"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VideoCapture.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -360,6 +412,8 @@ CMakeFiles/VideoCapture.dir/build: VideoCapture
 
 .PHONY : CMakeFiles/VideoCapture.dir/build
 
+CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/avilib.c.o.requires
+CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/v4l2uvc.c.o.requires
 CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/main.cpp.o.requires
 CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/UDPClient.cpp.o.requires
 CMakeFiles/VideoCapture.dir/requires: CMakeFiles/VideoCapture.dir/UDPServer.cpp.o.requires

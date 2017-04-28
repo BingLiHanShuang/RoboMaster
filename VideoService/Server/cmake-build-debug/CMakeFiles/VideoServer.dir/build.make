@@ -43,10 +43,10 @@ RM = /home/parallels/clion-2016.3.4/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/parallels/RoboMaster/VideoServer
+CMAKE_SOURCE_DIR = /home/parallels/RoboMaster/VideoService/Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/parallels/RoboMaster/VideoServer/cmake-build-debug
+CMAKE_BINARY_DIR = /home/parallels/RoboMaster/VideoService/Server/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/VideoServer.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/VideoServer.dir/flags.make
 
 CMakeFiles/VideoServer.dir/main.cpp.o: CMakeFiles/VideoServer.dir/flags.make
 CMakeFiles/VideoServer.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/VideoServer.dir/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoServer.dir/main.cpp.o -c /home/parallels/RoboMaster/VideoServer/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/VideoServer.dir/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoServer.dir/main.cpp.o -c /home/parallels/RoboMaster/VideoService/Server/main.cpp
 
 CMakeFiles/VideoServer.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VideoServer.dir/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/parallels/RoboMaster/VideoServer/main.cpp > CMakeFiles/VideoServer.dir/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/parallels/RoboMaster/VideoService/Server/main.cpp > CMakeFiles/VideoServer.dir/main.cpp.i
 
 CMakeFiles/VideoServer.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VideoServer.dir/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/parallels/RoboMaster/VideoServer/main.cpp -o CMakeFiles/VideoServer.dir/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/parallels/RoboMaster/VideoService/Server/main.cpp -o CMakeFiles/VideoServer.dir/main.cpp.s
 
 CMakeFiles/VideoServer.dir/main.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/VideoServer.dir/main.cpp.o.provides.build: CMakeFiles/VideoServer.dir
 
 CMakeFiles/VideoServer.dir/Structure.cpp.o: CMakeFiles/VideoServer.dir/flags.make
 CMakeFiles/VideoServer.dir/Structure.cpp.o: ../Structure.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/VideoServer.dir/Structure.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoServer.dir/Structure.cpp.o -c /home/parallels/RoboMaster/VideoServer/Structure.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/VideoServer.dir/Structure.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VideoServer.dir/Structure.cpp.o -c /home/parallels/RoboMaster/VideoService/Server/Structure.cpp
 
 CMakeFiles/VideoServer.dir/Structure.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VideoServer.dir/Structure.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/parallels/RoboMaster/VideoServer/Structure.cpp > CMakeFiles/VideoServer.dir/Structure.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/parallels/RoboMaster/VideoService/Server/Structure.cpp > CMakeFiles/VideoServer.dir/Structure.cpp.i
 
 CMakeFiles/VideoServer.dir/Structure.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VideoServer.dir/Structure.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/parallels/RoboMaster/VideoServer/Structure.cpp -o CMakeFiles/VideoServer.dir/Structure.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/parallels/RoboMaster/VideoService/Server/Structure.cpp -o CMakeFiles/VideoServer.dir/Structure.cpp.s
 
 CMakeFiles/VideoServer.dir/Structure.cpp.o.requires:
 
@@ -117,7 +117,7 @@ VideoServer: CMakeFiles/VideoServer.dir/main.cpp.o
 VideoServer: CMakeFiles/VideoServer.dir/Structure.cpp.o
 VideoServer: CMakeFiles/VideoServer.dir/build.make
 VideoServer: CMakeFiles/VideoServer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/parallels/RoboMaster/VideoServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable VideoServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable VideoServer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VideoServer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -135,6 +135,6 @@ CMakeFiles/VideoServer.dir/clean:
 .PHONY : CMakeFiles/VideoServer.dir/clean
 
 CMakeFiles/VideoServer.dir/depend:
-	cd /home/parallels/RoboMaster/VideoServer/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/parallels/RoboMaster/VideoServer /home/parallels/RoboMaster/VideoServer /home/parallels/RoboMaster/VideoServer/cmake-build-debug /home/parallels/RoboMaster/VideoServer/cmake-build-debug /home/parallels/RoboMaster/VideoServer/cmake-build-debug/CMakeFiles/VideoServer.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/parallels/RoboMaster/VideoService/Server/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/parallels/RoboMaster/VideoService/Server /home/parallels/RoboMaster/VideoService/Server /home/parallels/RoboMaster/VideoService/Server/cmake-build-debug /home/parallels/RoboMaster/VideoService/Server/cmake-build-debug /home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles/VideoServer.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/VideoServer.dir/depend
 

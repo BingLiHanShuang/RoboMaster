@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/parallels/RoboMaster/VideoServer/Structure.cpp
+/home/parallels/RoboMaster/VideoService/Server/Structure.cpp
 Structure.h
-/home/parallels/RoboMaster/VideoServer/Structure.h
+/home/parallels/RoboMaster/VideoService/Server/Structure.h
 
-/home/parallels/RoboMaster/VideoServer/Structure.h
+/home/parallels/RoboMaster/VideoService/Server/Structure.h
 stdio.h
 -
 sys/shm.h
@@ -24,7 +24,7 @@ stdio.h
 pthread.h
 -
 
-/home/parallels/RoboMaster/VideoServer/main.cpp
+/home/parallels/RoboMaster/VideoService/Server/main.cpp
 iostream
 -
 cstring
@@ -60,5 +60,5 @@ netinet/in.h
 sys/socket.h
 -
 Structure.h
-/home/parallels/RoboMaster/VideoServer/Structure.h
+/home/parallels/RoboMaster/VideoService/Server/Structure.h
 
