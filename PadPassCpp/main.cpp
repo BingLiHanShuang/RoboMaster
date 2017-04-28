@@ -235,7 +235,10 @@ void extract_digit_from_slice(vector<Mat> &image_digit,vector<Mat> &image_digit_
         }
         Mat image_max=temp_dict[max_index];
         image_digit_final.push_back(image_max);
+//        imshow(to_string(i),image_max);
+
     }
+//    waitKey(0);
 }
 void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &image_digit_final){
     vector<vector<Point> > contours;
@@ -251,16 +254,19 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
             max_index=max(max_index,area);
             rect.y-=1;
             rect.x-=1;
-            rect.height+=1;
-            rect.width+=1;
+            rect.height+=2;
+            rect.width+=2;
             Mat img_temp(image_digit_with_border[i],rect);
             temp_dict[area]=img_temp;
         }
 
         //resizeimg(temp_dict[max_index]);
         image_digit_final.push_back(temp_dict[max_index]);
+        imshow(to_string(i),temp_dict[max_index]);
+
         //count_digit++;
     }
+    waitKey(0);
 }
 void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
     vector<vector<Point> > contours;
@@ -331,19 +337,19 @@ int process(Mat frame){
             int x=rect.x,y=rect.y,w=rect.width,h=rect.height;
             int area=w*h;
 
-            if(area<100 || area > 550)continue;//面积大小进行过滤
-            if(((float)w/(float)h)<=1||((float)w/(float)h)>=3)continue;//宽高比过滤
-            if(x<10 ||x>470)continue;//相对位置过滤
+            if(area<350 || area > 560)continue;//面积大小进行过滤
+            if(((float)w/(float)h)<=1.5||((float)w/(float)h)>=2.5)continue;//宽高比过滤
+//            if(x<10 ||x>470)continue;//相对位置过滤
 
             Mat mask_rect = Mat(gray_frame, rect);
             Scalar mask_rect_average=mean(mask_rect);
-            if(mask_rect_average[0]<50||mask_rect_average[0]>80)continue;//通过平均颜色进行过滤
+            if(mask_rect_average[0]<40)continue;//通过平均颜色进行过滤
             pos_rect.push_back(rect);
             rectangle(frame,rect,Scalar(0,0,255),2);
         }
     }
-//    imshow("frame",frame);
-//    waitKey(0);
+    imshow("frame",frame);
+    waitKey(0);
 
     //将左右两边定位位点分开,并排序
     sort(pos_rect.begin(),pos_rect.end(),sort_cmp_x_greater);
@@ -432,6 +438,10 @@ int main() {
 
 
 
+<<<<<<< Updated upstream
+=======
+    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1290.jpg");
+>>>>>>> Stashed changes
     clock_t tStart;
 //    tStart= clock();
 //    m.compute_output(sample);

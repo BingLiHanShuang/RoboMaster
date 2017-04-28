@@ -119,10 +119,10 @@ def process(frame):
     # if(len(pos_rect)!=10):
     #     return
     #pos_rect=list(set(pos_rect))
-    cv2.imshow("frame", frame)
-    cv2.imshow("edge", edge)
+    # cv2.imshow("frame", frame)
+    # cv2.imshow("edge", edge)
 
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
     pos_rect.sort(key=lambda x:(x[0],x[1]))
     pos_rect_new=[]
     pos_rect_new.append(pos_rect[0])
@@ -233,8 +233,10 @@ def process(frame):
         led_height=int(led_height)
         led_screen=frame.copy()[led_y:led_y + led_height, led_x:led_x + led_width]
 
+        cv2.imshow("ledscreen", led_screen)
+
         hsv = cv2.cvtColor(led_screen, cv2.COLOR_BGR2HSV)
-        lower_white = np.array([0, 0, 190])
+        lower_white = np.array([0, 0, 210])
         upper_white = np.array([255, 255, 255])
         kernel = np.ones((3, 3), np.uint8)
 
@@ -269,6 +271,7 @@ def process(frame):
     slice_first_line()
     slice_second_line()
     slice_third_line()
+    return
 
 
 
@@ -349,7 +352,8 @@ def process(frame):
             img_temp=digit_pad[i][y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
             temp_dict[area]=img_temp
         name = recognize1(temp_dict[max_index])
-        cv2.imshow(str(i) + "-" + str(name), temp_dict[max_index].copy())
+        temp_resize=resize1(temp_dict[max_index])
+        cv2.imshow(str(i) + "-" + str(name), temp_resize)
 
 
 
@@ -373,7 +377,7 @@ while True:
 
     #success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1275.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1290.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()

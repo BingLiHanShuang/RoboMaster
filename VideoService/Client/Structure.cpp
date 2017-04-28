@@ -9,7 +9,7 @@ using namespace std;
 using namespace cv;
 struct shared_package * get_shared_package(){
     int shmid;
-    shmid = shmget(960828, sizeof(struct shared_package), 0666 | IPC_CREAT);
+    shmid = shmget(960826, sizeof(struct shared_package), 0666 | IPC_CREAT);
     struct shared_package * s = (struct shared_package *) shmat(shmid, NULL, 0);
     printf("shmid:%d, p:%lx\n", shmid, s);
     return s;
