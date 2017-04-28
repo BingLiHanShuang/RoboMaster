@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/parallels/RoboMaster/VideoServer/Structure.cpp" "/home/parallels/RoboMaster/VideoServer/cmake-build-debug/CMakeFiles/VideoServer.dir/Structure.cpp.o"
-  "/home/parallels/RoboMaster/VideoServer/main.cpp" "/home/parallels/RoboMaster/VideoServer/cmake-build-debug/CMakeFiles/VideoServer.dir/main.cpp.o"
+  "/home/parallels/RoboMaster/VideoService/Server/Structure.cpp" "/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles/VideoServer.dir/Structure.cpp.o"
+  "/home/parallels/RoboMaster/VideoService/Server/main.cpp" "/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles/VideoServer.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

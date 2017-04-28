@@ -5,9 +5,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/parallels/RoboMaster/VideoCapture/avilib.c" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/avilib.c.o"
   "/home/parallels/RoboMaster/VideoCapture/protobuf-c.c" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/protobuf-c.c.o"
   "/home/parallels/RoboMaster/VideoCapture/protocol.c" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/protocol.c.o"
   "/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.c" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/protocol.pb-c.c.o"
+  "/home/parallels/RoboMaster/VideoCapture/v4l2uvc.c" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/v4l2uvc.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

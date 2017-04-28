@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/VideoCapture.dir/avilib.c.o"
+  "CMakeFiles/VideoCapture.dir/v4l2uvc.c.o"
   "CMakeFiles/VideoCapture.dir/main.cpp.o"
   "CMakeFiles/VideoCapture.dir/UDPClient.cpp.o"
   "CMakeFiles/VideoCapture.dir/UDPServer.cpp.o"

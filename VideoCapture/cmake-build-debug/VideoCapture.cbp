@@ -113,6 +113,12 @@
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/VideoRecorder.h">
 			<Option target="VideoCapture"/>
 		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/avilib.c">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/avilib.h">
+			<Option target="VideoCapture"/>
+		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/main.cpp">
 			<Option target="VideoCapture"/>
 		</Unit>
@@ -135,6 +141,15 @@
 			<Option target="VideoCapture"/>
 		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/protocol.pb-c.h">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/uvcvideo.h">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/v4l2uvc.c">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/v4l2uvc.h">
 			<Option target="VideoCapture"/>
 		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/CMakeLists.txt">
