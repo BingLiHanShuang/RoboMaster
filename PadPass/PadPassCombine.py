@@ -1,16 +1,16 @@
 import cv2
 import numpy as np
 from sklearn.externals import joblib
-from skimage.feature import hog
+# from skimage.feature import hog
 import datetime
 from keras import backend as K
 K.set_image_dim_ordering('th')
 from keras.models import model_from_json
 
 
-with open('model_handwrite.json', 'r') as f:
+with open('/Users/wzq/model_handwrite.json', 'r') as f:
     model = model_from_json(f.read())
-model.load_weights('model_handwrite.h5')
+model.load_weights('/Users/wzq/model_handwrite.h5')
 model.summary()
 
 with open('model_led.json', 'r') as f:
