@@ -86,7 +86,8 @@ def process(frame):
 
     # bw = cv2.adaptiveThreshold(gray, 200, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 25, 25)
     edge = cv2.Canny(gray, 500, 1500, apertureSize=5)
-
+    im_th = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 25, 25)
+    #cv2.imshow("im_th",im_th)
     # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     # lower_white = np.array([0, 0, 100])
     # upper_white = np.array([255, 255, 255])
@@ -101,7 +102,9 @@ def process(frame):
         if len(approx) >=4 or len(approx) <=10:
             x, y, w, h = cv2.boundingRect(cnt)
             #w,h,x,y=int(rect[0][1]),int(rect[0][1]),int(rect[1][0]),int(rect[1][1])
-            if  w*h<350 or w*h>560  or h>w or w/float(h)<=1 or w/float(h)>=3 or x<10:
+            if  w*h<350 or w*h>560  :
+                continue
+            if w/float(h)<=1.5 or w/float(h)>=2.5:
                 continue
            # mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
 #            cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
@@ -109,7 +112,7 @@ def process(frame):
             mask_rect_color= gray[y1:y1+h1, x1:x1+w1].mean()
             if(mask_rect_color>100 or mask_rect_color<80):
                 continue
-            print w, h, w * h, mask_rect_color
+            print w, h, w * h,w/float(h), mask_rect_color
 
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
             pos_rect.append((x,y,w,h))
@@ -370,7 +373,7 @@ while True:
 
     #success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1220.jpg")
+    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1275.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
