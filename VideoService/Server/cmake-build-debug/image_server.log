@@ -1,0 +1,25 @@
+打开摄像头设备成功，/dev/video1
+------------
+Driver Name:uvcvideo
+Card Name:USB 2.0 Camera
+Bus info:usb-0000:00:1d.7-3
+Driver Version:4.4.49
+
+------------
+Supportformat:
+	1.MJPG	Motion-JPEG
+	2.YUYV	YUYV 4:2:2
+------------
+设置摄像头视频数据格式
+fmt.type is 1
+Width = 640
+Height= 480
+Sizeimage = 614989
+------------
+请求分配视频缓冲区
+------------
+查询缓冲信息，将内核空间映射到用户空间
+------------
+投放一个空的视频缓冲区到视频缓冲区输入队列中
+------------
+启动视频采集
