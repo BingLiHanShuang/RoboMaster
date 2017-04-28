@@ -10,17 +10,18 @@
 #ifdef __cplusplus
 
 extern "C" {
-
+    
 #endif
-
-void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data);
-void presendtoserial(uint8_t *payload, size_t size);
-void VideoRecord_Status(size_t status);
-void TarmacSend(double x, double y);
-void UltraSonicSend(double height);
-void print(uint8_t * data,int len);
+    
+    void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data);
+    void presendtoserial(uint8_t *payload, size_t size);
+    void VideoRecord_Status(size_t status);
+    void TarmacSend(double x, double y);
+    void UltraSonicSend(double height);
+    void PadPassSend(uint8_t *digit_handwrite,uint8_t *digit_led);
+    void print(uint8_t * data,int len);
 #ifdef __cplusplus
-
+    
 }
 
 #endif

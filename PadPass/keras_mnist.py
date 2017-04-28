@@ -8,8 +8,8 @@ from keras.layers import Dense, Dropout
 from keras.optimizers import RMSprop
 from keras.layers import Dense, Dropout, Flatten,Activation
 from keras.layers import Conv2D, MaxPooling2D
-import tensorflow as tf
-from tensorflow.python.framework import graph_util
+#import tensorflow as tf
+#from tensorflow.python.framework import graph_util
 from keras import backend as K
 K.set_image_dim_ordering('th')
 # sess = tf.Session()
@@ -18,7 +18,11 @@ from keras import backend as K
 # K.set_session(sess)
 batch_size = 128
 num_classes = 10
+<<<<<<< Updated upstream
 epochs = 1
+=======
+epochs = 10
+>>>>>>> Stashed changes
 img_rows=28
 img_cols=28
 

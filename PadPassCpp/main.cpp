@@ -6,13 +6,16 @@
 #include <opencv2/opencv.hpp>
 #include <time.h>
 #include "keras_model.h"
-
+#include "protocol.h"
+#include "Structure.h"
 using namespace std;
 using namespace cv;
 using namespace keras;
 static int count_digit=0;
 KerasModel model_handwrite_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
 KerasModel model_led_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
+uint8_t result_digit_handwrite[9];
+uint8_t result_digit_led[5];
 int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
 
     vector<vector<vector<float>>> data;
@@ -277,29 +280,34 @@ void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
         //imshow(to_string(i),mat);
     }
 }
-void digit_recognize(vector<Mat> &image_digit){
-    vector<int> res;
+void digit_handwrite_recognize(vector<Mat> &image_digit,uint8_t* res){
+
+//    vector<int> res;
     for (int i = 0; i < image_digit.size(); ++i) {
         Mat mat=image_resize(image_digit[i]);
         int temp=image_predict(mat,model_handwrite_digit);
         imshow(to_string(i+1)+"-"+to_string(temp),mat);
-        res.push_back(temp);
+        res[i]=temp;
+        //res.push_back(temp);
     }
+
     //waitKey(0);
 
 
     //resizeimg(temp_dict[max_index]);
 }
-void led_digit_recognize(vector<Mat> &image_digit){
-    vector<int> res;
+void digit_led_recognize(vector<Mat> &image_digit,uint8_t* res){
+//    vector<int> res;
     for (int i = 0; i < image_digit.size(); ++i) {
         Mat mat=image_resize(image_digit[i]);
 
         int temp=image_predict(mat,model_led_digit);
-        res.push_back(temp);
+        res[i]=temp;
+
+//        res.push_back(temp);
     }
 }
-void process(Mat frame){
+int process(Mat frame){
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
     vector<Rect> pos_rect;
@@ -355,7 +363,7 @@ void process(Mat frame){
 
     if(pos_rect_new.size()!=10){
         cout<<"cannot find location rectangle"<<endl;
-        return;
+        return -1;
     }
 
     vector<Rect> pos_rect_left(pos_rect_new.begin(),pos_rect_new.begin()+5),pos_rect_right(pos_rect_new.begin()+5,pos_rect_new.end());
@@ -363,28 +371,33 @@ void process(Mat frame){
     sort(pos_rect_right.begin(),pos_rect_right.end(),sort_cmp_y_greater);//右侧定位点
 
 
-    vector<Mat> image_digit;
+    vector<Mat> image_digit_handwrite;
     vector<Mat> image_digit_led;
 
 
 
-    slice_first_line(frame,pos_rect_left,pos_rect_right,image_digit);//切割出九宫格第一行
-    slice_second_line(frame,pos_rect_left,pos_rect_right,image_digit);//切割出九宫格第二行
-    slice_third_line(frame,pos_rect_left,pos_rect_right,image_digit);//切割出九宫格第三行
+    slice_first_line(frame,pos_rect_left,pos_rect_right,image_digit_handwrite);//切割出九宫格第一行
+    slice_second_line(frame,pos_rect_left,pos_rect_right,image_digit_handwrite);//切割出九宫格第二行
+    slice_third_line(frame,pos_rect_left,pos_rect_right,image_digit_handwrite);//切割出九宫格第三行
     Mat led_screen=slice_led(frame,pos_rect_left,pos_rect_right);////切割出LED
-    vector<Mat> image_digit_with_border,image_digit_final;
+    vector<Mat> image_digit_handwrite_with_border,image_digit_handwrite_final;
     //对切割出的图片进行处理获取纯数字边框
-    extract_digit_from_slice(image_digit,image_digit_with_border);//提取出九宫格中小矩形
+    extract_digit_from_slice(image_digit_handwrite,image_digit_handwrite_with_border);//提取出九宫格中小矩形
 
 
-    extract_minimum_digit(image_digit_with_border,image_digit_final);//提取出最后识别九宫格图形
+    extract_minimum_digit(image_digit_handwrite_with_border,image_digit_handwrite_final);//提取出最后识别九宫格图形
     extract_minimum_led_digit(led_screen,image_digit_led);//提取每个LED字符
 
 
-    digit_recognize(image_digit_final);
-    led_digit_recognize(image_digit_led);
+    digit_handwrite_recognize(image_digit_handwrite_final,result_digit_handwrite);//识别手写数字
+    digit_led_recognize(image_digit_led,result_digit_led);//识别LED数字
 
 
+//    uint8_t result_digit_handwrite[9];
+//    uint8_t result_digit_led[5];
+
+
+    return 0;
 
 
 
@@ -405,15 +418,34 @@ void recognize(Mat mat){
 
 }
 int main() {
+    memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
+    memset(result_digit_led,0, sizeof(result_digit_led));
+    Mat frame;
+    while(1){
+        getImageFromMemory(frame);
+        frame=imread("/Users/wzq/RoboMaster/PadPass/test2/1273.jpg");
+        if(process(frame)!=0)continue;
+        PadPassSend(result_digit_handwrite,result_digit_led);
 
-    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test2/1273.jpg");
+    }
+
+
+
+
     clock_t tStart;
 //    tStart= clock();
-////    m.compute_output(sample);
+//    m.compute_output(sample);
 //    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     tStart= clock();
     process(frame);
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+
+    tStart= clock();
+    process(frame);
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
+
+
     imshow("frame",frame);
     waitKey(0);
 
