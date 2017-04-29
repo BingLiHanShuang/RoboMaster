@@ -12,8 +12,9 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 static int count_digit=0;
-KerasModel model_handwrite_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
-KerasModel model_led_digit("/Users/wzq/RoboMaster/PadPassCpp/model_led.nnet", true);
+
+KerasModel model_handwrite_digit("./model_handwrite.nnet", true);
+KerasModel model_led_digit("./model_led.nnet", true);
 
 uint8_t result_digit_handwrite[9];
 uint8_t result_digit_led[5];
@@ -301,7 +302,9 @@ void digit_handwrite_recognize(vector<Mat> &image_digit,uint8_t* res){
     for (int i = 0; i < image_digit.size(); ++i) {
         Mat mat=image_resize(image_digit[i]);
         int temp=image_predict(mat,model_handwrite_digit);
+#ifdef test
         imshow(to_string(i+1)+"-"+to_string(temp),mat);
+#endif
 //        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",mat);
 
         res[i]=temp;
@@ -360,9 +363,11 @@ int process(Mat frame){
             rectangle(frame,rect,Scalar(0,0,255),2);
         }
     }
+#ifdef test
+
     imshow("frame",frame);
     waitKey(0);
-
+#endif
     //将左右两边定位位点分开,并排序
     sort(pos_rect.begin(),pos_rect.end(),sort_cmp_x_greater);
 
@@ -446,14 +451,19 @@ int main() {
     memset(result_digit_led,0, sizeof(result_digit_led));
     Mat frame;
     while(1){
-        getImageFromMemory(frame);
+        if(getImageFromMemory(frame)!=0)continue;
+#ifdef test
         frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
+#endif
         if(process(frame)!=0)continue;
 
         PadPassSend(result_digit_handwrite,result_digit_led);
         PadPassPrint(result_digit_handwrite,result_digit_led);
+#ifdef test
+
         imshow("frame",frame);
         waitKey(0);
+#endif
     }
 
 
