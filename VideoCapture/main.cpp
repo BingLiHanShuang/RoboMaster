@@ -49,7 +49,6 @@ int main() {
 
 
 
-    videoRecorder.OpenCamera("/dev/video0");
 
     while(1) {
         pthread_mutex_lock(&thread_video_record_mutex);

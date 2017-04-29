@@ -177,6 +177,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/VideoServer.dir/build.make CMakeFiles/VideoServer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+v4l2uvc.o: v4l2uvc.c.o
+
+.PHONY : v4l2uvc.o
+
+# target to build an object file
+v4l2uvc.c.o:
+	$(MAKE) -f CMakeFiles/VideoServer.dir/build.make CMakeFiles/VideoServer.dir/v4l2uvc.c.o
+.PHONY : v4l2uvc.c.o
+
+v4l2uvc.i: v4l2uvc.c.i
+
+.PHONY : v4l2uvc.i
+
+# target to preprocess a source file
+v4l2uvc.c.i:
+	$(MAKE) -f CMakeFiles/VideoServer.dir/build.make CMakeFiles/VideoServer.dir/v4l2uvc.c.i
+.PHONY : v4l2uvc.c.i
+
+v4l2uvc.s: v4l2uvc.c.s
+
+.PHONY : v4l2uvc.s
+
+# target to generate assembly for a file
+v4l2uvc.c.s:
+	$(MAKE) -f CMakeFiles/VideoServer.dir/build.make CMakeFiles/VideoServer.dir/v4l2uvc.c.s
+.PHONY : v4l2uvc.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +219,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... v4l2uvc.o"
+	@echo "... v4l2uvc.i"
+	@echo "... v4l2uvc.s"
 .PHONY : help
 
 

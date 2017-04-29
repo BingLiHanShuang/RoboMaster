@@ -7,14 +7,21 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #ifndef VIDEOSERVER_STRUCTURE_H
 #define VIDEOSERVER_STRUCTURE_H
+using namespace cv;
+extern long long frame_count_last;
 extern FILE *flog;
 void printlog(const char *format,...);
+uint8_t getImageFromMemory(Mat &image);
 struct shared_package{
-    pthread_mutex_t image_lock;
+    pthread_rwlock_t image_lock=PTHREAD_RWLOCK_INITIALIZER;
     int image_size;
     char image_data[307200];        //640*480图像数据
+    long long count;
+
 };
 struct shared_package * get_shared_package();
 

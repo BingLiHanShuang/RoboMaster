@@ -32,8 +32,6 @@ private:
     int frame_width,frame_height;
     int status=0;//0 for not recording,1 for recording,2 for recording stoped
     int frame_count=0;
-    VideoCapture vcap;
-    VideoWriter video;
     FILE *file = NULL;
     struct vdIn *vd;
     unsigned char *tmpbuffer;
@@ -51,25 +49,13 @@ private:
 
 public:
     VideoRecorder();
-    VideoRecorder(int deviceid);
-    VideoRecorder(char * devicefile);
-    void OpenCamera(int deviceid);
-    void OpenCamera(char * devicefile);
     void CreateVideo1(char *path);
-    void CloseCamera();
-    void SaveMat(Mat mat);
-    Mat ReadMat();
-    void CreateVideo(string path);
-    void ReleaseVideo();
-    void SaveOneFrame();
     void SaveOneFrame1();
 
-    void Recording();
     void Recording1();
     void Release1();
     int GetStatus();
     int SetStutus(int data);
-    ~VideoRecorder();
 
 };
 void* thread_video_record(void *arg);

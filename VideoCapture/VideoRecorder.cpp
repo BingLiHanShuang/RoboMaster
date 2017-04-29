@@ -5,22 +5,7 @@
 #include "VideoRecorder.h"
 VideoRecorder videoRecorder;
 VideoRecorder::VideoRecorder(){}
-VideoRecorder::VideoRecorder(int deviceid) {
-    VideoRecorder::OpenCamera(deviceid);
-}
-VideoRecorder::VideoRecorder(char * devicefile){
-    VideoRecorder::OpenCamera(devicefile);
-}
-void VideoRecorder::OpenCamera(int deviceid){
 
-    vcap.open(deviceid);
-    if(!vcap.isOpened()){
-        cout<<"Error opening camera id"<<deviceid<<endl;
-        //exit(0);
-    }
-    frame_width=vcap.get(CV_CAP_PROP_FRAME_WIDTH);
-    frame_height=vcap.get(CV_CAP_PROP_FRAME_HEIGHT);
-}
 void VideoRecorder::OpenCamera(char * devicefile){
     width = 640 ;
     height = 480 ;
@@ -55,20 +40,7 @@ void VideoRecorder::OpenCamera(char * devicefile){
     camera_status=1;
 
 }
-void VideoRecorder::CloseCamera() {
-    if(!vcap.isOpened())vcap.release();
-}
 
-void VideoRecorder::CreateVideo(string path){
-    if(!vcap.isOpened()){
-        cout<<"Camera is not opened in VideoRecorder.cpp CreateVideo"<<endl;
-        exit(0);
-    }
-    ReleaseVideo();
-    video.open(path,CV_FOURCC('M','P','4','2'),10,Size(frame_width,frame_height),true);
-    frame_count=0;
-    status=0;
-}
 void VideoRecorder::CreateVideo1(char *path)
 {
     Release1();
@@ -86,25 +58,7 @@ void VideoRecorder::CreateVideo1(char *path)
     video_status=1;
 
 }
-Mat VideoRecorder::ReadMat(){
-    Mat frame;
-    vcap>>frame;
-    return frame;
-}
-void VideoRecorder::SaveMat(Mat mat) {
-    video.write(mat);
-    frame_count++;
-}
-void VideoRecorder::ReleaseVideo() {
-    if(video.isOpened())video.release();
-}
-void VideoRecorder::SaveOneFrame(){
-    Mat frame;
-    vcap>>frame;
-    video.write(frame);
-    frame_count++;
-    waitKey(1);
-}
+
 void VideoRecorder::SaveOneFrame1(){
     int ret;
 
@@ -132,14 +86,7 @@ void VideoRecorder::SaveOneFrame1(){
     }
 
 }
-void VideoRecorder::Recording(){
-    while (status==1){
-        assert(video.isOpened());
-        SaveOneFrame();
-    }
-    if(status==2)
-        video.release();
-}
+
 void VideoRecorder::Release1() {
     if(video_status==0||file==NULL)
         return;
@@ -157,9 +104,7 @@ void VideoRecorder::Recording1(){
     if(status==2)
         Release1();
 }
-VideoRecorder::~VideoRecorder(){
-    vcap.release();
-}
+
 int VideoRecorder::GetStatus() { return status;}
 int VideoRecorder::SetStutus(int data) {
     status=data;

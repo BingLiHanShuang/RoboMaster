@@ -105,19 +105,98 @@ CMakeFiles/VideoServer.dir/Structure.cpp.o.provides: CMakeFiles/VideoServer.dir/
 CMakeFiles/VideoServer.dir/Structure.cpp.o.provides.build: CMakeFiles/VideoServer.dir/Structure.cpp.o
 
 
+CMakeFiles/VideoServer.dir/v4l2uvc.c.o: CMakeFiles/VideoServer.dir/flags.make
+CMakeFiles/VideoServer.dir/v4l2uvc.c.o: ../v4l2uvc.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/VideoServer.dir/v4l2uvc.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/VideoServer.dir/v4l2uvc.c.o   -c /home/parallels/RoboMaster/VideoService/Server/v4l2uvc.c
+
+CMakeFiles/VideoServer.dir/v4l2uvc.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/VideoServer.dir/v4l2uvc.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/parallels/RoboMaster/VideoService/Server/v4l2uvc.c > CMakeFiles/VideoServer.dir/v4l2uvc.c.i
+
+CMakeFiles/VideoServer.dir/v4l2uvc.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/VideoServer.dir/v4l2uvc.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/parallels/RoboMaster/VideoService/Server/v4l2uvc.c -o CMakeFiles/VideoServer.dir/v4l2uvc.c.s
+
+CMakeFiles/VideoServer.dir/v4l2uvc.c.o.requires:
+
+.PHONY : CMakeFiles/VideoServer.dir/v4l2uvc.c.o.requires
+
+CMakeFiles/VideoServer.dir/v4l2uvc.c.o.provides: CMakeFiles/VideoServer.dir/v4l2uvc.c.o.requires
+	$(MAKE) -f CMakeFiles/VideoServer.dir/build.make CMakeFiles/VideoServer.dir/v4l2uvc.c.o.provides.build
+.PHONY : CMakeFiles/VideoServer.dir/v4l2uvc.c.o.provides
+
+CMakeFiles/VideoServer.dir/v4l2uvc.c.o.provides.build: CMakeFiles/VideoServer.dir/v4l2uvc.c.o
+
+
 # Object files for target VideoServer
 VideoServer_OBJECTS = \
 "CMakeFiles/VideoServer.dir/main.cpp.o" \
-"CMakeFiles/VideoServer.dir/Structure.cpp.o"
+"CMakeFiles/VideoServer.dir/Structure.cpp.o" \
+"CMakeFiles/VideoServer.dir/v4l2uvc.c.o"
 
 # External object files for target VideoServer
 VideoServer_EXTERNAL_OBJECTS =
 
 VideoServer: CMakeFiles/VideoServer.dir/main.cpp.o
 VideoServer: CMakeFiles/VideoServer.dir/Structure.cpp.o
+VideoServer: CMakeFiles/VideoServer.dir/v4l2uvc.c.o
 VideoServer: CMakeFiles/VideoServer.dir/build.make
+VideoServer: /usr/local/lib/libopencv_core.a
+VideoServer: /usr/local/lib/libopencv_flann.a
+VideoServer: /usr/local/lib/libopencv_imgproc.a
+VideoServer: /usr/local/lib/libopencv_highgui.a
+VideoServer: /usr/local/lib/libopencv_features2d.a
+VideoServer: /usr/local/lib/libopencv_calib3d.a
+VideoServer: /usr/local/lib/libopencv_ml.a
+VideoServer: /usr/local/lib/libopencv_video.a
+VideoServer: /usr/local/lib/libopencv_legacy.a
+VideoServer: /usr/local/lib/libopencv_objdetect.a
+VideoServer: /usr/local/lib/libopencv_photo.a
+VideoServer: /usr/local/lib/libopencv_gpu.a
+VideoServer: /usr/local/lib/libopencv_videostab.a
+VideoServer: /usr/local/lib/libopencv_ts.a
+VideoServer: /usr/local/lib/libopencv_ocl.a
+VideoServer: /usr/local/lib/libopencv_superres.a
+VideoServer: /usr/local/lib/libopencv_nonfree.a
+VideoServer: /usr/local/lib/libopencv_stitching.a
+VideoServer: /usr/local/lib/libopencv_contrib.a
+VideoServer: /usr/local/lib/libopencv_nonfree.a
+VideoServer: /usr/local/lib/libopencv_gpu.a
+VideoServer: /usr/local/lib/libopencv_legacy.a
+VideoServer: /usr/local/lib/libopencv_photo.a
+VideoServer: /usr/local/lib/libopencv_ocl.a
+VideoServer: /usr/local/lib/libopencv_calib3d.a
+VideoServer: /usr/local/lib/libopencv_features2d.a
+VideoServer: /usr/local/lib/libopencv_flann.a
+VideoServer: /usr/local/lib/libopencv_ml.a
+VideoServer: /usr/local/lib/libopencv_video.a
+VideoServer: /usr/local/lib/libopencv_objdetect.a
+VideoServer: /usr/local/lib/libopencv_highgui.a
+VideoServer: /usr/local/lib/libopencv_imgproc.a
+VideoServer: /usr/local/lib/libopencv_core.a
+VideoServer: /usr/lib/x86_64-linux-gnu/libjpeg.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libpng.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libtiff.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libjasper.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libjpeg.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libpng.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libtiff.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libjasper.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libz.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libImath.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libIlmImf.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libIex.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libHalf.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libIlmThread.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libQtOpenGL.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libQtGui.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libQtTest.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libQtCore.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libGLU.so
+VideoServer: /usr/lib/x86_64-linux-gnu/libGL.so
 VideoServer: CMakeFiles/VideoServer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable VideoServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/parallels/RoboMaster/VideoService/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable VideoServer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VideoServer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -127,6 +206,7 @@ CMakeFiles/VideoServer.dir/build: VideoServer
 
 CMakeFiles/VideoServer.dir/requires: CMakeFiles/VideoServer.dir/main.cpp.o.requires
 CMakeFiles/VideoServer.dir/requires: CMakeFiles/VideoServer.dir/Structure.cpp.o.requires
+CMakeFiles/VideoServer.dir/requires: CMakeFiles/VideoServer.dir/v4l2uvc.c.o.requires
 
 .PHONY : CMakeFiles/VideoServer.dir/requires
 
