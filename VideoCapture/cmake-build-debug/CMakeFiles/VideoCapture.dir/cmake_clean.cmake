@@ -10,6 +10,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o"
   "CMakeFiles/VideoCapture.dir/protocol.c.o"
   "CMakeFiles/VideoCapture.dir/protocol.cpp.o"
+  "CMakeFiles/VideoCapture.dir/Structure.cpp.o"
   "VideoCapture.pdb"
   "VideoCapture"
 )

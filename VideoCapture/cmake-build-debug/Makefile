@@ -150,6 +150,33 @@ ReceiveHandler.cpp.s:
 	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.s
 .PHONY : ReceiveHandler.cpp.s
 
+Structure.o: Structure.cpp.o
+
+.PHONY : Structure.o
+
+# target to build an object file
+Structure.cpp.o:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/Structure.cpp.o
+.PHONY : Structure.cpp.o
+
+Structure.i: Structure.cpp.i
+
+.PHONY : Structure.i
+
+# target to preprocess a source file
+Structure.cpp.i:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/Structure.cpp.i
+.PHONY : Structure.cpp.i
+
+Structure.s: Structure.cpp.s
+
+.PHONY : Structure.s
+
+# target to generate assembly for a file
+Structure.cpp.s:
+	$(MAKE) -f CMakeFiles/VideoCapture.dir/build.make CMakeFiles/VideoCapture.dir/Structure.cpp.s
+.PHONY : Structure.cpp.s
+
 UDPClient.o: UDPClient.cpp.o
 
 .PHONY : UDPClient.o
@@ -432,6 +459,9 @@ help:
 	@echo "... ReceiveHandler.o"
 	@echo "... ReceiveHandler.i"
 	@echo "... ReceiveHandler.s"
+	@echo "... Structure.o"
+	@echo "... Structure.i"
+	@echo "... Structure.s"
 	@echo "... UDPClient.o"
 	@echo "... UDPClient.i"
 	@echo "... UDPClient.s"

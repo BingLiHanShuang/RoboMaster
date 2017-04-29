@@ -3,7 +3,7 @@ project(VideoCapture)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES avilib.c avilib.h uvcvideo.h v4l2uvc.c v4l2uvc.h main.cpp UDPClient.cpp UDPServer.cpp protobuf-c.c protocol.pb-c.c ReceiveHandler.cpp ReceiveHandler.h protocol.pb-c.h VideoRecorder.cpp VideoRecorder.h DataType.h protocol.c protocol.h protocol.cpp)
+set(SOURCE_FILES avilib.c avilib.h uvcvideo.h v4l2uvc.c v4l2uvc.h main.cpp UDPClient.cpp UDPServer.cpp protobuf-c.c protocol.pb-c.c ReceiveHandler.cpp ReceiveHandler.h protocol.pb-c.h VideoRecorder.cpp VideoRecorder.h DataType.h protocol.c protocol.h protocol.cpp Structure.cpp)
 find_package(OpenCV REQUIRED)
 
 add_executable(VideoCapture ${SOURCE_FILES})

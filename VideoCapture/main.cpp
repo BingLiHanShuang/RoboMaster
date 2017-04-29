@@ -23,7 +23,7 @@ void* thread_video_capture(void *arg){
                 Mat temp=image.front();
                 image.pop();
                 pthread_mutex_unlock(&mutex_image);
-                videoRecorder.SaveMat(temp);
+                //videoRecorder.SaveMat(temp);
 
             }
         }
@@ -54,10 +54,6 @@ int main() {
         pthread_mutex_lock(&thread_video_record_mutex);
         while (videoRecorder.GetStatus() == 1){
             videoRecorder.SaveOneFrame1();
-//            Mat temp=videoRecorder.ReadMat();
-//            pthread_mutex_lock(&mutex_image);
-//            image.push(temp);
-//            pthread_mutex_unlock(&mutex_image);
 
         }
         videoRecorder.Release1();

@@ -20,6 +20,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/parallels/RoboMaster/VideoCapture/ReceiveHandler.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/ReceiveHandler.cpp.o"
+  "/home/parallels/RoboMaster/VideoCapture/Structure.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/Structure.cpp.o"
   "/home/parallels/RoboMaster/VideoCapture/UDPClient.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/UDPClient.cpp.o"
   "/home/parallels/RoboMaster/VideoCapture/UDPServer.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/UDPServer.cpp.o"
   "/home/parallels/RoboMaster/VideoCapture/VideoRecorder.cpp" "/home/parallels/RoboMaster/VideoCapture/cmake-build-debug/CMakeFiles/VideoCapture.dir/VideoRecorder.cpp.o"

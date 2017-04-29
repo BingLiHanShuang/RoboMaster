@@ -95,6 +95,12 @@
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/ReceiveHandler.h">
 			<Option target="VideoCapture"/>
 		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/Structure.cpp">
+			<Option target="VideoCapture"/>
+		</Unit>
+		<Unit filename="/home/parallels/RoboMaster/VideoCapture/Structure.h">
+			<Option target="VideoCapture"/>
+		</Unit>
 		<Unit filename="/home/parallels/RoboMaster/VideoCapture/UDPClient.cpp">
 			<Option target="VideoCapture"/>
 		</Unit>

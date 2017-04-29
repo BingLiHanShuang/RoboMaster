@@ -8,12 +8,23 @@ struct shared_package *shared_package_ptr=NULL;
 using namespace std;
 using namespace cv;
 long long frame_count_last=0;
+uint8_t image_buffer[307200];
+int image_buffer_len;
 struct shared_package * get_shared_package(){
     int shmid;
     shmid = shmget(960827, sizeof(struct shared_package), 0666 | IPC_CREAT);
     struct shared_package * s = (struct shared_package *) shmat(shmid, NULL, 0);
     printf("shmid:%d, p:%lx\n", shmid, s);
     return s;
+}
+uint8_t getImageFromMemory(){
+    image_buffer_len = shared_package_ptr->image_size;
+    int frame_count_now=shared_package_ptr->count;
+    memcpy(image_buffer,shared_package_ptr->image_data,image_buffer_len);
+    if(image_buffer_len==0)return 1;
+    if(frame_count_now==frame_count_last)return 2;
+    frame_count_last=frame_count_now;
+    return 0;
 }
 uint8_t getImageFromMemory(Mat &image){
     if(shared_package_ptr==NULL)shared_package_ptr=get_shared_package();
@@ -22,19 +33,17 @@ uint8_t getImageFromMemory(Mat &image){
     vector<char> img_data(shared_package_ptr->image_data, shared_package_ptr->image_data + nowsize);
     long long frame_count_now=shared_package_ptr->count;
     //pthread_rwlock_unlock(&shared_package_ptr->image_lock);
-    if(nowsize==0)return -1;
-    if(frame_count_now==frame_count_last)return -2;
+    if(nowsize==0)return 1;
+    if(frame_count_now==frame_count_last)return 2;
     try{
 
         image = imdecode(Mat(img_data), CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_COLOR);
         frame_count_last=frame_count_now;
 
     }catch (cv::Exception& e){
-        return -1;
+        return 1;
     }
     return 0;
-
-
 }
 void printlog(const char *format,...)
 {

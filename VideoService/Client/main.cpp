@@ -13,7 +13,12 @@ int main() {
     while (1){
 
         if(getImageFromMemory(frame)!=0)continue;
-        imshow("",frame);
+        try{
+            imshow("",frame);
+
+        }catch (cv::Exception e){
+            cout<<"error"<<endl;
+        }
         waitKey(0xff);
     }
     std::cout << "Hello, World!" << std::endl;

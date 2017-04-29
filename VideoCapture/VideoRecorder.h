@@ -25,25 +25,16 @@
 #include <X11/Xlib.h>
 #include "v4l2uvc.h"
 #include "avilib.h"
+#include "Structure.h"
 using namespace cv;
 using namespace std;
 class VideoRecorder {
 private:
-    int frame_width,frame_height;
     int status=0;//0 for not recording,1 for recording,2 for recording stoped
-    int frame_count=0;
     FILE *file = NULL;
     struct vdIn *vd;
     unsigned char *tmpbuffer;
-//    char *filename = NULL;
-//    char *avifilename = NULL;
-
-    char *sizestring = NULL;
-    char *fpsstring  = NULL;
-    char *separateur = NULL;
-    int width ;
-    int height;
-    int fps;
+    struct shared_package *shared_package_ptr;
     int camera_status=0;
     int video_status=0;
 

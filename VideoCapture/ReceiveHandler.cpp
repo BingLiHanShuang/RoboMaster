@@ -8,8 +8,8 @@
 #include "protocol.h"
 #include <time.h>
 
-//#define video_path "/home/parallels/Video"
-#define video_path "/home/ubuntu/Video"
+#define video_path "/home/parallels/Video"
+//#define video_path "/home/ubuntu/Video"
 
 #include "protocol.pb-c.h"
 #include <pthread.h>

@@ -4,45 +4,20 @@
 
 #include "VideoRecorder.h"
 VideoRecorder videoRecorder;
-VideoRecorder::VideoRecorder(){}
-
-void VideoRecorder::OpenCamera(char * devicefile){
-    width = 640 ;
-    height = 480 ;
-    fps   = 30 ;
-//    filename = "/dev/video0";
-//    avifilename = "test.avi";
-
-    frame_width=width;
-    frame_height=height;
-    int format = V4L2_PIX_FMT_MJPEG;
-    int ret;
-    int grabmethod = 1;
-
-    file = fopen(devicefile, "wb");
-    if(file == NULL)
-    {
-        printf("Unable to open file for raw frame capturing\n ");
-        exit(1);
-    }
-
-    //v4l2 init
+VideoRecorder::VideoRecorder(){
+    shared_package_ptr=get_shared_package();
     vd = (struct vdIn *) calloc(1, sizeof(struct vdIn));
-    if(init_videoIn(vd, (char *) devicefile, width, height,fps,format,grabmethod,NULL) < 0)
-    {
-        exit(1);
-    }
-
-    if (video_enable(vd))
-    {
-        exit(1);
-    }
-    camera_status=1;
 
 }
 
+
+
 void VideoRecorder::CreateVideo1(char *path)
 {
+    int width = 640 ;
+    int height = 480 ;
+    int fps=30;
+
     Release1();
     vd->avifile = AVI_open_output_file(path);
     if (vd->avifile == NULL )
@@ -51,9 +26,9 @@ void VideoRecorder::CreateVideo1(char *path)
         exit(1);
     }
 
-    AVI_set_video(vd->avifile, vd->width, vd->height, fps, "MJPG");
+    AVI_set_video(vd->avifile, width, height, fps, "MJPG");
     printf("recording to %s\n",path);
-    frame_count=0;
+    //frame_count=0;
     status=0;
     video_status=1;
 
@@ -62,28 +37,16 @@ void VideoRecorder::CreateVideo1(char *path)
 void VideoRecorder::SaveOneFrame1(){
     int ret;
 
-    memset(&vd->buf, 0, sizeof(struct v4l2_buffer));
-    vd->buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-    vd->buf.memory = V4L2_MEMORY_MMAP;
-    ret = ioctl(vd->fd, VIDIOC_DQBUF, &vd->buf);
-    if (ret < 0)
-    {
-        printf("Unable to dequeue buffer");
-        exit(1);
-    }
+    if(getImageFromMemory()!=0)
+        return;
 
-    memcpy(vd->tmpbuffer, vd->mem[vd->buf.index],vd->buf.bytesused);
 
-    AVI_write_frame(vd->avifile,(char *) vd->tmpbuffer,vd->buf.bytesused, vd->framecount);
+
+    //memcpy(vd->tmpbuffer, image_buffer,image_buffer_len);
+
+    AVI_write_frame(vd->avifile,(char *) image_buffer,image_buffer_len, vd->framecount);
 
     vd->framecount++;
-
-    ret = ioctl(vd->fd, VIDIOC_QBUF, &vd->buf);
-    if (ret < 0)
-    {
-        printf("Unable to requeue buffer");
-        exit(1);
-    }
 
 }
 
