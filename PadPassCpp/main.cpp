@@ -369,6 +369,10 @@ int process(Mat frame){
     waitKey(0);
 #endif
     //将左右两边定位位点分开,并排序
+    if(pos_rect.size()<10){
+        cout<<"cannot find location rectangle"<<endl;
+        return -1;
+    }
     sort(pos_rect.begin(),pos_rect.end(),sort_cmp_x_greater);
 
     vector<Rect> pos_rect_new;
