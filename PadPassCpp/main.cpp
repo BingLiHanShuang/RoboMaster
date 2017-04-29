@@ -12,8 +12,13 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 static int count_digit=0;
+<<<<<<< HEAD
 KerasModel model_handwrite_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
 KerasModel model_led_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
+=======
+KerasModel model_handwrite_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
+KerasModel model_led_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
+>>>>>>> origin/master
 uint8_t result_digit_handwrite[9];
 uint8_t result_digit_led[5];
 int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
@@ -23,8 +28,13 @@ int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
     for (int i = 0; i < img.rows; i++) {
         vector<float> r;
         for (int j = 0; j < img.cols; j++) {
+<<<<<<< HEAD
             r.push_back(img.at<uchar>(i, j)/255.0);
 
+=======
+            uchar temp=img.at<uchar>(i, j);
+            r.push_back(temp/255);
+>>>>>>> origin/master
         }
         d.push_back(r);
     }
@@ -37,7 +47,11 @@ int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
 
     auto max = max_element(predictions.begin(), predictions.end());
     int index = (int)distance(predictions.begin(), max);
+<<<<<<< HEAD
     //delete dc;
+=======
+    delete dc;
+>>>>>>> origin/master
     //imshow(to_string(count_digit)+"-"+to_string(index),img);
 //    waitKey(0);
     return index;
@@ -55,7 +69,11 @@ Mat image_resize(Mat rawimg){
     size.width = rawimg.cols * fc;
     size.height = rawimg.rows * fr;
     if(size.width == 0 || size.height == 0)return outimg;
+<<<<<<< HEAD
     cv::resize(rawimg, rawimg, size,INTER_CUBIC);
+=======
+    cv::resize(rawimg, rawimg, size);
+>>>>>>> origin/master
     int w = rawimg.cols, h = rawimg.rows;
     int x = (width - w)/2, y = (width - h)/2;
     rawimg.copyTo(outimg(cv::Rect(x, y, w, h)));
@@ -212,7 +230,11 @@ void extract_digit_from_slice(vector<Mat> &image_digit,vector<Mat> &image_digit_
 
         cvtColor(copy,im_gray,COLOR_BGR2GRAY);
         Mat im_th;
+<<<<<<< HEAD
         adaptiveThreshold(im_gray, im_th, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY_INV, 25, 25);
+=======
+        adaptiveThreshold(im_gray,im_th,255,ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,25,25);
+>>>>>>> origin/master
 //        threshold(im_gray,im_th,105,255,THRESH_BINARY_INV);
 
         map<int,Mat> temp_dict;
@@ -252,7 +274,10 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
             int area=rect.height*rect.width;
             if(rect.width<2||rect.height<2)continue;
             max_index=max(max_index,area);
+<<<<<<< HEAD
             if (rect.y-2>0)rect.y-=1;
+=======
+>>>>>>> origin/master
             rect.y-=1;
             rect.x-=1;
             rect.height+=2;
@@ -260,6 +285,7 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
             Mat img_temp(image_digit_with_border[i],rect);
             temp_dict[area]=img_temp;
         }
+<<<<<<< HEAD
 //        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",temp_dict[max_index]);
 
 
@@ -270,6 +296,16 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
         //count_digit++;
     }
     //waitKey(0);
+=======
+
+        //resizeimg(temp_dict[max_index]);
+        image_digit_final.push_back(temp_dict[max_index]);
+        imshow(to_string(i),temp_dict[max_index]);
+
+        //count_digit++;
+    }
+    waitKey(0);
+>>>>>>> origin/master
 }
 void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
     vector<vector<Point> > contours;
@@ -296,7 +332,10 @@ void digit_handwrite_recognize(vector<Mat> &image_digit,uint8_t* res){
         Mat mat=image_resize(image_digit[i]);
         int temp=image_predict(mat,model_handwrite_digit);
         imshow(to_string(i+1)+"-"+to_string(temp),mat);
+<<<<<<< HEAD
         imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",mat);
+=======
+>>>>>>> origin/master
         res[i]=temp;
         //res.push_back(temp);
     }
@@ -347,7 +386,11 @@ int process(Mat frame){
 
             Mat mask_rect = Mat(gray_frame, rect);
             Scalar mask_rect_average=mean(mask_rect);
+<<<<<<< HEAD
             if(mask_rect_average[0]<80||mask_rect_average[0]>100)continue;//通过平均颜色进行过滤
+=======
+            if(mask_rect_average[0]<40)continue;//通过平均颜色进行过滤
+>>>>>>> origin/master
             pos_rect.push_back(rect);
             rectangle(frame,rect,Scalar(0,0,255),2);
         }
@@ -402,9 +445,12 @@ int process(Mat frame){
     digit_handwrite_recognize(image_digit_handwrite_final,result_digit_handwrite);//识别手写数字
     digit_led_recognize(image_digit_led,result_digit_led);//识别LED数字
 
+<<<<<<< HEAD
 //    PadPassSend()
 
 
+=======
+>>>>>>> origin/master
 
 //    uint8_t result_digit_handwrite[9];
 //    uint8_t result_digit_led[5];
@@ -420,6 +466,7 @@ int process(Mat frame){
     //利用卷积神经网络进行识别
 
 }
+<<<<<<< HEAD
 void PadPassPrint(uint8_t *digit_handwrite,uint8_t *digit_led){
     cout<<"pad:";
     for (int i = 0; i < 9; ++i) {
@@ -433,6 +480,17 @@ void PadPassPrint(uint8_t *digit_handwrite,uint8_t *digit_led){
 
     }
     cout<<endl;
+=======
+
+void recognize(Mat mat){
+    Mat resized;
+
+
+    vector<vector<vector<float>>> digit(1, vector<vector<float>>(28, vector<float>(28)));
+
+
+
+>>>>>>> origin/master
 }
 int main() {
     memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
@@ -440,6 +498,7 @@ int main() {
     Mat frame;
     while(1){
         getImageFromMemory(frame);
+<<<<<<< HEAD
         frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
         if(process(frame)!=0)continue;
 
@@ -449,10 +508,24 @@ int main() {
         waitKey(0);
     }
 
+=======
+        frame=imread("/Users/wzq/RoboMaster/PadPass/test2/1273.jpg");
+        if(process(frame)!=0)continue;
+        PadPassSend(result_digit_handwrite,result_digit_led);
+
+    }
+>>>>>>> origin/master
 
 
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1290.jpg");
+>>>>>>> Stashed changes
+>>>>>>> origin/master
     clock_t tStart;
 //    tStart= clock();
 //    m.compute_output(sample);
