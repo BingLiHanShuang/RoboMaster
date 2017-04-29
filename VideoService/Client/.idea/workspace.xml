@@ -48,21 +48,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Structure.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Structure.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Structure.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="15" column="29" lean-forward="false" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Structure.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Structure.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Structure.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="288">
+              <caret line="16" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding>
                 <element signature="e#42#60#0" expanded="true" />
               </folding>
@@ -76,9 +76,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/Structure.h" />
-        <option value="$PROJECT_DIR$/Structure.cpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/Structure.cpp" />
+        <option value="$PROJECT_DIR$/Structure.h" />
       </list>
     </option>
   </component>
@@ -89,8 +89,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="512" />
-    <option name="y" value="121" />
+    <option name="x" value="809" />
+    <option name="y" value="355" />
     <option name="width" value="1408" />
     <option name="height" value="899" />
   </component>
@@ -169,15 +169,15 @@
       <workItem from="1493445577269" duration="999000" />
       <workItem from="1493447347271" duration="376000" />
       <workItem from="1493447895121" duration="1333000" />
-      <workItem from="1493457090307" duration="45000" />
+      <workItem from="1493457090307" duration="973000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8657000" />
+    <option name="totallyTimeSpent" value="9585000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="512" y="121" width="1408" height="899" extended-state="0" />
+    <frame x="809" y="355" width="1408" height="899" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24981949" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -511,16 +511,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Structure.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#42#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -541,9 +531,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Structure.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="270">
+          <caret line="15" column="29" lean-forward="false" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Structure.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="e#42#60#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
