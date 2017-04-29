@@ -12,8 +12,8 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 static int count_digit=0;
-KerasModel model_handwrite_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
-KerasModel model_led_digit("/Users/wzq/keras2cpp/model_handwrite.nnet", true);
+KerasModel model_handwrite_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
+KerasModel model_led_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
 uint8_t result_digit_handwrite[9];
 uint8_t result_digit_led[5];
 int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
@@ -23,8 +23,8 @@ int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
     for (int i = 0; i < img.rows; i++) {
         vector<float> r;
         for (int j = 0; j < img.cols; j++) {
-            uchar temp=img.at<uchar>(i, j);
-            r.push_back(temp/255);
+            r.push_back(img.at<uchar>(i, j)/255.0);
+
         }
         d.push_back(r);
     }
@@ -37,7 +37,7 @@ int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
 
     auto max = max_element(predictions.begin(), predictions.end());
     int index = (int)distance(predictions.begin(), max);
-    delete dc;
+    //delete dc;
     //imshow(to_string(count_digit)+"-"+to_string(index),img);
 //    waitKey(0);
     return index;
@@ -55,7 +55,7 @@ Mat image_resize(Mat rawimg){
     size.width = rawimg.cols * fc;
     size.height = rawimg.rows * fr;
     if(size.width == 0 || size.height == 0)return outimg;
-    cv::resize(rawimg, rawimg, size);
+    cv::resize(rawimg, rawimg, size,INTER_CUBIC);
     int w = rawimg.cols, h = rawimg.rows;
     int x = (width - w)/2, y = (width - h)/2;
     rawimg.copyTo(outimg(cv::Rect(x, y, w, h)));
@@ -212,7 +212,7 @@ void extract_digit_from_slice(vector<Mat> &image_digit,vector<Mat> &image_digit_
 
         cvtColor(copy,im_gray,COLOR_BGR2GRAY);
         Mat im_th;
-        adaptiveThreshold(im_gray,im_th,255,ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,25,25);
+        adaptiveThreshold(im_gray, im_th, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY_INV, 25, 25);
 //        threshold(im_gray,im_th,105,255,THRESH_BINARY_INV);
 
         map<int,Mat> temp_dict;
@@ -252,6 +252,7 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
             int area=rect.height*rect.width;
             if(rect.width<2||rect.height<2)continue;
             max_index=max(max_index,area);
+            if (rect.y-2>0)rect.y-=1;
             rect.y-=1;
             rect.x-=1;
             rect.height+=2;
@@ -259,14 +260,16 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
             Mat img_temp(image_digit_with_border[i],rect);
             temp_dict[area]=img_temp;
         }
+//        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",temp_dict[max_index]);
+
 
         //resizeimg(temp_dict[max_index]);
         image_digit_final.push_back(temp_dict[max_index]);
-        imshow(to_string(i),temp_dict[max_index]);
+        //imshow(to_string(i),temp_dict[max_index]);
 
         //count_digit++;
     }
-    waitKey(0);
+    //waitKey(0);
 }
 void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
     vector<vector<Point> > contours;
@@ -293,6 +296,7 @@ void digit_handwrite_recognize(vector<Mat> &image_digit,uint8_t* res){
         Mat mat=image_resize(image_digit[i]);
         int temp=image_predict(mat,model_handwrite_digit);
         imshow(to_string(i+1)+"-"+to_string(temp),mat);
+        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",mat);
         res[i]=temp;
         //res.push_back(temp);
     }
@@ -343,7 +347,7 @@ int process(Mat frame){
 
             Mat mask_rect = Mat(gray_frame, rect);
             Scalar mask_rect_average=mean(mask_rect);
-            if(mask_rect_average[0]<40)continue;//通过平均颜色进行过滤
+            if(mask_rect_average[0]<80||mask_rect_average[0]>100)continue;//通过平均颜色进行过滤
             pos_rect.push_back(rect);
             rectangle(frame,rect,Scalar(0,0,255),2);
         }
@@ -398,6 +402,9 @@ int process(Mat frame){
     digit_handwrite_recognize(image_digit_handwrite_final,result_digit_handwrite);//识别手写数字
     digit_led_recognize(image_digit_led,result_digit_led);//识别LED数字
 
+//    PadPassSend()
+
+
 
 //    uint8_t result_digit_handwrite[9];
 //    uint8_t result_digit_led[5];
@@ -413,15 +420,19 @@ int process(Mat frame){
     //利用卷积神经网络进行识别
 
 }
+void PadPassPrint(uint8_t *digit_handwrite,uint8_t *digit_led){
+    cout<<"pad:";
+    for (int i = 0; i < 9; ++i) {
+        cout<<(int)digit_handwrite[i];
+        
+    }
+    cout<<endl;
+    cout<<"pass:";
+    for (int i = 0; i < 5; ++i) {
+        cout<<(int)digit_led[i];
 
-void recognize(Mat mat){
-    Mat resized;
-
-
-    vector<vector<vector<float>>> digit(1, vector<vector<float>>(28, vector<float>(28)));
-
-
-
+    }
+    cout<<endl;
 }
 int main() {
     memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
@@ -429,19 +440,19 @@ int main() {
     Mat frame;
     while(1){
         getImageFromMemory(frame);
-        frame=imread("/Users/wzq/RoboMaster/PadPass/test2/1273.jpg");
+        frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
         if(process(frame)!=0)continue;
-        PadPassSend(result_digit_handwrite,result_digit_led);
 
+        PadPassSend(result_digit_handwrite,result_digit_led);
+        PadPassPrint(result_digit_handwrite,result_digit_led);
+        imshow("frame",frame);
+        waitKey(0);
     }
 
 
 
 
-<<<<<<< Updated upstream
-=======
-    Mat frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1290.jpg");
->>>>>>> Stashed changes
+
     clock_t tStart;
 //    tStart= clock();
 //    m.compute_output(sample);
