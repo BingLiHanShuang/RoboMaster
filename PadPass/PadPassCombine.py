@@ -8,15 +8,9 @@ K.set_image_dim_ordering('th')
 from keras.models import model_from_json
 
 
-<<<<<<< HEAD
 with open('model_handwrite.json', 'r') as f:
     model = model_from_json(f.read())
 model.load_weights('model_handwrite.h5')
-=======
-with open('/Users/wzq/model_handwrite.json', 'r') as f:
-    model = model_from_json(f.read())
-model.load_weights('/Users/wzq/model_handwrite.h5')
->>>>>>> origin/master
 model.summary()
 
 with open('model_led.json', 'r') as f:
@@ -277,11 +271,7 @@ def process(frame):
     slice_first_line()
     slice_second_line()
     slice_third_line()
-<<<<<<< HEAD
     # return
-=======
-    return
->>>>>>> origin/master
 
 
 
@@ -320,11 +310,7 @@ def process(frame):
             # if(w>0.8*w):
             #     continue
             max_index=max([max_index,area])
-<<<<<<< HEAD
             img_temp=im_th[y2-3:y2 + h2-2, x2+2:x2 + w2-3].copy()
-=======
-            img_temp=im_th[y2+3:y2 + h2-2, x2+2:x2 + w2-3].copy()
->>>>>>> origin/master
             temp_dict[area]=img_temp
             #cv2.rectangle(im_gray, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
             #cv2.imshow(str(count),im_th )
@@ -340,11 +326,7 @@ def process(frame):
         #     # res=recognize(copy[y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy())
         #     # #cv2.rectangle(copy, (x2, y2), (x2 + w2, y2 + h2), (0, 0, 255), 2)
         count += 1
-<<<<<<< HEAD
         # cv2.imshow(str(count), temp_dict[max_index].copy())
-=======
-        cv2.imshow(str(count), temp_dict[max_index].copy())
->>>>>>> origin/master
 
         #cv2.imshow("im_gray",im_gray)
     #     #cv2.imshow("max_rect"+str(count), temp_dict[max_index].copy())
@@ -371,10 +353,7 @@ def process(frame):
             temp_dict[area]=img_temp
         name = recognize1(temp_dict[max_index])
         temp_resize=resize1(temp_dict[max_index])
-<<<<<<< HEAD
         cv2.imwrite("/Users/wzq/Desktop/untitled folder/"+str(i)+".jpg",temp_resize)
-=======
->>>>>>> origin/master
         cv2.imshow(str(i) + "-" + str(name), temp_resize)
 
 
@@ -399,11 +378,7 @@ while True:
 
     #success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-<<<<<<< HEAD
     frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg")
-=======
-    frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1290.jpg")
->>>>>>> origin/master
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
