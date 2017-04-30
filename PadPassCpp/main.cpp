@@ -233,14 +233,21 @@ void extract_digit_from_slice(vector<Mat> &image_digit,vector<Mat> &image_digit_
         for (int j = 0; j < contours.size(); ++j) {
             Rect rect=boundingRect(contours[j]);
             int area=rect.width*rect.height;
-            if(rect.width<4||rect.height<5||copy.size().width-rect.width<3)continue;
-            max_index=max(max_index,area);
+            if(rect.width<=5||rect.height<=5||copy.size().width-rect.width<3)continue;
             rect.y+=3;
             rect.x+=2;
             rect.height-=5;
             rect.width-=5;
-            Mat img_temp(im_th,rect);
-            temp_dict[area]=img_temp;
+            try {
+                Mat img_temp(im_th,rect);
+                temp_dict[area]=img_temp;
+                max_index=max(max_index,area);
+
+            }catch (cv::Exception &e){
+                continue;
+            }
+
+
         }
         if(max_index==-1){
             cout<<"cannot find max image"<<endl;
@@ -386,7 +393,7 @@ int location_rectangle_detect(Mat &frame,vector<Rect> &pos_rect){//检测符合�
     return pos_rect.size();
 }
 vector<Rect> location_rectangle_remove_duplicate(vector<Rect> pos_rect){//过滤相同矩形
-    sort(pos_rect.begin(),pos_rect.end(),sort_cmp_x_greater);
+    sort(pos_rect.begin(),pos_rect.end(),sort_cmp_y_greater);
     vector<Rect> pos_rect_new;
     pos_rect_new.push_back(pos_rect[0]);
     for (int i = 0; i < (pos_rect.size()-1); ++i) {
@@ -442,6 +449,7 @@ int location_rectangle_filter_variance(vector<Rect> &pos_rect){//通过方差过
         pos_rect.erase(pos_rect.begin() + index);
     }
     if(pos_rect.size()==5)return 5;
+
     while (1){//对y轴进行过滤
         vector<int> distance_y,variance;
         mean=0;
@@ -488,12 +496,14 @@ int process(Mat frame){
 
 
     location_rectangle_detect(frame,pos_rect);//检测所有符合大小符合的矩形
-    pos_rect=location_rectangle_remove_duplicate(pos_rect);//过滤相同矩形
     if(pos_rect.size()<10){
         cout<<"cannot find location rectangle"<<endl;
         return -1;
     }
     location_rectangle_categorize(pos_rect,pos_rect_left,pos_rect_right);//将矩形按在图形中的位置分为左右两个部分
+    pos_rect_left=location_rectangle_remove_duplicate(pos_rect_left);//过滤相同矩形
+    pos_rect_right=location_rectangle_remove_duplicate(pos_rect_right);//过滤相同矩形
+
     location_rectangle_filter_variance(pos_rect_left);//左侧矩形过滤
     location_rectangle_filter_variance(pos_rect_right);//右侧矩形过滤
 
@@ -616,12 +626,25 @@ int main() {
     VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688294.mp4");
 #endif
     Mat frame;
+    int count=0;
     while(1){
 
 
 #ifdef test
         //frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
-        cap>>frame;
+        for (int i = 225; i < 1300; ++i) {
+            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
+            if(process(frame)!=0)continue;
+
+            PadPassSend(result_digit_handwrite,result_digit_led);
+            PadPassPrint(result_digit_handwrite,result_digit_led);
+            imshow("frame"+to_string(i),frame);
+            waitKey(0);
+            destroyAllWindows();
+        }
+//        cap>>frame;
+//        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
+//        continue;
 #else
         if(getImageFromMemory(frame)!=0)continue;
 #endif

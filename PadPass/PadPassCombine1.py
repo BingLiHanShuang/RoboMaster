@@ -453,9 +453,9 @@ cap.set(3, 640)
 cap.set(4, 480)
 while True:
 
-    success, frame = cap.read()
+   # success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-#     frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/131.jpg")
+    frame = cv2.imread("/Users/wzq/Downloads/untitled folder/225.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
