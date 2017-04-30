@@ -73,6 +73,35 @@ green = np.uint8([[[110,140,130 ]]])
 hsv_green = cv2.cvtColor(green,cv2.COLOR_BGR2HSV)
 
 count=15
+def statistic_process(rects):
+    if len(rects)==5:
+        return rects
+    while True:
+        mean=reduce(lambda sum,(x,y,w,h):sum+x,rects,0)
+        mean=mean/len(rects)
+        variance=[abs(x11[0]-mean) for x11 in rects]
+        variance_mean=reduce(lambda sum,x:sum+x,variance,0)
+        if variance_mean<15 or len(rects)<=5:
+            break
+        index=np.argmax(variance)
+        del  rects[index]
+        #rects.remove(int(index))
+    if len(rects) == 5:
+        return rects
+    while True:
+        distance_y=[(rects[i+1][1]-rects[i][1]) for i in range(0,len(rects)-1)]
+        mean=reduce(lambda sum,x:sum+x,distance_y,0)/(len(distance_y))
+        variance=[abs(x11-mean) for x11 in distance_y]
+        index = np.argmax(variance)
+        if index==0:
+            del rects[0]
+        if index==len(distance_y)-1:
+            del rects[len(distance_y)]
+        if len(rects)<=5:
+            break
+
+    return rects
+
 
 def process(frame):
     global count
@@ -97,6 +126,9 @@ def process(frame):
     # cv2.imshow("edge",edge)
     # cv2.waitKey(0)
     pos_rect=[]
+    pos_rect_raw_left=[]
+    pos_rect_raw_right=[]
+
     for cnt in contours:
         approx = cv2.approxPolyDP(cnt, 0.04 * cv2.arcLength(cnt, True), True)
         if len(approx) >=4 or len(approx) <=10:
@@ -109,36 +141,54 @@ def process(frame):
            # mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
 #            cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
             x1, y1, w1, h1 = cv2.boundingRect(cnt)
-            mask_rect_color= gray[y1:y1+h1, x1:x1+w1].mean()
-            # if(mask_rect_color>100 or mask_rect_color<80):
-            #     continue
-            print w, h, w * h,w/float(h), mask_rect_color
-
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            print x,y,w, h, w * h,w/float(h)
+            # if x<320:
+            #     pos_rect_raw_left.append((x,y,w,h))
+            # else:
+            #     pos_rect_raw_right.append((x, y, w, h))
+            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
             pos_rect.append((x,y,w,h))
-    # if(len(pos_rect)!=10):
-    #     return
-    #pos_rect=list(set(pos_rect))
-    cv2.imshow("frame", frame)
-    # cv2.imshow("edge", edge)
 
-    cv2.waitKey(0)
-    return
+
     pos_rect.sort(key=lambda x:(x[0],x[1]))
     pos_rect_new=[]
-    pos_rect_new.append(pos_rect[0])
+    #pos_rect_new.append(pos_rect[0])
+    if pos_rect[0][0] < 320:
+        pos_rect_raw_left.append(pos_rect[0])
+    else:
+        pos_rect_raw_right.append(pos_rect[0])
     for i in range(len(pos_rect)-1):
         distance=abs(pos_rect[i][0]-pos_rect[i+1][0])+abs(pos_rect[i][1]-pos_rect[i+1][1])
         if distance <10:
             continue
-        pos_rect_new.append(pos_rect[i+1])
-    pos_rect=pos_rect_new
+        if pos_rect[i+1][0]<320:
+            pos_rect_raw_left.append(pos_rect[i+1])
+        else:
+            pos_rect_raw_right.append(pos_rect[i+1])
+        # pos_rect_new.append(pos_rect[i+1])
+    # pos_rect=pos_rect_new
+
+    pos_rect_raw_left.sort(key=lambda x: (x[1]))
+    pos_rect_raw_right.sort(key=lambda x: (x[1]))
+
+    pos_rect_raw_left=statistic_process(pos_rect_raw_left)
+    pos_rect_raw_right=statistic_process(pos_rect_raw_right)
+
+    for i in range(len(pos_rect_raw_left)):
+        x,y,w,h=pos_rect_raw_left[i]
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+
+    for i in range(len(pos_rect_raw_right)):
+        x,y,w,h=pos_rect_raw_right[i]
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
 
-    pos_rect_left=pos_rect[0:5]
-    pos_rect_left.sort(key=lambda x:(x[1]))
-    pos_rect_right=pos_rect[5:10]
-    pos_rect_right.sort(key=lambda x:(x[1]))
+
+
+    pos_rect_left=pos_rect_raw_left
+    pos_rect_right=pos_rect_raw_right
+    if len(pos_rect_left)!=5 or len(pos_rect_right)!=5:
+        return
     result = []
 
     def slice_first_line():
@@ -237,7 +287,7 @@ def process(frame):
         cv2.imshow("ledscreen", led_screen)
 
         hsv = cv2.cvtColor(led_screen, cv2.COLOR_BGR2HSV)
-        lower_white = np.array([0, 0, 210])
+        lower_white = np.array([0, 0, 240])
         upper_white = np.array([255, 255, 255])
         kernel = np.ones((3, 3), np.uint8)
 
@@ -336,25 +386,48 @@ def process(frame):
         contours, hierarchy = cv2.findContours(digit_pad[i].copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         temp_dict={}
         max_index=-1
+        x3,y3,x4,y4=28,28,0,0
         for j in contours:
             x2, y2, w2, h2 = cv2.boundingRect(j)
             area=w2*h2
-
-            if w2<2 or h2<2:
+            if w2<6 or h2<6:
                 continue
+            # if y2<8 and w2<8:
+            #     continue
+            # if x2<8 and h2<8:
+            #     continue
+            # if (digit_pad[i].shape[1]-x2<8) and h2<8:
+            #     continue
+            # if (digit_pad[i].shape[0]-y2<8) and w2<8:
+            #     continue
+
+            x3=min([x3,x2])
+            y3 = min([y3, y2])
+            x4=max([x4,w2+x2])
+            y4 = max([y4, h2+y2])
             #print w2, h2, area
             # if x2<0.15*w2 or x2>0.85*w2:
             #     continue
             # if(w>0.8*w):
             #     continue
             max_index=max([max_index,area])
-            if y2-2>0:
-                y2-=1
+
             img_temp=digit_pad[i][y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
             temp_dict[area]=img_temp
         kernel = np.ones((3, 3), np.uint8)
+        if max_index==-1:
+            continue
+        if y3-2>0:
+            y3-=1
+        if x3 - 2 > 0:
+            x3 -= 1
 
-        temp_resize=resize1(temp_dict[max_index])
+        temp_processed=digit_pad[i][y3-1:y4+1, x3-1:x4+1].copy()
+        if y4==0 or x4==0:
+            temp_processed=temp_dict[max_index]
+
+
+        temp_resize=resize1(temp_processed)
         temp_resize=cv2.dilate(temp_resize,kernel)
         name = recognize1(temp_resize)
         #cv2.imwrite("/Users/wzq/Desktop/untitled folder/"+str(i)+".jpg",temp_resize)
@@ -382,13 +455,14 @@ while True:
 
     success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-#     frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg")
+#     frame = cv2.imread("/Users/wzq/RoboMaster/PadPass/test/131.jpg")
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()
 # print end-begin
     process(frame)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
+    cv2.destroyAllWindows()
 # for i in range(2,220):
 #     # if i in error:
 #     #     continue
