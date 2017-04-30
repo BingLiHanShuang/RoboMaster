@@ -375,7 +375,7 @@ def process(frame):
     cv2.waitKey(0)
 count=0
 
-cap=cv2.VideoCapture("/Users/wzq/Desktop/wzq_1_946688294.mp4")
+cap=cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 while True:
