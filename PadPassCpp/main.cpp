@@ -16,13 +16,13 @@ static int count_digit=0;
 
 const int camera_width=640;
 const int camera_height=480;
-#define test
+//#define test
 #ifdef test
 KerasModel model_handwrite_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
 KerasModel model_led_digit("/Users/wzq/RoboMaster/PadPassCpp/model_led.nnet", true);
 #else
-KerasModel model_handwrite_digit("./model_handwrite.nnet", true);
-KerasModel model_led_digit("./model_led.nnet", true);
+KerasModel model_handwrite_digit("/home/ubuntu/RoboMaster/PadPassCpp/model_handwrite2.nnet", true);
+KerasModel model_led_digit("/home/ubuntu/RoboMaster/PadPassCpp/model_led.nnet", true);
 #endif
 uint8_t result_digit_handwrite[9];
 uint8_t result_digit_led[5];
@@ -198,7 +198,7 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
 
     Mat hsv_led_screen,mask_led_screen;
     cvtColor(frame_led_screen,hsv_led_screen,COLOR_BGR2HSV);
-    Scalar lower_red=Scalar(0, 0, 250);
+    Scalar lower_red=Scalar(0, 0, 220);
     Scalar upper_red=Scalar(255, 255, 255);
     inRange(frame_led_screen,lower_red,upper_red,mask_led_screen);//红色LED掩码
     dilate(mask_led_screen, mask_led_screen, Mat(), Point(-1, -1), 2, 1, 1);
@@ -300,7 +300,7 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
 
         Rect rect(x1-1,y1-1,x2-x1+2,y2-y1+2);
         Mat img_temp(image_digit_with_border[i],rect);
-        //dilate(img_temp, img_temp, Mat());
+        dilate(img_temp, img_temp, Mat());
 //        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",temp_dict[max_index]);
 
 
@@ -501,9 +501,16 @@ int process(Mat frame){
         return -1;
     }
     location_rectangle_categorize(pos_rect,pos_rect_left,pos_rect_right);//将矩形按在图形中的位置分为左右两个部分
+    if(pos_rect_left.size()<5||pos_rect_right.size()<5){
+        cout<<"cannot find location rectangle"<<endl;
+        return -1;
+    }
     pos_rect_left=location_rectangle_remove_duplicate(pos_rect_left);//过滤相同矩形
     pos_rect_right=location_rectangle_remove_duplicate(pos_rect_right);//过滤相同矩形
-
+    if(pos_rect_left.size()<5||pos_rect_right.size()<5){
+        cout<<"cannot find location rectangle"<<endl;
+        return -1;
+    }
     location_rectangle_filter_variance(pos_rect_left);//左侧矩形过滤
     location_rectangle_filter_variance(pos_rect_right);//右侧矩形过滤
 
@@ -623,33 +630,35 @@ int main() {
     memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
     memset(result_digit_led,0, sizeof(result_digit_led));
 #ifdef test
-    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946686961.mp4");
+    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688294.mp4");
 #endif
+            clock_t tStart;
     Mat frame;
     int count=0;
     while(1){
 
 
 #ifdef test
-        frame=imread("/Users/wzq/RoboMaster/PadPass/test4/1280.jpg");
-//        for (int i = 225; i < 1300; ++i) {
-//            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
-//            if(process(frame)!=0)continue;
-//
-//            PadPassSend(result_digit_handwrite,result_digit_led);
-//            PadPassPrint(result_digit_handwrite,result_digit_led);
-//            imshow("frame"+to_string(i),frame);
-//            waitKey(0);
-//            destroyAllWindows();
-//        }
+        //frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
+        for (int i = 225; i < 1300; ++i) {
+            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
+            if(process(frame)!=0)continue;
+
+            PadPassSend(result_digit_handwrite,result_digit_led);
+            PadPassPrint(result_digit_handwrite,result_digit_led);
+            imshow("frame"+to_string(i),frame);
+            waitKey(0);
+            destroyAllWindows();
+        }
 //        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;
 #else
         if(getImageFromMemory(frame)!=0)continue;
 #endif
+tStart= clock();
         if(process(frame)!=0)continue;
-
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
         PadPassSend(result_digit_handwrite,result_digit_led);
         PadPassPrint(result_digit_handwrite,result_digit_led);
 #ifdef test
@@ -662,7 +671,7 @@ int main() {
 
 
 
-    clock_t tStart;
+//    clock_t tStart;
 //    tStart= clock();
 //    m.compute_output(sample);
 //    printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
