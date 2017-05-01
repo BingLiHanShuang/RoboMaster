@@ -29,6 +29,7 @@ uint8_t getImageFromMemory(Mat &image){
     try{
 
         image = imdecode(Mat(img_data), CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_COLOR);
+        if(image.size().width<=0||image.size().height<=0)return -1;
         frame_count_last=frame_count_now;
 
     }catch (cv::Exception& e){

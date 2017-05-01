@@ -198,7 +198,7 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
 
     Mat hsv_led_screen,mask_led_screen;
     cvtColor(frame_led_screen,hsv_led_screen,COLOR_BGR2HSV);
-    Scalar lower_red=Scalar(0, 0, 240);
+    Scalar lower_red=Scalar(0, 0, 250);
     Scalar upper_red=Scalar(255, 255, 255);
     inRange(frame_led_screen,lower_red,upper_red,mask_led_screen);//红色LED掩码
     dilate(mask_led_screen, mask_led_screen, Mat(), Point(-1, -1), 2, 1, 1);
@@ -300,7 +300,7 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
 
         Rect rect(x1-1,y1-1,x2-x1+2,y2-y1+2);
         Mat img_temp(image_digit_with_border[i],rect);
-        dilate(img_temp, img_temp, Mat());
+        //dilate(img_temp, img_temp, Mat());
 //        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",temp_dict[max_index]);
 
 
@@ -623,7 +623,7 @@ int main() {
     memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
     memset(result_digit_led,0, sizeof(result_digit_led));
 #ifdef test
-    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688294.mp4");
+    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946686961.mp4");
 #endif
     Mat frame;
     int count=0;
@@ -631,17 +631,17 @@ int main() {
 
 
 #ifdef test
-        //frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
-        for (int i = 225; i < 1300; ++i) {
-            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
-            if(process(frame)!=0)continue;
-
-            PadPassSend(result_digit_handwrite,result_digit_led);
-            PadPassPrint(result_digit_handwrite,result_digit_led);
-            imshow("frame"+to_string(i),frame);
-            waitKey(0);
-            destroyAllWindows();
-        }
+        frame=imread("/Users/wzq/RoboMaster/PadPass/test4/1280.jpg");
+//        for (int i = 225; i < 1300; ++i) {
+//            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
+//            if(process(frame)!=0)continue;
+//
+//            PadPassSend(result_digit_handwrite,result_digit_led);
+//            PadPassPrint(result_digit_handwrite,result_digit_led);
+//            imshow("frame"+to_string(i),frame);
+//            waitKey(0);
+//            destroyAllWindows();
+//        }
 //        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;

@@ -43,15 +43,15 @@ IplImage* colorFilter(IplImage *image)
 	for (i = 0; i < height; i++)
 	for (j = 0; j < width; j++)
 	{
-		CvScalar s_hsv = cvGet2D(hsv, i, j);//»ñÈ¡ÏñËØµãÎª£¨j, i£©µãµÄHSVµÄÖµ 
+		CvScalar s_hsv = cvGet2D(hsv, i, j);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Øµï¿½Îªï¿½ï¿½j, iï¿½ï¿½ï¿½ï¿½ï¿½HSVï¿½ï¿½Öµ 
 		/*
-		opencv µÄH·¶Î§ÊÇ0~180£¬ºìÉ«µÄH·¶Î§´ó¸ÅÊÇ(0~8)¡È(160,180)
-		SÊÇ±¥ºÍ¶È£¬Ò»°ãÊÇ´óÓÚÒ»¸öÖµ,S¹ýµÍ¾ÍÊÇ»ÒÉ«£¨²Î¿¼ÖµS>80)£¬
-		VÊÇÁÁ¶È£¬¹ýµÍ¾ÍÊÇºÚÉ«£¬¹ý¸ß¾ÍÊÇ°×É«(²Î¿¼Öµ220>V>50)¡£
+		opencv ï¿½ï¿½Hï¿½ï¿½Î§ï¿½ï¿½0~180ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½Hï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½(0~8)ï¿½ï¿½(160,180)
+		Sï¿½Ç±ï¿½ï¿½Í¶È£ï¿½Ò»ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Öµ,Sï¿½ï¿½ï¿½Í¾ï¿½ï¿½Ç»ï¿½É«ï¿½ï¿½ï¿½Î¿ï¿½ÖµS>80)ï¿½ï¿½
+		Vï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½Í¾ï¿½ï¿½Çºï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ß¾ï¿½ï¿½Ç°ï¿½É«(ï¿½Î¿ï¿½Öµ220>V>50)ï¿½ï¿½
 		*/
 		CvScalar s;
 		//if (!(((s_hsv.val[0]>0) && (s_hsv.val[0]<8)) || (s_hsv.val[0]>120) && (s_hsv.val[0]<180)))
-		if (!checkblue(s_hsv))
+		if (!checkred(s_hsv))
 		{
 			s.val[0] = 0;
 			s.val[1] = 0;
@@ -78,29 +78,29 @@ float L(float a, float b, float angle)
 vector<CvBox2D> findcircle(IplImage* img, CvMemStorage* storage)
 {
 	vector<CvBox2D> vEllipse;
-	CvSeq* contours;//±ßÔµ
+	CvSeq* contours;//ï¿½ï¿½Ôµ
 	IplImage* img_canny = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 1);
 	IplImage* img_dilate = cvCreateImage(cvGetSize(img), 8, 1);
 	IplImage* img_erode = cvCreateImage(cvGetSize(img), 8, 1);
-	IplImage* timg = cvCloneImage(img);//¿½±´Ò»´Îimg	
+	IplImage* timg = cvCloneImage(img);//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½img	
 	CvBox2D result;
 
-	//±ßÔµ¼ì²â
-	cvCanny(img, img_canny, 40, 120, 3);//±ßÔµ¼ì²â  
+	//ï¿½ï¿½Ôµï¿½ï¿½ï¿½
+	cvCanny(img, img_canny, 40, 120, 3);//ï¿½ï¿½Ôµï¿½ï¿½ï¿½  
 	//cvShowImage("canny", img_canny);
 
-	cvDilate(img_canny, img_dilate, NULL, 1); //ÅòÕÍ   
-	cvErode(img_dilate, img_erode, NULL, 1); //¸¯Ê´   
+	cvDilate(img_canny, img_dilate, NULL, 1); //ï¿½ï¿½ï¿½ï¿½   
+	cvErode(img_dilate, img_erode, NULL, 1); //ï¿½ï¿½Ê´   
 	//cvShowImage("img_dilate", img_erode);
 
 	cvFindContours(img_erode, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0, 0));
-	// Ìî³äËùÓÐÂÖÀª     
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½     
 	//cvDrawContours(timg, contours, CV_RGB(255, 255, 255), CV_RGB(255, 255, 255), 2, CV_FILLED, 8, cvPoint(0, 0));
-	//cvShowImage("ÂÖÀªÍ¼", timg);
+	//cvShowImage("ï¿½ï¿½ï¿½ï¿½Í¼", timg);
 	//cvWaitKey(10000);
 
 	while (contours)
-	{ //¶à±ßÐÎ±Æ½ü  
+	{ //ï¿½ï¿½ï¿½ï¿½Î±Æ½ï¿½  
 		if (contours->total > 10)
 		{
 			result = cvFitEllipse2(contours);
@@ -131,7 +131,7 @@ vector<CvBox2D> findcircle(IplImage* img, CvMemStorage* storage)
 		}
 		contours = contours->h_next;
 	}
-	//cvShowImage("ÂÖÀªÍ¼", timg);
+	//cvShowImage("ï¿½ï¿½ï¿½ï¿½Í¼", timg);
 	//cvWaitKey(10000);
 	cvReleaseImage(&img_erode);
 	cvReleaseImage(&img_dilate);
@@ -148,7 +148,7 @@ CvBox2D detection(IplImage* img)
 	storage = cvCreateMemStorage(0);
 	img_hsv = colorFilter(img);
 	result = findcircle(img_hsv, storage);
-	CvBox2D ans;//·µ»ØµÄÖÐÐÄµã×ø±ê
+	CvBox2D ans;//ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	if (result.size() != 0)
 	{
@@ -156,7 +156,7 @@ CvBox2D detection(IplImage* img)
 		dx = result[0].center.x;
 		dy = result[0].center.y;
 		cvCircle(img, Point(dx, dy), 2, CV_RGB(0, 255, 255), 10, 8, 0);
-					//ÖÐÐÄµã×ø±ê
+					//ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
 		ans = result[0];
 		//cout << result[dk].center.x << ' ' << result[dk].center.y << endl;
 	}
@@ -166,7 +166,7 @@ CvBox2D detection(IplImage* img)
 	}
 	cvShowImage("shdlfj", img);
 	cvReleaseImage(&img_hsv);
-	cvClearMemStorage(storage);//Çå¿Õ´æ´¢
+	cvClearMemStorage(storage);//ï¿½ï¿½Õ´æ´¢
 			
 	return ans;
 }
