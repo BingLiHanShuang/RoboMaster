@@ -1,5 +1,8 @@
 #include <iostream>
 #include <map>
+#include <string>
+#include <fstream>
+#include <streambuf>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -9,24 +12,31 @@
 #include "protocol.h"
 #include "Structure.h"
 #include <numeric>
+#include "json.hpp"
+
 using namespace std;
 using namespace cv;
 using namespace keras;
-static int count_digit=0;
-
-const int camera_width=640;
-const int camera_height=480;
+using json = nlohmann::json;
 //#define test
 #ifdef test
-KerasModel model_handwrite_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
-KerasModel model_led_digit("/Users/wzq/RoboMaster/PadPassCpp/model_led.nnet", true);
+#define config_path "/Users/wzq/RoboMaster/PadPassCpp/config.json"
 #else
-KerasModel model_handwrite_digit("/home/ubuntu/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
-KerasModel model_led_digit("/home/ubuntu/RoboMaster/PadPassCpp/model_led.nnet", true);
+#define config_path "/home/ubuntu/RoboMaster/PadPassCpp/config.json"
 #endif
+
+static int count_digit=0;
+const int camera_width=640;
+const int camera_height=480;
+json config_json;
+int config_threshhold_led_light;
+int config_threshhold_handwrite_1_width;
+KerasModel *model_handwrite_digit;
+KerasModel *model_led_digit;
+
 uint8_t result_digit_handwrite[9];
 uint8_t result_digit_led[5];
-int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
+int image_predict(Mat img,KerasModel *model){//通过卷积神经网络识别
 
     vector<vector<vector<float>>> data;
     vector<vector<float>> d;
@@ -43,7 +53,7 @@ int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
     DataChunk * dc = new DataChunk2D();
     dc->set_data(data); //Mat 转 DataChunk
 
-    vector<float> predictions = model.compute_output(dc);
+    vector<float> predictions = model->compute_output(dc);
 
     auto max = max_element(predictions.begin(), predictions.end());
     int index = (int)distance(predictions.begin(), max);
@@ -86,7 +96,7 @@ Mat image_resize_digit_1(Mat rawimg){
     return outimg;
 }
 Mat image_resize(Mat rawimg){
-    if(rawimg.size().width<=20)//参数:数字1的宽度参数,现场拍照整定
+    if(rawimg.size().width<=config_threshhold_handwrite_1_width)//参数:数字1的宽度参数,现场拍照整定
         return image_resize_digit_1(rawimg);//防止数字1拉伸占满全屏
     return image_resize_digit_other(rawimg);//全部拉伸
 
@@ -212,7 +222,7 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
 
     Mat hsv_led_screen,mask_led_screen;
     cvtColor(frame_led_screen,hsv_led_screen,COLOR_BGR2HSV);
-    Scalar lower_red=Scalar(0, 0, 220);//参数:LED灯亮度参数
+    Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
 
     Scalar upper_red=Scalar(255, 255, 255);
     inRange(frame_led_screen,lower_red,upper_red,mask_led_screen);//红色LED掩码
@@ -544,48 +554,11 @@ int process(Mat frame){
     }
 #endif
 
-
-    //边缘检测寻找矩形
-//    findContours( edge_frame.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-//    for (int i = 0; i < contours.size(); ++i) {
-//        vector<Point> approx;
-//        approxPolyDP(Mat(contours[i]), approx, arcLength(Mat(contours[i]), true)*0.04, true);
-//        if(approx.size()>=4&&approx.size()<=10){
-//            Rect rect=boundingRect(contours[i]);
-//            int x=rect.x,y=rect.y,w=rect.width,h=rect.height;
-//            int area=w*h;
-//
-//            if(area<350 || area > 560)continue;//面积大小进行过滤
-//            if(((float)w/(float)h)<=1.5||((float)w/(float)h)>=2.5)continue;//宽高比过滤
-////            if(x<10 ||x>470)continue;//相对位置过滤
-//
-//            Mat mask_rect = Mat(gray_frame, rect);
-//            Scalar mask_rect_average=mean(mask_rect);
-//            //if(mask_rect_average[0]<80||mask_rect_average[0]>100)continue;//通过平均颜色进行过滤
-//
-//            pos_rect.push_back(rect);
-//            rectangle(frame,rect,Scalar(0,0,255),2);
-//        }
-//    }
 #ifdef test
 
     imshow("frame",frame);
     waitKey(0);
 #endif
-    //将左右两边定位位点分开,并排序
-
-//    if(pos_rect.size()<10){
-//        cout<<"cannot find location rectangle"<<endl;
-//        return -1;
-//    }
-////    imshow("a",frame);
-////    waitKey(0);
-//
-//    if(pos_rect_new.size()!=10){
-//        cout<<"cannot find location rectangle"<<endl;
-//        return -1;
-//    }
-
 
 
 
@@ -608,28 +581,14 @@ int process(Mat frame){
     extract_minimum_digit(image_digit_handwrite_with_border,image_digit_handwrite_final);//提取出最后识别九宫格图形
     extract_minimum_led_digit(led_screen,image_digit_led);//提取每个LED字符
 
-    if(image_digit_led.size()!=5){
-        cout<<"cannot find enough image_digit_led"<<endl;
-        return -1;
-        }
+//    if(image_digit_led.size()!=5){
+//        cout<<"cannot find enough image_digit_led"<<endl;
+//        return -1;
+//        }
     digit_handwrite_recognize(image_digit_handwrite_final,result_digit_handwrite);//识别手写数字
     digit_led_recognize(image_digit_led,result_digit_led);//识别LED数字
 
-//    PadPassSend()
-
-
-//    uint8_t result_digit_handwrite[9];
-//    uint8_t result_digit_led[5];
-
-
     return 0;
-
-
-
-
-    count_digit=0;
-
-    //利用卷积神经网络进行识别
 
 }
 void PadPassPrint(uint8_t *digit_handwrite,uint8_t *digit_led){
@@ -646,9 +605,32 @@ void PadPassPrint(uint8_t *digit_handwrite,uint8_t *digit_led){
     }
     cout<<endl;
 }
+void config_load(){
+    std::ifstream config_file(config_path);
+    std::string str;
+
+    config_file.seekg(0, std::ios::end);
+    str.reserve(config_file.tellg());
+    config_file.seekg(0, std::ios::beg);
+
+    str.assign((std::istreambuf_iterator<char>(config_file)),
+               std::istreambuf_iterator<char>());
+    config_json=json::parse(str);
+    model_handwrite_digit=new KerasModel(config_json["handwrite_nnet_path"],true);
+    model_led_digit=new KerasModel(config_json["led_nnet_path"],true);
+    config_threshhold_handwrite_1_width=config_json["threshhold_handwrite_1_width"];
+    config_threshhold_led_light=config_json["threshhold_led_light"];
+    //config_json.parse(str);
+}
 int main() {
+
+    config_load();
+
+
     memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
     memset(result_digit_led,0, sizeof(result_digit_led));
+
+
 #ifdef test
 //    VideoCapture cap("/Users/wzq/Downloads/wzq_1_946685323.mp4");
 #endif
@@ -663,7 +645,7 @@ int main() {
 ////            cap>>frame;
 ////            imwrite("/Users/wzq/Downloads/untitled folder 2/"+to_string(count++)+".jpg",frame);
 ////        }
-        frame=imread("/Users/wzq/RoboMaster/PadPassCpp/1273.jpg");
+        frame=imread("/Users/wzq/Downloads/untitled folder 2/7205.jpg");
 //        for (int i = 225; i < 1300; ++i) {
 //            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
 //            if(process(frame)!=0)continue;
@@ -692,6 +674,8 @@ tStart= clock();
         destroyAllWindows();
 #endif
     }
+    delete model_handwrite_digit;
+    delete model_led_digit;
 
 
 

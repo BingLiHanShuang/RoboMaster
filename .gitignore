@@ -1,3 +1,4 @@
 *.jpg
 *.nnet
 *.h5
+PadPassCpp/config.json
