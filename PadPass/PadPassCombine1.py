@@ -10,29 +10,51 @@ from keras.models import model_from_json
 
 with open('model_handwrite.json', 'r') as f:
     model = model_from_json(f.read())
-model.load_weights('model_handwrite.h5')
+model.load_weights('model_handwrite4.h5')
 model.summary()
 
 with open('model_led.json', 'r') as f:
     model_led = model_from_json(f.read())
 model_led.load_weights('model_led.h5')
 model_led.summary()
-
+counts=5001276
 
 clf = joblib.load("digits_cls1.pkl")
 def resize1(rawimg):  # resize img to 28*28
-    fx = 28.0 / rawimg.shape[0]
-    fy = 28.0 / rawimg.shape[1]
-    fx = fy = min(fx, fy)
-    img = cv2.resize(rawimg, None, fx=fx, fy=fy, interpolation=cv2.INTER_CUBIC)
-    outimg = np.zeros((28, 28), dtype=np.uint8) * 255
-    w = img.shape[1]
-    h = img.shape[0]
-    x = (28 - w) / 2
-    y = (28 - h) / 2
-    outimg[y:y+h, x:x+w] = img
-    # cv2.imshow("out",outimg)
+    fx = 28
+    fy = 28
+    if rawimg.shape[1]<=20:
+        fx = 28.0 / rawimg.shape[0]
+        fy = 28.0 / rawimg.shape[1]
+        fx = fy = min(fx, fy)
+        img = cv2.resize(rawimg, None, fx=fx, fy=fy, interpolation=cv2.INTER_CUBIC)
+
+        outimg = np.zeros((28, 28), dtype=np.uint8) * 255
+        w = img.shape[1]
+        h = img.shape[0]
+        x = (28 - w) / 2
+        y = (28 - h) / 2
+        outimg[y:y + h, x:x + w] = img
+        # cv2.imshow("out",outimg)
+        # cv2.waitKey(0)
+        return outimg
+    else:
+        img = cv2.resize(rawimg, (fx, fy), interpolation=cv2.INTER_CUBIC)
+        return img
+
+    # cv2.imshow("out",rawimg)
     # cv2.waitKey(0)
+    # if rawimg.shape[1]==0:
+    #     return rawimg
+    # fx = fy = min(fx, fy)
+    # outimg = np.zeros((28, 28), dtype=np.uint8) * 255
+    # w = img.shape[1]
+    # h = img.shape[0]
+    # x = (28 - w) / 2
+    # y = (28 - h) / 2
+    # outimg[y:y+h, x:x+w] = img
+
+    return img
     return outimg
 
 
@@ -141,7 +163,7 @@ def process(frame):
            # mask_rect = np.zeros((mask.shape[0], mask.shape[1]), np.uint8)
 #            cv2.rectangle(mask_rect,(x, y), (x + w, y + h),255,-1)
             x1, y1, w1, h1 = cv2.boundingRect(cnt)
-            print x,y,w, h, w * h,w/float(h)
+            #print x,y,w, h, w * h,w/float(h)
             # if x<320:
             #     pos_rect_raw_left.append((x,y,w,h))
             # else:
@@ -167,9 +189,11 @@ def process(frame):
             pos_rect_raw_right.append(pos_rect[i+1])
         # pos_rect_new.append(pos_rect[i+1])
     # pos_rect=pos_rect_new
-
+    if len(pos_rect_raw_left)<5 or len(pos_rect_raw_right)<5:
+        return
     pos_rect_raw_left.sort(key=lambda x: (x[1]))
     pos_rect_raw_right.sort(key=lambda x: (x[1]))
+
 
     pos_rect_raw_left=statistic_process(pos_rect_raw_left)
     pos_rect_raw_right=statistic_process(pos_rect_raw_right)
@@ -414,7 +438,7 @@ def process(frame):
 
             img_temp=digit_pad[i][y2-1:y2 + h2+1, x2-1:x2 + w2+1].copy()
             temp_dict[area]=img_temp
-        kernel = np.ones((3, 3), np.uint8)
+        kernel = np.ones((2, 2), np.uint8)
         if max_index==-1:
             continue
         if y3-2>0:
@@ -428,34 +452,40 @@ def process(frame):
 
 
         temp_resize=resize1(temp_processed)
-        temp_resize=cv2.dilate(temp_resize,kernel)
+        #temp_resize=cv2.dilate(temp_resize,kernel)
         name = recognize1(temp_resize)
         #cv2.imwrite("/Users/wzq/Desktop/untitled folder/"+str(i)+".jpg",temp_resize)
         cv2.imshow(str(i) + "-" + str(name), temp_resize)
-
+        print i,name,temp_processed.shape
+        global counts
+        # cv2.imwrite("/Users/wzq/Downloads/mnist_recognize/"+str(name)+"/"+str(counts)+".jpg",temp_resize)
+        counts+=1
 
 
 
 
     end = datetime.datetime.now()
     print end-begin
-    #cv2.waitKey(0)
+    cv2.imshow("frame",frame)
+
+    cv2.waitKey(0)
 
     #cv2.imshow("RotImg",RotImg)
 
-    cv2.imshow("frame",frame)
-    #cv2.imshow("mask",mask)
-    cv2.waitKey(0)
+    # #cv2.imshow("mask",mask)
+    # cv2.waitKey(0)
 count=0
 
-cap=cv2.VideoCapture("/Users/wzq/Desktop/wzq_1_946688294.mp4")
+cap=cv2.VideoCapture("/Users/wzq/Downloads/wzq_1_946685323.mp4")
 cap.set(3, 640)
 cap.set(4, 480)
+abc=5300
 while True:
 
-   # success, frame = cap.read()
+    success, frame = cap.read()
 # error=[123,125,166,188,195,196,176,58]
-    frame = cv2.imread("/Users/wzq/Downloads/untitled folder/225.jpg")
+    frame = cv2.imread("/Users/wzq/Downloads/untitled folder 2//"+str(abc)+".jpg")
+    abc+=20
     begin = datetime.datetime.now()
 
 # end = datetime.datetime.now()

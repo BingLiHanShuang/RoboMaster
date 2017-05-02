@@ -53,7 +53,18 @@ int image_predict(Mat img,KerasModel &model){//通过卷积神经网络识别
 //    waitKey(0);
     return index;
 }
-Mat image_resize(Mat rawimg){
+Mat image_resize_digit_other(Mat rawimg){
+    int width=28;
+    cv::Mat outimg(width, width, CV_8U, 255);
+    cv::Size size;
+
+    size.width = width;
+    size.height = width;
+    cv::resize(rawimg, rawimg, size,INTER_CUBIC);
+    return rawimg;
+
+}
+Mat image_resize_digit_1(Mat rawimg){
     int width=28;
     cv::Mat outimg(width, width, CV_8U, 255);
 
@@ -71,11 +82,14 @@ Mat image_resize(Mat rawimg){
     int w = rawimg.cols, h = rawimg.rows;
     int x = (width - w)/2, y = (width - h)/2;
     rawimg.copyTo(outimg(cv::Rect(x, y, w, h)));
-//    imshow("test",outimg);
-//    waitKey(0);
-//    //predict(outimg);
-//    image_predict(outimg,model_handwrite_digit);
+
     return outimg;
+}
+Mat image_resize(Mat rawimg){
+    if(rawimg.size().width<=20)//参数:数字1的宽度参数,现场拍照整定
+        return image_resize_digit_1(rawimg);//防止数字1拉伸占满全屏
+    return image_resize_digit_other(rawimg);//全部拉伸
+
 }
 Mat resize_resize(Mat rawimage){
     float fx=480.0 /(float) rawimage.size().width;
@@ -198,7 +212,7 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
 
     Mat hsv_led_screen,mask_led_screen;
     cvtColor(frame_led_screen,hsv_led_screen,COLOR_BGR2HSV);
-    Scalar lower_red=Scalar(0, 0, 240);
+    Scalar lower_red=Scalar(0, 0, 240);//参数:LED灯亮度参数
     Scalar upper_red=Scalar(255, 255, 255);
     inRange(frame_led_screen,lower_red,upper_red,mask_led_screen);//红色LED掩码
     dilate(mask_led_screen, mask_led_screen, Mat(), Point(-1, -1), 2, 1, 1);
@@ -623,7 +637,7 @@ int main() {
     memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
     memset(result_digit_led,0, sizeof(result_digit_led));
 #ifdef test
-    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688294.mp4");
+    VideoCapture cap("/Users/wzq/Downloads/wzq_1_946685323.mp4");
 #endif
     Mat frame;
     int count=0;
@@ -631,17 +645,21 @@ int main() {
 
 
 #ifdef test
-        //frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
-        for (int i = 225; i < 1300; ++i) {
-            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
-            if(process(frame)!=0)continue;
-
-            PadPassSend(result_digit_handwrite,result_digit_led);
-            PadPassPrint(result_digit_handwrite,result_digit_led);
-            imshow("frame"+to_string(i),frame);
-            waitKey(0);
-            destroyAllWindows();
+        while (1){
+            cap>>frame;
+            imwrite("/Users/wzq/Downloads/untitled folder 2/"+to_string(count++)+".jpg",frame);
         }
+        //frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
+//        for (int i = 225; i < 1300; ++i) {
+//            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
+//            if(process(frame)!=0)continue;
+//
+//            PadPassSend(result_digit_handwrite,result_digit_led);
+//            PadPassPrint(result_digit_handwrite,result_digit_led);
+//            imshow("frame"+to_string(i),frame);
+//            waitKey(0);
+//            destroyAllWindows();
+//        }
 //        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;
