@@ -17,11 +17,11 @@ static int count_digit=0;
 const int camera_width=640;
 const int camera_height=480;
 //#define test
-//#ifdef test
+#ifdef test
 KerasModel model_handwrite_digit("/Users/wzq/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
 KerasModel model_led_digit("/Users/wzq/RoboMaster/PadPassCpp/model_led.nnet", true);
 #else
-KerasModel model_handwrite_digit("/home/ubuntu/RoboMaster/PadPassCpp/model_handwrite2.nnet", true);
+KerasModel model_handwrite_digit("/home/ubuntu/RoboMaster/PadPassCpp/model_handwrite.nnet", true);
 KerasModel model_led_digit("/home/ubuntu/RoboMaster/PadPassCpp/model_led.nnet", true);
 #endif
 uint8_t result_digit_handwrite[9];
@@ -212,7 +212,7 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
 
     Mat hsv_led_screen,mask_led_screen;
     cvtColor(frame_led_screen,hsv_led_screen,COLOR_BGR2HSV);
-    Scalar lower_red=Scalar(0, 0, 240);//参数:LED灯亮度参数
+    Scalar lower_red=Scalar(0, 0, 220);//参数:LED灯亮度参数
 
     Scalar upper_red=Scalar(255, 255, 255);
     inRange(frame_led_screen,lower_red,upper_red,mask_led_screen);//红色LED掩码
@@ -601,12 +601,17 @@ int process(Mat frame){
     vector<Mat> image_digit_handwrite_with_border,image_digit_handwrite_final;
     //对切割出的图片进行处理获取纯数字边框
     extract_digit_from_slice(image_digit_handwrite,image_digit_handwrite_with_border);//提取出九宫格中小矩形
-
-
+    if(image_digit_handwrite_with_border.size()!=9){
+	cout<<"cannot find enough image_digit_handwrite_with_border"<<endl;
+	return -1;
+	}
     extract_minimum_digit(image_digit_handwrite_with_border,image_digit_handwrite_final);//提取出最后识别九宫格图形
     extract_minimum_led_digit(led_screen,image_digit_led);//提取每个LED字符
 
-
+    if(image_digit_led.size()!=5){
+        cout<<"cannot find enough image_digit_led"<<endl;
+        return -1;
+        }
     digit_handwrite_recognize(image_digit_handwrite_final,result_digit_handwrite);//识别手写数字
     digit_led_recognize(image_digit_led,result_digit_led);//识别LED数字
 
@@ -645,7 +650,7 @@ int main() {
     memset(result_digit_handwrite,0, sizeof(result_digit_handwrite));
     memset(result_digit_led,0, sizeof(result_digit_led));
 #ifdef test
-    VideoCapture cap("/Users/wzq/Downloads/wzq_1_946685323.mp4");
+//    VideoCapture cap("/Users/wzq/Downloads/wzq_1_946685323.mp4");
 #endif
             clock_t tStart;
     Mat frame;
@@ -654,11 +659,11 @@ int main() {
 
 
 #ifdef test
-        while (1){
-            cap>>frame;
-            imwrite("/Users/wzq/Downloads/untitled folder 2/"+to_string(count++)+".jpg",frame);
-        }
-        //frame=imread("/Users/wzq/RoboMaster/PadPass/test3/1300.jpg");
+//        while (1){
+////            cap>>frame;
+////            imwrite("/Users/wzq/Downloads/untitled folder 2/"+to_string(count++)+".jpg",frame);
+////        }
+        frame=imread("/Users/wzq/RoboMaster/PadPassCpp/1273.jpg");
 //        for (int i = 225; i < 1300; ++i) {
 //            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
 //            if(process(frame)!=0)continue;
