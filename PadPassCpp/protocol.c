@@ -69,7 +69,7 @@ void PadPassSend(uint8_t *digit_handwrite,uint8_t *digit_led){
     padPass.pad.len=9;
 
     padPass.password.data=digit_led;
-    padPass.pad.len=5;
+    padPass.password.len=5;
 
     padPass.has_pad=1;
     padPass.has_password=1;
