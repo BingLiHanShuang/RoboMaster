@@ -24,6 +24,7 @@ PadPassData padPassData;
 VideoRecordStatusData videoRecordStatusData;
 UltraSonicData ultraSonicData;
 uint8_t uart_buffer_1[256];
+uint8_t flag_start=0;
 const unsigned int crc32tab[] = {
         0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL,
         0x076dc419L, 0x706af48fL, 0xe963a535L, 0x9e6495a3L,
@@ -155,8 +156,21 @@ int CRC32(uint8_t *buf, uint8_t size) {//calculate CRC32 code in case of data lo
 
 void GetMessage(uint8_t data) {//receive the data from serial stream
     uart_buffer_1[uart_buffer_index_1++] = data;
+    if(flag_start==1){
+        if (data==0xfc||data==0xfd){
+            flag_start=0;
+        } else{
+            flag_start=0;
+            uart_buffer_index_1=0;
+            uart_buffer_1[uart_buffer_index_1++] = 0xfe;
+            uart_buffer_1[uart_buffer_index_1++]=data;
+        }
+    }
     if (data == 0xff) {
         DispatchMessage();
+    }
+    if(data==0xfe){
+        flag_start=1;
     }
 }
 
@@ -210,8 +224,8 @@ void SaveScanResult(ScanResult *mscanResult) {
 
 };
 void SavePadPass(PadPass * mpadPass){
-    assert(mpadPass->has_password==1&&mpadPass->password.len==5);//密码长度为5位
-    assert(mpadPass->has_pad==1&&mpadPass->pad.len==9);//九宫格中的数字为9个
+//    assert(mpadPass->has_password==1&&mpadPass->password.len==5);//密码长度为5位
+//    assert(mpadPass->has_pad==1&&mpadPass->pad.len==9);//九宫格中的数字为9个
     memcpy(padPassData.Pad,mpadPass->pad.data,mpadPass->pad.len* sizeof(uint8_t));//将九宫格拷贝至全局变量
     memcpy(padPassData.Pass,mpadPass->password.data,mpadPass->password.len* sizeof(uint8_t));//将密码拷贝至全局变量
     padPassData.flag_read=0;
@@ -283,7 +297,7 @@ void DispatchMessage() {//process the received buffer
         pad_pass__free_unpacked(padPass_temp,NULL);
 
     }
-    if(message_temp->messagetype==MESSAGE__MESSAGE_TYPE__VideoRecord){//读取串口状态
+    if(message_temp->messagetype==MESSAGE__MESSAGE_TYPE__VideoRecord){//读取录像状态
         VideoRecord* videoRecord_temp=video_record__unpack(NULL, (message_temp->data.len), (message_temp->data.data));
         SaveVideoRecordStatus(videoRecord_temp);
         video_record__free_unpacked(videoRecord_temp,NULL);

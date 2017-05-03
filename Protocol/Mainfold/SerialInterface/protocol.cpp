@@ -12,6 +12,7 @@
 using namespace std;
 uint8_t uart_buffer_1[512];
 size_t uart_buffer_index_1;
+uint8_t flag_start=0;
 /*
  * FE //start
  * 00 00 00 00//packet size
@@ -22,8 +23,21 @@ size_t uart_buffer_index_1;
 namespace PROTOCOL{
     void GetMessage(uint8_t data) {
         uart_buffer_1[uart_buffer_index_1++] = data;
+        if(flag_start==1){
+            if (data==0xfc||data==0xfd){
+                flag_start=0;
+            } else{
+                flag_start=0;
+                uart_buffer_index_1=0;
+                uart_buffer_1[uart_buffer_index_1++] = 0xfe;
+                uart_buffer_1[uart_buffer_index_1++]=data;
+            }
+        }
         if (data == 0xff) {
             DispatchMessage();
+        }
+        if(data==0xfe){
+            flag_start=1;
         }
     }
     int DeserializeInt(uint8_t *data) {
