@@ -172,6 +172,9 @@ void GetMessage(uint8_t data) {//receive the data from serial stream
     if(data==0xfe){
         flag_start=1;
     }
+    if(uart_buffer_index_1>=255){
+        uart_buffer_index_1=0;
+    }
 }
 
 int DeserializeInt(uint8_t *data) {//deserialize int from memory
