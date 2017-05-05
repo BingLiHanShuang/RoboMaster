@@ -118,7 +118,7 @@ void enque_uint8(BufferData* res,uint8_t data){
     return;
 }
 void presendtoserial(void *payload, uint32_t size) {
-    print(payload,size);
+   // print(payload,size);
     BufferData result_temp;
     result_temp.len=0;
     result_temp.data=(uint8_t*)malloc(sizeof(uint8_t)*512);//malloc 1
@@ -139,7 +139,7 @@ void presendtoserial(void *payload, uint32_t size) {
     //int index=0;
     for(int i=0;i<result_len;i++){result[i]=result_temp.data[i];}
 
-
+    print(result,result_len);
     serial_send(result,result_len);
     free(result_temp.data);//free 1
     free(result);//free 2
@@ -246,6 +246,7 @@ void SaveUltraSonic(UltraSonic *mUltraSonic){
     callback_UltraSonic();
 }
 void print(uint8_t * data,int len){//for debug
+#define hex
 #ifdef hex
     for (int i = 0; i < len; ++i) {
         printf("0x%02x,",data[i]);
@@ -325,7 +326,7 @@ void MessageSend(enum _Message__MessageType type,ProtobufCBinaryData data){
 
     uint8_t buffer[100];
     size_t buffer_len=message__pack(&message,buffer);
-    print(buffer,buffer_len);
+    //print(buffer,buffer_len);
     presendtoserial(buffer,buffer_len);
 }
 

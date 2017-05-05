@@ -18,7 +18,7 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 using json = nlohmann::json;
-//#define test
+#define test
 #ifdef test
 #define config_path "/Users/wzq/RoboMaster/PadPassCpp/config.json"
 #else
@@ -31,6 +31,8 @@ const int camera_height=480;
 json config_json;
 int config_threshhold_led_light;
 int config_threshhold_handwrite_1_width;
+int config_threshhold_white_rectangle_area_min;
+int config_threshhold_white_rectangle_area_max;
 KerasModel *model_handwrite_digit;
 KerasModel *model_led_digit;
 
@@ -217,21 +219,31 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
     Mat frame_copy=frame.clone();
     int led_x1=(int)led_x,led_y1=(int)led_y,led_height1=(int)led_height,led_width1=(int)led_width;
     Rect rect_led_screen(led_x1,led_y1,led_width1,led_height1);
-    Mat frame_led_screen(frame_copy,rect_led_screen);
+    Mat led_screen_frame(frame_copy,rect_led_screen);
 
 
-    Mat hsv_led_screen,mask_led_screen;
-    cvtColor(frame_led_screen,hsv_led_screen,COLOR_BGR2HSV);
+    Mat led_screen_hsv,led_screen_mask;
+    cvtColor(led_screen_frame,led_screen_hsv,COLOR_BGR2HSV);
+
     Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
 
     Scalar upper_red=Scalar(255, 255, 255);
-    inRange(frame_led_screen,lower_red,upper_red,mask_led_screen);//红色LED掩码
-    dilate(mask_led_screen, mask_led_screen, Mat(), Point(-1, -1), 2, 1, 1);
-    Mat result=mask_led_screen.clone();
+    inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
+
+
+    dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
+//    dilate(mask1, mask1, Mat(), Point(-1, -1), 2, 1, 1);
+
+//    imshow( "led_screen_grayscale", led_screen_grayscale );
+//    imshow( "mask1", mask1 );
+
+//
+//    waitKey(0);
+    Mat result=led_screen_mask.clone();
     return result;
 
 //
-//    imshow("test",mask_led_screen);
+//    imshow("test",led_screen_mask);
 //    waitKey(0);
 
 
@@ -338,10 +350,113 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
     //waitKey(0);
 
 }
+void extract_minimum_led_digit1(Mat led_screen_frame,vector<Mat> &image_digit){
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    vector<Rect> rects_led,rects_led_processed;
+    Mat led_screen_grayscale,mask_led_screen;
+
+    cvtColor(led_screen_frame,led_screen_grayscale,COLOR_BGR2GRAY);
+    Mat mask1;
+    threshold(led_screen_grayscale,mask_led_screen,210,255,THRESH_BINARY);
+
+    findContours( mask_led_screen.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+    for (int i = 0; i < contours.size(); ++i) {
+        Rect rect=boundingRect(contours[i]);
+        if(rect.height<10)continue;
+        rects_led.push_back(rect);
+    }
+
+
+    sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
+    //vector<Rect> pos_rect_new;
+    rects_led_processed.push_back(rects_led[0]);
+    for (int i = 0; i < (rects_led.size()-1); ++i) {
+        int distance=abs(rects_led[i].x-rects_led[i+1].x)+abs(rects_led[i].y-rects_led[i+1].y);
+        if(distance<10)
+            continue;
+        rects_led_processed.push_back(rects_led[i+1]);
+        //rectangle(frame,pos_rect[i],Scalar(0,0,255),2);
+        //cout<<pos_rect[i]<<pos_rect[i].height*pos_rect[i].width<<endl;
+    }
+
+
+    //sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
+    destroyAllWindows();
+    for (int i = 0; i < rects_led_processed.size(); ++i) {
+
+        Rect rect=rects_led_processed[i];
+        rect.x-=2;
+        rect.y-=2;
+        rect.height+=4;
+        rect.width+=4;
+        Mat im_gray(led_screen_frame,rect),im_th;
+        //adaptiveThreshold(im_gray,im_th,255,ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,25,25);
+        image_digit.push_back(im_th.clone());
+        {
+            int hbins = 256, sbins = 256;
+            int histSize[] = {sbins};
+            // hue varies from 0 to 179, see cvtColor
+            float hranges[] = {0, 180};
+            // saturation varies from 0 (black-gray-white) to
+            // 255 (pure spectrum color)
+            float sranges[] = {0, 256};
+            const float *ranges[] = {sranges};
+            MatND hist;
+            // we compute the histogram from the 0-th and 1-st channels
+            int channels[] = {2};
+            Mat led_screen_hsv;
+            cvtColor(im_gray, led_screen_hsv, COLOR_BGR2HSV);
+
+
+            calcHist(&led_screen_hsv, 1, channels, Mat(), // do not use mask
+                     hist, 1, histSize, ranges,
+                     true, // the histogram is uniform
+                     false);
+            double maxVal = 0;
+            minMaxLoc(hist, 0, &maxVal, 0, 0);
+            int hist_w = 512;
+            int hist_h = 400;
+            int bin_w = cvRound((double) hist_w / hbins);
+            int scale = 10;
+            //Mat histImg = Mat(sbins*scale, hbins*10, CV_8UC3);
+
+            Mat histImage(hist_h, hist_w, CV_8UC1, Scalar(0, 0, 0));
+            //normalize(hist, hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
+
+            for (int i = 1; i < hbins; i++) {
+                line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(hist.at<float>(0, i - 1))),
+                     Point(bin_w * (i), hist_h - cvRound(hist.at<float>(0, i))),
+                     Scalar(255, 0, 0), 2, 8, 0);
+            }
+            for (int h = 0; h < hbins; h++) {
+                float binVal = hist.at<float>(h);
+                cout << h << ":" << binVal << endl;
+            }
+            Scalar lower_red=Scalar(150, 0, 220);//参数:LED灯亮度参数
+
+            Scalar upper_red=Scalar(255, 255, 255);
+            Mat mask1;
+            inRange(im_gray,lower_red,upper_red,mask1);//红色LED掩码
+
+
+
+
+            imshow(to_string(i), im_gray);
+            imshow(to_string(i)+"hisgram", histImage);
+            imshow(to_string(i)+"mask1", mask1);
+
+            waitKey(0);
+        }
+        //imshow(to_string(i),mat);
+    }
+    waitKey(0);
+}
 void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
     vector<Rect> rects_led;
+
 
     findContours( mask_led_screen.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
     for (int i = 0; i < contours.size(); ++i) {
@@ -353,7 +468,8 @@ void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
     for (int i = 0; i < rects_led.size(); ++i) {
         Mat mat(mask_led_screen,rects_led[i]);
         image_digit.push_back(mat.clone());
-        //imshow(to_string(i),mat);
+
+
     }
 }
 void digit_handwrite_recognize(vector<Mat> &image_digit,uint8_t* res){
@@ -403,16 +519,17 @@ int location_rectangle_detect(Mat &frame,vector<Rect> &pos_rect){//检测符合�
             int x=rect.x,y=rect.y,w=rect.width,h=rect.height;
             int area=w*h;
 
-            if(area<350 || area > 560)continue;//面积大小进行过滤
+            if(area<config_threshhold_white_rectangle_area_min || area > config_threshhold_white_rectangle_area_max)continue;//面积大小进行过滤
+
             if(((float)w/(float)h)<=1.5||((float)w/(float)h)>=2.5)continue;//宽高比过滤
 //            if(x<10 ||x>470)continue;//相对位置过滤
+//            rectangle(frame,rect,Scalar(0,0,255),2);
 
 //            Mat mask_rect = Mat(gray_frame, rect);
 //            Scalar mask_rect_average=mean(mask_rect);
             //if(mask_rect_average[0]<80||mask_rect_average[0]>100)continue;//通过平均颜色进行过滤
 
             pos_rect.push_back(rect);
-            //rectangle(frame,rect,Scalar(0,0,255),2);
         }
     }
     return pos_rect.size();
@@ -467,7 +584,7 @@ int location_rectangle_filter_variance(vector<Rect> &pos_rect){//通过方差过
         variance_mean/=variance.size();
         //求偏差的平均值
 
-        if(pos_rect.size()<=5||variance_mean<15)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
+        if(pos_rect.size()<=5||variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
             break;
         auto max = max_element(variance.begin(), variance.end());
         int index = (int)distance(variance.begin(), max);//求出索引
@@ -620,6 +737,9 @@ void config_load(){
     model_led_digit=new KerasModel(config_json["led_nnet_path"],true);
     config_threshhold_handwrite_1_width=config_json["threshhold_handwrite_1_width"];
     config_threshhold_led_light=config_json["threshhold_led_light"];
+    config_threshhold_white_rectangle_area_min=config_json["threshhold_white_rectangle_area_min"];
+    config_threshhold_white_rectangle_area_max=config_json["threshhold_white_rectangle_area_max"];
+
     //config_json.parse(str);
 }
 int main() {
@@ -632,7 +752,7 @@ int main() {
 
 
 #ifdef test
-//    VideoCapture cap("/Users/wzq/Downloads/wzq_1_946685323.mp4");
+    VideoCapture cap("/Users/wzq/Downloads/output3.avi");
 #endif
             clock_t tStart;
     Mat frame;
@@ -642,21 +762,22 @@ int main() {
 
 #ifdef test
 //        while (1){
-////            cap>>frame;
-////            imwrite("/Users/wzq/Downloads/untitled folder 2/"+to_string(count++)+".jpg",frame);
-////        }
-        frame=imread("/Users/wzq/Downloads/untitled folder 2/7205.jpg");
-//        for (int i = 225; i < 1300; ++i) {
-//            frame=imread("/Users/wzq/Downloads/untitled folder/"+to_string(i)+".jpg");
-//            if(process(frame)!=0)continue;
-//
-//            PadPassSend(result_digit_handwrite,result_digit_led);
-//            PadPassPrint(result_digit_handwrite,result_digit_led);
-//            imshow("frame"+to_string(i),frame);
-//            waitKey(0);
-//            destroyAllWindows();
+//            cap>>frame;
+//                if(frame.size().height>0&&frame.size().width>0)
+//                  imwrite("/Users/wzq/Downloads/untitled folder 4/"+to_string(count++)+".jpg",frame);
 //        }
-//        cap>>frame;
+//        frame=imread("/Users/wzq/Downloads/untitled folder 2/7205.jpg");
+        for (int i = 19; i < 1300; ++i) {
+            frame=imread("/Users/wzq/Downloads/untitled folder 4/"+to_string(i)+".jpg");
+            if(process(frame)!=0)continue;
+
+            PadPassSend(result_digit_handwrite,result_digit_led);
+            PadPassPrint(result_digit_handwrite,result_digit_led);
+            imshow("frame"+to_string(i),frame);
+            waitKey(0);
+            destroyAllWindows();
+        }
+        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;
 #else
