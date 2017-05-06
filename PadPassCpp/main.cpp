@@ -18,7 +18,7 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 using json = nlohmann::json;
-#define test
+//#define test
 #ifdef test
 #define config_path "/Users/wzq/RoboMaster/PadPassCpp/config.json"
 #else
@@ -38,7 +38,12 @@ KerasModel *model_led_digit;
 
 uint8_t result_digit_handwrite[9];
 uint8_t result_digit_led[5];
-int image_predict(Mat img,KerasModel *model){//通过卷积神经网络识别
+struct Digit{
+    vector<float> predictions;
+    int index;
+    int result;
+};
+Digit image_predict(Mat img,KerasModel *model){//通过卷积神经网络识别
 
     vector<vector<vector<float>>> data;
     vector<vector<float>> d;
@@ -46,7 +51,6 @@ int image_predict(Mat img,KerasModel *model){//通过卷积神经网络识别
         vector<float> r;
         for (int j = 0; j < img.cols; j++) {
             r.push_back(img.at<uchar>(i, j)/255.0);
-
         }
         d.push_back(r);
     }
@@ -54,16 +58,18 @@ int image_predict(Mat img,KerasModel *model){//通过卷积神经网络识别
 
     DataChunk * dc = new DataChunk2D();
     dc->set_data(data); //Mat 转 DataChunk
+    Digit res;
 
-    vector<float> predictions = model->compute_output(dc);
+    res.predictions = model->compute_output(dc);
 
-    auto max = max_element(predictions.begin(), predictions.end());
-    int index = (int)distance(predictions.begin(), max);
+    auto max = max_element(res.predictions.begin(), res.predictions.end());
+    res.result = (int)distance(res.predictions.begin(), max);
 
     delete dc;
     //imshow(to_string(count_digit)+"-"+to_string(index),img);
 //    waitKey(0);
-    return index;
+
+    return res;
 }
 Mat image_resize_digit_other(Mat rawimg){
     int width=28;
@@ -350,108 +356,7 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
     //waitKey(0);
 
 }
-void extract_minimum_led_digit1(Mat led_screen_frame,vector<Mat> &image_digit){
-    vector<vector<Point> > contours;
-    vector<Vec4i> hierarchy;
-    vector<Rect> rects_led,rects_led_processed;
-    Mat led_screen_grayscale,mask_led_screen;
 
-    cvtColor(led_screen_frame,led_screen_grayscale,COLOR_BGR2GRAY);
-    Mat mask1;
-    threshold(led_screen_grayscale,mask_led_screen,210,255,THRESH_BINARY);
-
-    findContours( mask_led_screen.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-    for (int i = 0; i < contours.size(); ++i) {
-        Rect rect=boundingRect(contours[i]);
-        if(rect.height<10)continue;
-        rects_led.push_back(rect);
-    }
-
-
-    sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
-    //vector<Rect> pos_rect_new;
-    rects_led_processed.push_back(rects_led[0]);
-    for (int i = 0; i < (rects_led.size()-1); ++i) {
-        int distance=abs(rects_led[i].x-rects_led[i+1].x)+abs(rects_led[i].y-rects_led[i+1].y);
-        if(distance<10)
-            continue;
-        rects_led_processed.push_back(rects_led[i+1]);
-        //rectangle(frame,pos_rect[i],Scalar(0,0,255),2);
-        //cout<<pos_rect[i]<<pos_rect[i].height*pos_rect[i].width<<endl;
-    }
-
-
-    //sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
-    destroyAllWindows();
-    for (int i = 0; i < rects_led_processed.size(); ++i) {
-
-        Rect rect=rects_led_processed[i];
-        rect.x-=2;
-        rect.y-=2;
-        rect.height+=4;
-        rect.width+=4;
-        Mat im_gray(led_screen_frame,rect),im_th;
-        //adaptiveThreshold(im_gray,im_th,255,ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,25,25);
-        image_digit.push_back(im_th.clone());
-        {
-            int hbins = 256, sbins = 256;
-            int histSize[] = {sbins};
-            // hue varies from 0 to 179, see cvtColor
-            float hranges[] = {0, 180};
-            // saturation varies from 0 (black-gray-white) to
-            // 255 (pure spectrum color)
-            float sranges[] = {0, 256};
-            const float *ranges[] = {sranges};
-            MatND hist;
-            // we compute the histogram from the 0-th and 1-st channels
-            int channels[] = {2};
-            Mat led_screen_hsv;
-            cvtColor(im_gray, led_screen_hsv, COLOR_BGR2HSV);
-
-
-            calcHist(&led_screen_hsv, 1, channels, Mat(), // do not use mask
-                     hist, 1, histSize, ranges,
-                     true, // the histogram is uniform
-                     false);
-            double maxVal = 0;
-            minMaxLoc(hist, 0, &maxVal, 0, 0);
-            int hist_w = 512;
-            int hist_h = 400;
-            int bin_w = cvRound((double) hist_w / hbins);
-            int scale = 10;
-            //Mat histImg = Mat(sbins*scale, hbins*10, CV_8UC3);
-
-            Mat histImage(hist_h, hist_w, CV_8UC1, Scalar(0, 0, 0));
-            //normalize(hist, hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
-
-            for (int i = 1; i < hbins; i++) {
-                line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(hist.at<float>(0, i - 1))),
-                     Point(bin_w * (i), hist_h - cvRound(hist.at<float>(0, i))),
-                     Scalar(255, 0, 0), 2, 8, 0);
-            }
-            for (int h = 0; h < hbins; h++) {
-                float binVal = hist.at<float>(h);
-                cout << h << ":" << binVal << endl;
-            }
-            Scalar lower_red=Scalar(150, 0, 220);//参数:LED灯亮度参数
-
-            Scalar upper_red=Scalar(255, 255, 255);
-            Mat mask1;
-            inRange(im_gray,lower_red,upper_red,mask1);//红色LED掩码
-
-
-
-
-            imshow(to_string(i), im_gray);
-            imshow(to_string(i)+"hisgram", histImage);
-            imshow(to_string(i)+"mask1", mask1);
-
-            waitKey(0);
-        }
-        //imshow(to_string(i),mat);
-    }
-    waitKey(0);
-}
 void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
@@ -472,19 +377,20 @@ void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
 
     }
 }
-void digit_handwrite_recognize(vector<Mat> &image_digit,uint8_t* res){
+void digit_handwrite_recognize(vector<Mat> &image_digit,vector<Digit> &res){
 
 //    vector<int> res;
     for (int i = 0; i < image_digit.size(); ++i) {
         Mat mat=image_resize(image_digit[i]);
-        int temp=image_predict(mat,model_handwrite_digit);
+        Digit temp=image_predict(mat,model_handwrite_digit);
+        temp.index=i;
 #ifdef test
-        imshow(to_string(i+1)+"-"+to_string(temp),mat);
+        imshow(to_string(i+1)+"-"+to_string(temp.index),mat);
 #endif
 //        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",mat);
 
-        res[i]=temp;
-        //res.push_back(temp);
+        //res[i]=temp;
+        res.push_back(temp);
     }
 
     //waitKey(0);
@@ -492,14 +398,15 @@ void digit_handwrite_recognize(vector<Mat> &image_digit,uint8_t* res){
 
     //resizeimg(temp_dict[max_index]);
 }
-void digit_led_recognize(vector<Mat> &image_digit,uint8_t* res){
+void digit_led_recognize(vector<Mat> &image_digit,vector<Digit> &res){
 //    vector<int> res;
     for (int i = 0; i < image_digit.size(); ++i) {
         Mat mat=image_resize(image_digit[i]);
-        int temp=image_predict(mat,model_led_digit);
-        res[i]=temp;
+        Digit temp=image_predict(mat,model_led_digit);
+        temp.index=i;
+        //res[i]=temp;
 
-//        res.push_back(temp);
+        res.push_back(temp);
     }
 }
 int location_rectangle_detect(Mat &frame,vector<Rect> &pos_rect){//检测符合面积以及宽高比的矩形
@@ -640,6 +547,40 @@ int judge_empty_rectangle(vector<Mat> &image_digit_handwrite_with_border){
     //waitKey(0);
 
 }
+void result_duplicate_solve(vector<Digit> &result){
+    //int map[]={0,0,0,0,0,0,0,0,0,0};
+    vector<Digit> map1[10];
+
+    for (int i=0;i<result.size();i++){
+        map1[result[i].result].push_back(result[i]);//统计数字出现次数
+    }
+    int duplicate_index=-1;
+    int zero_index=-1;
+    for (int i = 1; i < 10; ++i) {
+        if(map1[i].size()==0)zero_index=i;
+        if(map1[i].size()>=2)duplicate_index=i;
+        
+    }
+    if(duplicate_index!=-1&&zero_index!=-1){
+        Digit max1=map1[duplicate_index][0];
+        Digit max2=map1[duplicate_index][1];
+        //Digit zero1=map1[zero_index][0];
+        if(max1.predictions[max1.result]>max2.predictions[max2.result]){
+            result[max2.index].result=zero_index;
+        }else{
+            result[max1.index].result=zero_index;
+        }
+
+
+
+    }
+
+}
+void save_result(vector<Digit> res,uint8_t *store){
+    for (int i = 0; i < res.size(); ++i) {
+        store[i]=res[i].result;
+    }
+}
 
 int process(Mat frame){
     vector<vector<Point> > contours;
@@ -722,8 +663,16 @@ int process(Mat frame){
 //        cout<<"cannot find enough image_digit_led"<<endl;
 //        return -1;
 //        }
-    digit_handwrite_recognize(image_digit_handwrite_final,result_digit_handwrite);//识别手写数字
-    digit_led_recognize(image_digit_led,result_digit_led);//识别LED数字
+    vector<Digit> result_handwrite,result_led;
+    digit_handwrite_recognize(image_digit_handwrite_final,result_handwrite);//识别手写数字
+    digit_led_recognize(image_digit_led,result_led);//识别LED数字
+
+    result_duplicate_solve(result_handwrite);
+    save_result(result_handwrite,result_digit_handwrite);
+    save_result(result_led,result_digit_led);
+
+
+
 
     return 0;
 
@@ -762,6 +711,7 @@ void config_load(){
 
     //config_json.parse(str);
 }
+
 int main() {
 
     config_load();
@@ -786,17 +736,17 @@ int main() {
 //                if(frame.size().height>0&&frame.size().width>0)
 //                  imwrite("/Users/wzq/Downloads/untitled folder 4/"+to_string(count++)+".jpg",frame);
 //        }
-        frame=imread("/Users/wzq/Downloads/test5/1280.jpg");
-//        for (int i = 19; i < 1300; ++i) {
-//            frame=imread("/Users/wzq/Downloads/untitled folder 4/"+to_string(i)+".jpg");
-//            if(process(frame)!=0)continue;
-//
-//            PadPassSend(result_digit_handwrite,result_digit_led);
-//            PadPassPrint(result_digit_handwrite,result_digit_led);
-//            imshow("frame"+to_string(i),frame);
-//            waitKey(0);
-//            destroyAllWindows();
-//        }
+//        frame=imread("/Users/wzq/Downloads/test5/1269.jpg");
+        for (int i = 179; i < 1300; i+=20) {
+            frame=imread("/Users/wzq/Downloads/untitled folder 4/"+to_string(i)+".jpg");
+            if(process(frame)!=0)continue;
+
+            PadPassSend(result_digit_handwrite,result_digit_led);
+            PadPassPrint(result_digit_handwrite,result_digit_led);
+            imshow("frame"+to_string(i),frame);
+            waitKey(0);
+            destroyAllWindows();
+        }
 //        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;
