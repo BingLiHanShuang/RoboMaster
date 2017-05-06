@@ -311,7 +311,7 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
         for (int j = 0; j < contours.size(); ++j) {
             Rect rect=boundingRect(contours[j]);
 //            int area=rect.height*rect.width;
-            if(rect.width<6||rect.height<6)continue;
+            if(rect.width<3||rect.height<3)continue;//original is 3 x x
             x1=min(x1,rect.x);
             y1=min(y1,rect.y);
 
@@ -623,7 +623,23 @@ int location_rectangle_filter_variance(vector<Rect> &pos_rect){//通过方差过
 
 
 }
+int judge_empty_rectangle(vector<Mat> &image_digit_handwrite_with_border){
+    vector<float> empty_rate;
+    int empty_count=0;
+    for(int i=0;i<image_digit_handwrite_with_border.size();i++){
+        //imshow(to_string(i),image_digit_handwrite_with_border[i]);
+        float a=countNonZero(image_digit_handwrite_with_border[i]);
+        float rate=a/(float)(image_digit_handwrite_with_border[i].size().width*image_digit_handwrite_with_border[i].size().height);
+        //empty_rate.push_back(rate);
+        if(rate>0.02)empty_count++;
+    }
+    if(empty_count>=5)
+        return 1;
+    cout<<"rect is empty"<<endl;
+    return 0;
+    //waitKey(0);
 
+}
 
 int process(Mat frame){
     vector<vector<Point> > contours;
@@ -695,6 +711,10 @@ int process(Mat frame){
 	cout<<"cannot find enough image_digit_handwrite_with_border"<<endl;
 	return -1;
 	}
+
+    if(judge_empty_rectangle(image_digit_handwrite_with_border)==0)//判断九宫格是否为空
+        return -1;
+
     extract_minimum_digit(image_digit_handwrite_with_border,image_digit_handwrite_final);//提取出最后识别九宫格图形
     extract_minimum_led_digit(led_screen,image_digit_led);//提取每个LED字符
 
@@ -766,18 +786,18 @@ int main() {
 //                if(frame.size().height>0&&frame.size().width>0)
 //                  imwrite("/Users/wzq/Downloads/untitled folder 4/"+to_string(count++)+".jpg",frame);
 //        }
-//        frame=imread("/Users/wzq/Downloads/untitled folder 2/7205.jpg");
-        for (int i = 19; i < 1300; ++i) {
-            frame=imread("/Users/wzq/Downloads/untitled folder 4/"+to_string(i)+".jpg");
-            if(process(frame)!=0)continue;
-
-            PadPassSend(result_digit_handwrite,result_digit_led);
-            PadPassPrint(result_digit_handwrite,result_digit_led);
-            imshow("frame"+to_string(i),frame);
-            waitKey(0);
-            destroyAllWindows();
-        }
-        cap>>frame;
+        frame=imread("/Users/wzq/Downloads/test5/1280.jpg");
+//        for (int i = 19; i < 1300; ++i) {
+//            frame=imread("/Users/wzq/Downloads/untitled folder 4/"+to_string(i)+".jpg");
+//            if(process(frame)!=0)continue;
+//
+//            PadPassSend(result_digit_handwrite,result_digit_led);
+//            PadPassPrint(result_digit_handwrite,result_digit_led);
+//            imshow("frame"+to_string(i),frame);
+//            waitKey(0);
+//            destroyAllWindows();
+//        }
+//        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;
 #else
