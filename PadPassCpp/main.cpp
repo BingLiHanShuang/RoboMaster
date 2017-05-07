@@ -204,7 +204,7 @@ void slice_third_line(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect
     }
 
 }
-Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
+int slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right,Mat &result){
     int arg_line=0;
     float x=pos_rect_left[arg_line].x+pos_rect_left[arg_line].width;
     float y=(pos_rect_left[arg_line].y+pos_rect_right[arg_line].y)/2;
@@ -224,6 +224,8 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
 
     Mat frame_copy=frame.clone();
     int led_x1=(int)led_x,led_y1=(int)led_y,led_height1=(int)led_height,led_width1=(int)led_width;
+    if(led_x1<0||led_y1<0||led_height1<0||led_width1<0||(led_x1+led_width1>frame.size().width)||(led_y1+led_height1>frame.size().height))
+        return -1;
     Rect rect_led_screen(led_x1,led_y1,led_width1,led_height1);
     Mat led_screen_frame(frame_copy,rect_led_screen);
 
@@ -245,8 +247,9 @@ Mat slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right){
 
 //
 //    waitKey(0);
-    Mat result=led_screen_mask.clone();
-    return result;
+    result=led_screen_mask.clone();
+    return 0;
+    //return result;
 
 //
 //    imshow("test",led_screen_mask);
@@ -584,6 +587,7 @@ int variance_check(vector<Rect> &pos_rect){//通过方差计算矩形区域是�
         variance_mean/=variance.size();
         if(variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
             flag+=1;
+            //flag+=1;
         //pos_rect.erase(pos_rect.begin() + index);
     }
     return flag==2;
@@ -714,13 +718,17 @@ int process(Mat frame){
     slice_first_line(frame,pos_rect_left,pos_rect_right,image_digit_handwrite);//切割出九宫格第一行
     slice_second_line(frame,pos_rect_left,pos_rect_right,image_digit_handwrite);//切割出九宫格第二行
     slice_third_line(frame,pos_rect_left,pos_rect_right,image_digit_handwrite);//切割出九宫格第三行
-    Mat led_screen=slice_led(frame,pos_rect_left,pos_rect_right);////切割出LED
+    Mat led_screen;
+    if(slice_led(frame,pos_rect_left,pos_rect_right,led_screen)==-1){
+        cout<<"led screen is not in range"<<endl;
+        return -1;
+    };////切割出LED
     vector<Mat> image_digit_handwrite_with_border,image_digit_handwrite_final;
     //对切割出的图片进行处理获取纯数字边框
     extract_digit_from_slice(image_digit_handwrite,image_digit_handwrite_with_border);//提取出九宫格中小矩形
     if(image_digit_handwrite_with_border.size()!=9){
-	cout<<"cannot find enough image_digit_handwrite_with_border"<<endl;
-	return -1;
+        cout<<"cannot find enough image_digit_handwrite_with_border"<<endl;
+        return -1;
 	}
 
     if(judge_empty_rectangle(image_digit_handwrite_with_border)==0)//判断九宫格是否为空
