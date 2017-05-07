@@ -18,7 +18,7 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 using json = nlohmann::json;
-//#define test
+#define test
 #ifdef test
 #define config_path "/Users/wzq/RoboMaster/PadPassCpp/config.json"
 #else
@@ -385,7 +385,7 @@ void digit_handwrite_recognize(vector<Mat> &image_digit,vector<Digit> &res){
         Digit temp=image_predict(mat,model_handwrite_digit);
         temp.index=i;
 #ifdef test
-        imshow(to_string(i+1)+"-"+to_string(temp.index),mat);
+        imshow(to_string(i+1)+"-"+to_string(temp.result),mat);
 #endif
 //        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",mat);
 
@@ -530,6 +530,64 @@ int location_rectangle_filter_variance(vector<Rect> &pos_rect){//通过方差过
 
 
 }
+int variance_check(vector<Rect> &pos_rect){//通过方差计算矩形区域是否合法,防止程序崩溃
+    int flag=0;
+    int mean,variance_mean;
+    {//对x坐标进行过滤
+        mean=0;
+        variance_mean=0;
+        vector<int> variance;
+        for (int i = 0; i < pos_rect.size(); ++i) {
+            mean+=pos_rect[i].x;
+        }
+        mean/=pos_rect.size();
+        //求x坐标的平均值
+
+        for (int i = 0; i < pos_rect.size(); ++i) {
+            int temp=abs(pos_rect[i].x-mean);
+            variance.push_back(temp);
+        }
+        //求到平均值的偏差
+
+
+        for (int i = 0; i < variance.size(); ++i) {
+            variance_mean+=variance[i];
+        }
+        variance_mean/=variance.size();
+        //求偏差的平均值
+
+        if(variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
+            flag+=1;
+
+    }
+
+    {//对y轴进行过滤
+        vector<int> distance_y,variance;
+        mean=0;
+        for (int i = 0; i < pos_rect.size()-1;++i) {
+            distance_y.push_back(pos_rect[i+1].y-pos_rect[i].y);
+            mean+=distance_y[i];
+        }
+        mean/=distance_y.size();
+        //求y轴相近距离,以及平均值
+
+
+        for (int i = 0; i < distance_y.size(); ++i) {
+            int temp=abs(distance_y[i]-mean);
+            variance.push_back(temp);
+        }
+        //求到平均值的偏差
+
+        for (int i = 0; i < variance.size(); ++i) {
+            variance_mean+=variance[i];
+        }
+        variance_mean/=variance.size();
+        if(variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
+            flag+=1;
+        //pos_rect.erase(pos_rect.begin() + index);
+    }
+    return flag==2;
+}
 int judge_empty_rectangle(vector<Mat> &image_digit_handwrite_with_border){
     vector<float> empty_rate;
     int empty_count=0;
@@ -561,6 +619,7 @@ void result_duplicate_solve(vector<Digit> &result){
         if(map1[i].size()>=2)duplicate_index=i;
         
     }
+
     if(duplicate_index!=-1&&zero_index!=-1){
         Digit max1=map1[duplicate_index][0];
         Digit max2=map1[duplicate_index][1];
@@ -571,8 +630,9 @@ void result_duplicate_solve(vector<Digit> &result){
             result[max1.index].result=zero_index;
         }
 
-
-
+    }if(map1[0].size()!=0){
+        Digit max1=map1[0][0];
+        result[max1.index].result=zero_index;
     }
 
 }
@@ -581,6 +641,7 @@ void save_result(vector<Digit> res,uint8_t *store){
         store[i]=res[i].result;
     }
 }
+
 
 int process(Mat frame){
     vector<vector<Point> > contours;
@@ -617,9 +678,6 @@ int process(Mat frame){
         cout<<"cannot find location rectangle"<<endl;
         return -1;
     }
-    sort(pos_rect_left.begin(),pos_rect_left.end(),sort_cmp_y_greater);//左侧定位点排序
-    sort(pos_rect_right.begin(),pos_rect_right.end(),sort_cmp_y_greater);//右侧定位点排序
-
 #ifdef test
     for(int i=0;i<5;i++){
         rectangle(frame,pos_rect_left[i],Scalar(0,0,255),2);
@@ -627,6 +685,18 @@ int process(Mat frame){
 
     }
 #endif
+    if(!variance_check(pos_rect_left)||!variance_check(pos_rect_right)){
+        cout<<"please adjust the paramater for rectangle"<<endl;
+#ifdef test
+        imshow("frame",frame);
+        waitKey(0);
+#endif
+        return -1;
+    }
+    sort(pos_rect_left.begin(),pos_rect_left.end(),sort_cmp_y_greater);//左侧定位点排序
+    sort(pos_rect_right.begin(),pos_rect_right.end(),sort_cmp_y_greater);//右侧定位点排序
+
+
 
 #ifdef test
 
@@ -722,7 +792,7 @@ int main() {
 
 
 #ifdef test
-    VideoCapture cap("/Users/wzq/Downloads/output3.avi");
+    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688330.mp4");
 #endif
             clock_t tStart;
     Mat frame;
@@ -733,12 +803,12 @@ int main() {
 #ifdef test
 //        while (1){
 //            cap>>frame;
-//                if(frame.size().height>0&&frame.size().width>0)
-//                  imwrite("/Users/wzq/Downloads/untitled folder 4/"+to_string(count++)+".jpg",frame);
+//            if(frame.size().height>0&&frame.size().width>0)
+//                imwrite("/Users/wzq/Downloads/untitled folder 5/"+to_string(count++)+".jpg",frame);
 //        }
 //        frame=imread("/Users/wzq/Downloads/test5/1269.jpg");
-        for (int i = 179; i < 1300; i+=20) {
-            frame=imread("/Users/wzq/Downloads/untitled folder 4/"+to_string(i)+".jpg");
+        for (int i = 1520; i < 3036; i+=1) {
+            frame=imread("/Users/wzq/Downloads/untitled folder 5/"+to_string(i)+".jpg");
             if(process(frame)!=0)continue;
 
             PadPassSend(result_digit_handwrite,result_digit_led);
