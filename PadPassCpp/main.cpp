@@ -229,25 +229,25 @@ int slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right,M
     Rect rect_led_screen(led_x1,led_y1,led_width1,led_height1);
     Mat led_screen_frame(frame_copy,rect_led_screen);
 
-
-    Mat led_screen_hsv,led_screen_mask,led_screen_grayscale;
-    cvtColor(led_screen_frame,led_screen_hsv,COLOR_BGR2HSV);
-
-
-    cvtColor(led_screen_frame,led_screen_grayscale,COLOR_BGR2GRAY);
-
-
-    Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
-
-    Scalar upper_red=Scalar(255, 255, 255);
-    inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
+//
+//    Mat led_screen_hsv,led_screen_mask,led_screen_grayscale;
+//    cvtColor(led_screen_frame,led_screen_hsv,COLOR_BGR2HSV);
+//
+//
+//    cvtColor(led_screen_frame,led_screen_grayscale,COLOR_BGR2GRAY);
+//
+//
+//    Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
+//
+//    Scalar upper_red=Scalar(255, 255, 255);
+//    inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
 
 
 //    dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
 //    dilate(mask1, mask1, Mat(), Point(-1, -1), 2, 1, 1);
 
 //    imshow( "led_screen_grayscale", led_screen_grayscale );
-    imshow( "led_screen_grayscale", led_screen_grayscale );
+//    imshow( "led_screen_grayscale", led_screen_grayscale );
 
 //
 //    waitKey(0);
@@ -381,7 +381,7 @@ void extract_minimum_led_digit(Mat &led_screen_frame,vector<Mat> &image_digit){
 
     Scalar upper_red=Scalar(255, 255, 255);
     inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
-        dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
+    dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
 
 
     findContours( led_screen_mask.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
@@ -399,6 +399,8 @@ void extract_minimum_led_digit(Mat &led_screen_frame,vector<Mat> &image_digit){
         Mat im_gray(led_screen_grayscale,rects_led[i]),im_th;
 //        adaptiveThreshold(im_gray,im_th,255,ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,25,25);
         threshold(im_gray,im_th,150,255,THRESH_BINARY);
+//        dilate(im_th, im_th, Mat(), Point(-1, -1), 2, 1, 1);
+
 #ifdef test
         imshow("led"+to_string(i),im_th);
 #endif
@@ -459,7 +461,7 @@ int location_rectangle_detect(Mat &frame,vector<Rect> &pos_rect){//检测符合�
             if(area<config_threshhold_white_rectangle_area_min || area > config_threshhold_white_rectangle_area_max)continue;//面积大小进行过滤
 
             if(((float)w/(float)h)<=1.5||((float)w/(float)h)>=2.5)continue;//宽高比过滤
-            rectangle(frame,rect,Scalar(0,0,255),2);
+//            rectangle(frame,rect,Scalar(0,0,255),2);
 
 //            if(x<10 ||x>470)continue;//相对位置过滤
 
@@ -552,7 +554,7 @@ int location_rectangle_filter_variance(vector<Rect> &pos_rect){//通过方差过
 
         if(index==0)pos_rect.erase(pos_rect.begin() + 0);
         else if(index==(distance_y.size()-1))pos_rect.erase(pos_rect.begin() + distance_y.size());
-        else break;
+        else pos_rect.erase(pos_rect.begin() + index);
         if(pos_rect.size()<=5)break;
         //pos_rect.erase(pos_rect.begin() + index);
     }
@@ -844,17 +846,17 @@ int main() {
 //            if(frame.size().height>0&&frame.size().width>0)
 //                imwrite("/Users/wzq/Downloads/untitled folder 5/"+to_string(count++)+".jpg",frame);
 //        }
-        frame=imread("/Users/wzq/RoboMaster/PadPass/test7/1202.jpg");
-//        for (int i = 1201; i < 3036; i+=1) {
-//            frame=imread("/Users/wzq/RoboMaster/PadPass/test7/"+to_string(i)+".jpg");
-//            if(process(frame)!=0)continue;
-//
-//            PadPassSend(result_digit_handwrite,result_digit_led);
-//            PadPassPrint(result_digit_handwrite,result_digit_led);
-//            imshow("frame"+to_string(i),frame);
-//            waitKey(0);
-//            destroyAllWindows();
-//        }
+//        frame=imread("/Users/wzq/RoboMaster/PadPass/test7/1202.jpg");
+        for (int i = 1239; i < 3036; i+=1) {
+            frame=imread("/Users/wzq/RoboMaster/PadPass/test7/"+to_string(i)+".jpg");
+            if(process(frame)!=0)continue;
+
+            PadPassSend(result_digit_handwrite,result_digit_led);
+            PadPassPrint(result_digit_handwrite,result_digit_led);
+            imshow("frame"+to_string(i),frame);
+            waitKey(0);
+            destroyAllWindows();
+        }
 //        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;
