@@ -26,7 +26,7 @@ using json = nlohmann::json;
 #endif
 
 static int count_digit=0;
-const int camera_width=640;
+const int camera_width=500;
 const int camera_height=480;
 json config_json;
 int config_threshhold_led_light;
@@ -230,8 +230,12 @@ int slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right,M
     Mat led_screen_frame(frame_copy,rect_led_screen);
 
 
-    Mat led_screen_hsv,led_screen_mask;
+    Mat led_screen_hsv,led_screen_mask,led_screen_grayscale;
     cvtColor(led_screen_frame,led_screen_hsv,COLOR_BGR2HSV);
+
+
+    cvtColor(led_screen_frame,led_screen_grayscale,COLOR_BGR2GRAY);
+
 
     Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
 
@@ -239,15 +243,15 @@ int slice_led(Mat frame,vector<Rect> pos_rect_left,vector<Rect> pos_rect_right,M
     inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
 
 
-    dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
+//    dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
 //    dilate(mask1, mask1, Mat(), Point(-1, -1), 2, 1, 1);
 
 //    imshow( "led_screen_grayscale", led_screen_grayscale );
-//    imshow( "mask1", mask1 );
+    imshow( "led_screen_grayscale", led_screen_grayscale );
 
 //
 //    waitKey(0);
-    result=led_screen_mask.clone();
+    result=led_screen_frame;
     return 0;
     //return result;
 
@@ -360,22 +364,45 @@ void extract_minimum_digit(vector<Mat> &image_digit_with_border,vector<Mat> &ima
 
 }
 
-void extract_minimum_led_digit(Mat &mask_led_screen,vector<Mat> &image_digit){
+void extract_minimum_led_digit(Mat &led_screen_frame,vector<Mat> &image_digit){
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
     vector<Rect> rects_led;
+    Mat led_screen_mask,led_screen_grayscale,led_screen_hsv;
 
 
-    findContours( mask_led_screen.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+    cvtColor(led_screen_frame,led_screen_hsv,COLOR_BGR2HSV);
+
+
+    cvtColor(led_screen_frame,led_screen_grayscale,COLOR_BGR2GRAY);
+
+
+    Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
+
+    Scalar upper_red=Scalar(255, 255, 255);
+    inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
+        dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
+
+
+    findContours( led_screen_mask.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
     for (int i = 0; i < contours.size(); ++i) {
         Rect rect=boundingRect(contours[i]);
+//        rect.x-=2;
+//        rect.y-=2;
+//        rect.height+=4;
+//        rect.width+=4;
         if(rect.height<10)continue;
         rects_led.push_back(rect);
     }
     sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
     for (int i = 0; i < rects_led.size(); ++i) {
-        Mat mat(mask_led_screen,rects_led[i]);
-        image_digit.push_back(mat.clone());
+        Mat im_gray(led_screen_grayscale,rects_led[i]),im_th;
+//        adaptiveThreshold(im_gray,im_th,255,ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,25,25);
+        threshold(im_gray,im_th,150,255,THRESH_BINARY);
+#ifdef test
+        imshow("led"+to_string(i),im_th);
+#endif
+        image_digit.push_back(im_th.clone());
 
 
     }
@@ -432,8 +459,9 @@ int location_rectangle_detect(Mat &frame,vector<Rect> &pos_rect){//检测符合�
             if(area<config_threshhold_white_rectangle_area_min || area > config_threshhold_white_rectangle_area_max)continue;//面积大小进行过滤
 
             if(((float)w/(float)h)<=1.5||((float)w/(float)h)>=2.5)continue;//宽高比过滤
+            rectangle(frame,rect,Scalar(0,0,255),2);
+
 //            if(x<10 ||x>470)continue;//相对位置过滤
-//            rectangle(frame,rect,Scalar(0,0,255),2);
 
 //            Mat mask_rect = Mat(gray_frame, rect);
 //            Scalar mask_rect_average=mean(mask_rect);
@@ -660,6 +688,8 @@ int process(Mat frame){
 
 
     location_rectangle_detect(frame,pos_rect);//检测所有符合大小符合的矩形
+    imshow("",frame);
+    waitKey(0);
     if(pos_rect.size()<10){
         cout<<"cannot find location rectangle"<<endl;
         return -1;
@@ -800,7 +830,7 @@ int main() {
 
 
 #ifdef test
-    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688330.mp4");
+//    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688330.mp4");
 #endif
             clock_t tStart;
     Mat frame;
@@ -814,17 +844,17 @@ int main() {
 //            if(frame.size().height>0&&frame.size().width>0)
 //                imwrite("/Users/wzq/Downloads/untitled folder 5/"+to_string(count++)+".jpg",frame);
 //        }
-//        frame=imread("/Users/wzq/Downloads/test5/1269.jpg");
-        for (int i = 1520; i < 3036; i+=1) {
-            frame=imread("/Users/wzq/Downloads/untitled folder 5/"+to_string(i)+".jpg");
-            if(process(frame)!=0)continue;
-
-            PadPassSend(result_digit_handwrite,result_digit_led);
-            PadPassPrint(result_digit_handwrite,result_digit_led);
-            imshow("frame"+to_string(i),frame);
-            waitKey(0);
-            destroyAllWindows();
-        }
+        frame=imread("/Users/wzq/RoboMaster/PadPass/test7/1202.jpg");
+//        for (int i = 1201; i < 3036; i+=1) {
+//            frame=imread("/Users/wzq/RoboMaster/PadPass/test7/"+to_string(i)+".jpg");
+//            if(process(frame)!=0)continue;
+//
+//            PadPassSend(result_digit_handwrite,result_digit_led);
+//            PadPassPrint(result_digit_handwrite,result_digit_led);
+//            imshow("frame"+to_string(i),frame);
+//            waitKey(0);
+//            destroyAllWindows();
+//        }
 //        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;

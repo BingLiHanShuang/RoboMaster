@@ -16,7 +16,7 @@ while True:
     success, frame = cap.read()
     #frame=resize(frame)
     count+=1
-    cv2.imwrite("test4/"+str(count)+".jpg",frame)
+    cv2.imwrite("test7/"+str(count)+".jpg",frame)
     cv2.imshow("",frame)
 
     cv2.waitKey(0XFF)
