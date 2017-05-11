@@ -24,7 +24,11 @@ using json = nlohmann::json;
 #else
 #define config_path "/home/ubuntu/RoboMaster/PadPassCpp/config.json"
 #endif
-
+#define timeline
+#ifdef timeline
+static int timeline_flag=0;//0的时候为白屏,1的时候为有数据
+static int timeline_buffer_jump=0;
+#endif
 static int count_digit=0;
 const int camera_width=500;
 const int camera_height=480;
@@ -634,7 +638,7 @@ int judge_empty_rectangle(vector<Mat> &image_digit_handwrite_with_border){
     }
     if(empty_count>=5)
         return 1;
-    cout<<"rect is empty"<<endl;
+//    cout<<"rect is empty"<<endl;
     return 0;
     //waitKey(0);
 
@@ -690,8 +694,8 @@ int process(Mat frame){
 
 
     location_rectangle_detect(frame,pos_rect);//检测所有符合大小符合的矩形
-    imshow("",frame);
-    waitKey(0);
+//    imshow("",frame);
+//    waitKey(0);
     if(pos_rect.size()<10){
         cout<<"cannot find location rectangle"<<endl;
         return -1;
@@ -763,9 +767,29 @@ int process(Mat frame){
         return -1;
 	}
 
+#ifdef timeline
+    if(judge_empty_rectangle(image_digit_handwrite_with_border)==0){
+        timeline_flag=0;
+        timeline_buffer_jump=0;
+        return -1;
+    }
+
+    if(timeline_buffer_jump<2&&timeline_flag==0){
+        timeline_buffer_jump++;
+        return -1;
+    }
+    if(timeline_flag==1)
+        return -1;
+    timeline_flag=1;
+
+
+
+
+
+#else
     if(judge_empty_rectangle(image_digit_handwrite_with_border)==0)//判断九宫格是否为空
         return -1;
-
+#endif
     extract_minimum_digit(image_digit_handwrite_with_border,image_digit_handwrite_final);//提取出最后识别九宫格图形
     extract_minimum_led_digit(led_screen,image_digit_led);//提取每个LED字符
 
@@ -847,8 +871,8 @@ int main() {
 //                imwrite("/Users/wzq/Downloads/untitled folder 5/"+to_string(count++)+".jpg",frame);
 //        }
 //        frame=imread("/Users/wzq/RoboMaster/PadPass/test7/1202.jpg");
-        for (int i = 1239; i < 3036; i+=1) {
-            frame=imread("/Users/wzq/RoboMaster/PadPass/test7/"+to_string(i)+".jpg");
+        for (int i = 0; i < 3036; i+=1) {
+            frame=imread("/Users/wzq/Downloads/video_output/"+to_string(i)+".jpg");
             if(process(frame)!=0)continue;
 
             PadPassSend(result_digit_handwrite,result_digit_led);
