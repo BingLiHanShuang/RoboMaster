@@ -21,6 +21,7 @@ using json = nlohmann::json;
 #define test
 #ifdef test
 #define config_path "/Users/wzq/RoboMaster/PadPassCpp/config.json"
+int count_test=0;
 #else
 #define config_path "/home/ubuntu/RoboMaster/PadPassCpp/config.json"
 #endif
@@ -77,9 +78,7 @@ Digit image_predict(Mat img,KerasModel *model){//通过卷积神经网络识别
 }
 Mat image_resize_digit_other(Mat rawimg){
     int width=28;
-    cv::Mat outimg(width, width, CV_8U, 255);
     cv::Size size;
-
     size.width = width;
     size.height = width;
     cv::resize(rawimg, rawimg, size,INTER_CUBIC);
@@ -406,7 +405,7 @@ void extract_minimum_led_digit(Mat &led_screen_frame,vector<Mat> &image_digit){
 //        dilate(im_th, im_th, Mat(), Point(-1, -1), 2, 1, 1);
 
 #ifdef test
-        imshow("led"+to_string(i),im_th);
+        //imshow("led"+to_string(i),im_th);
 #endif
         image_digit.push_back(im_th.clone());
 
@@ -421,7 +420,7 @@ void digit_handwrite_recognize(vector<Mat> &image_digit,vector<Digit> &res){
         Digit temp=image_predict(mat,model_handwrite_digit);
         temp.index=i;
 #ifdef test
-        imshow(to_string(i+1)+"-"+to_string(temp.result),mat);
+        //imshow(to_string(i+1)+"-"+to_string(temp.result),mat);
 #endif
 //        imwrite("/Users/wzq/Desktop/untitled folder/untitled folder/"+to_string(i)+".jpg",mat);
 
@@ -528,8 +527,24 @@ int location_rectangle_filter_variance(vector<Rect> &pos_rect){//通过方差过
         variance_mean/=variance.size();
         //求偏差的平均值
 
-        if(pos_rect.size()<=5||variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
+        if(pos_rect.size()<=5)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
+        {
+//            auto max1 = max_element(variance.begin(), variance.end());
+//            int index1 = (int)distance(variance.begin(), max1);//求出索引
+//
+//            if(variance[index1]>10)
             break;
+
+        }
+        if(variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
+        {
+            auto max1 = max_element(variance.begin(), variance.end());
+            int index1 = (int)distance(variance.begin(), max1);//求出索引
+
+            if(variance[index1]<10)
+            break;
+
+        }
         auto max = max_element(variance.begin(), variance.end());
         int index = (int)distance(variance.begin(), max);//求出索引
         pos_rect.erase(pos_rect.begin() + index);
@@ -728,8 +743,8 @@ int process(Mat frame){
     if(!variance_check(pos_rect_left)||!variance_check(pos_rect_right)){
         cout<<"please adjust the paramater for rectangle"<<endl;
 #ifdef test
-        imshow("frame",frame);
-        waitKey(0);
+//        imshow("frame",frame);
+//        waitKey(0);
 #endif
         return -1;
     }
@@ -740,7 +755,7 @@ int process(Mat frame){
 
 #ifdef test
 
-    imshow("frame",frame);
+    imshow("frame"+to_string(count_test),frame);
     waitKey(0);
 #endif
 
@@ -871,14 +886,16 @@ int main() {
 //                imwrite("/Users/wzq/Downloads/untitled folder 5/"+to_string(count++)+".jpg",frame);
 //        }
 //        frame=imread("/Users/wzq/RoboMaster/PadPass/test7/1202.jpg");
-        for (int i = 0; i < 3036; i+=1) {
+        for (int i = 0; i < 2828; i+=1) {
             frame=imread("/Users/wzq/Downloads/video_output/"+to_string(i)+".jpg");
+            count_test=i;
             if(process(frame)!=0)continue;
+
 
             PadPassSend(result_digit_handwrite,result_digit_led);
             PadPassPrint(result_digit_handwrite,result_digit_led);
-            imshow("frame"+to_string(i),frame);
-            waitKey(0);
+//            imshow("frame"+to_string(i),frame);
+//            waitKey(0);
             destroyAllWindows();
         }
 //        cap>>frame;
@@ -894,8 +911,8 @@ tStart= clock();
         PadPassPrint(result_digit_handwrite,result_digit_led);
 #ifdef test
 
-        imshow("frame",frame);
-        waitKey(0);
+//        imshow("frame",frame);
+//        waitKey(0);
         destroyAllWindows();
 #endif
     }
