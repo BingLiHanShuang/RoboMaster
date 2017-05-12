@@ -18,6 +18,7 @@ using namespace std;
 using namespace cv;
 using namespace keras;
 using json = nlohmann::json;
+//#define runtime_calculate
 #define test
 #ifdef test
 #define config_path "/Users/wzq/RoboMaster/PadPassCpp/config.json"
@@ -25,7 +26,7 @@ int count_test=0;
 #else
 #define config_path "/home/ubuntu/RoboMaster/PadPassCpp/config.json"
 #endif
-#define timeline
+//#define timeline
 #ifdef timeline
 static int timeline_flag=0;//0的时候为白屏,1的时候为有数据
 static int timeline_buffer_jump=0;
@@ -380,10 +381,10 @@ void extract_minimum_led_digit(Mat &led_screen_frame,vector<Mat> &image_digit){
     cvtColor(led_screen_frame,led_screen_grayscale,COLOR_BGR2GRAY);
 
 
-    Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
-
-    Scalar upper_red=Scalar(255, 255, 255);
-    inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
+//    Scalar lower_red=Scalar(0, 0, config_threshhold_led_light);//参数:LED灯亮度参数
+//
+//    Scalar upper_red=Scalar(255, 255, 255);
+//    inRange(led_screen_frame,lower_red,upper_red,led_screen_mask);//红色LED掩码
     dilate(led_screen_mask, led_screen_mask, Mat(), Point(-1, -1), 2, 1, 1);
 
 
@@ -397,6 +398,10 @@ void extract_minimum_led_digit(Mat &led_screen_frame,vector<Mat> &image_digit){
         if(rect.height<10)continue;
         rects_led.push_back(rect);
     }
+#ifdef test
+//    imshow("led_screen_mask",led_screen_mask);
+//    waitKey(0);
+#endif
     sort(rects_led.begin(),rects_led.end(),sort_cmp_x_greater);
     for (int i = 0; i < rects_led.size(); ++i) {
         Mat im_gray(led_screen_grayscale,rects_led[i]),im_th;
@@ -405,7 +410,8 @@ void extract_minimum_led_digit(Mat &led_screen_frame,vector<Mat> &image_digit){
 //        dilate(im_th, im_th, Mat(), Point(-1, -1), 2, 1, 1);
 
 #ifdef test
-        //imshow("led"+to_string(i),im_th);
+//        imshow("led"+to_string(i),im_th);
+//        waitKey(0);
 #endif
         image_digit.push_back(im_th.clone());
 
@@ -536,17 +542,16 @@ int location_rectangle_filter_variance(vector<Rect> &pos_rect){//通过方差过
             break;
 
         }
-        if(variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
-        {
-            auto max1 = max_element(variance.begin(), variance.end());
-            int index1 = (int)distance(variance.begin(), max1);//求出索引
 
-            if(variance[index1]<10)
-            break;
-
-        }
         auto max = max_element(variance.begin(), variance.end());
         int index = (int)distance(variance.begin(), max);//求出索引
+        if(variance_mean<10)//当数量到达5时或者偏差没那么大的时候,退出x轴过滤器
+        {
+
+            if(variance[index]<10)
+                break;
+
+        }
         pos_rect.erase(pos_rect.begin() + index);
     }
     if(pos_rect.size()==5)return 5;
@@ -702,11 +707,16 @@ int process(Mat frame){
     vector<Rect> pos_rect,pos_rect_left,pos_rect_right;
 //    vector<Rect> pos_rect_left(pos_rect_new.begin(),pos_rect_new.begin()+5),pos_rect_right(pos_rect_new.begin()+5,pos_rect_new.end());
 
+#ifdef runtime_calculate
+    clock_t clock_runtime;
+#endif
 
     //对图像大小进行处理
     frame=resize_resize(frame);
     GaussianBlur(frame,frame,Size(5, 5),1);
-
+#ifdef runtime_calculate
+    clock_runtime=clock() ;
+#endif
 
     location_rectangle_detect(frame,pos_rect);//检测所有符合大小符合的矩形
 //    imshow("",frame);
@@ -753,13 +763,21 @@ int process(Mat frame){
 
 
 
+#ifdef runtime_calculate
+    printf("Time for find location rectangle takes: %lfs\n", (double)(clock() - clock_runtime)/CLOCKS_PER_SEC);
+#endif
+
+
+
 #ifdef test
 
     imshow("frame"+to_string(count_test),frame);
     waitKey(0);
 #endif
 
-
+#ifdef runtime_calculate
+    clock_runtime=clock() ;
+#endif
 
     vector<Mat> image_digit_handwrite;
     vector<Mat> image_digit_led;
@@ -808,14 +826,25 @@ int process(Mat frame){
     extract_minimum_digit(image_digit_handwrite_with_border,image_digit_handwrite_final);//提取出最后识别九宫格图形
     extract_minimum_led_digit(led_screen,image_digit_led);//提取每个LED字符
 
+#ifdef runtime_calculate
+    printf("Time for locating each digit takes: %lfs\n", (double)(clock() - clock_runtime)/CLOCKS_PER_SEC);
+#endif
 //    if(image_digit_led.size()!=5){
 //        cout<<"cannot find enough image_digit_led"<<endl;
 //        return -1;
 //        }
     vector<Digit> result_handwrite,result_led;
+
+
+#ifdef runtime_calculate
+    clock_runtime=clock() ;
+#endif
     digit_handwrite_recognize(image_digit_handwrite_final,result_handwrite);//识别手写数字
     digit_led_recognize(image_digit_led,result_led);//识别LED数字
 
+#ifdef runtime_calculate
+    printf("Time for recognizing digit takes: %lfs\n", (double)(clock() - clock_runtime)/CLOCKS_PER_SEC);
+#endif
     result_duplicate_solve(result_handwrite);
     save_result(result_handwrite,result_digit_handwrite);
     save_result(result_led,result_digit_led);
@@ -871,7 +900,7 @@ int main() {
 
 
 #ifdef test
-//    VideoCapture cap("/Users/wzq/Desktop/wzq_1_946688330.mp4");
+    VideoCapture cap("/Volumes/Untitled 2/wzq_1_946685387.mp4");
 #endif
             clock_t tStart;
     Mat frame;
@@ -886,19 +915,19 @@ int main() {
 //                imwrite("/Users/wzq/Downloads/untitled folder 5/"+to_string(count++)+".jpg",frame);
 //        }
 //        frame=imread("/Users/wzq/RoboMaster/PadPass/test7/1202.jpg");
-        for (int i = 0; i < 2828; i+=1) {
-            frame=imread("/Users/wzq/Downloads/video_output/"+to_string(i)+".jpg");
-            count_test=i;
-            if(process(frame)!=0)continue;
-
-
-            PadPassSend(result_digit_handwrite,result_digit_led);
-            PadPassPrint(result_digit_handwrite,result_digit_led);
-//            imshow("frame"+to_string(i),frame);
-//            waitKey(0);
-            destroyAllWindows();
-        }
-//        cap>>frame;
+//        for (int i = 0; i < 2828; i+=1) {
+//            frame=imread("/Users/wzq/Downloads/video_output/"+to_string(i)+".jpg");
+//            count_test=i;
+//            if(process(frame)!=0)continue;
+//
+//
+//            PadPassSend(result_digit_handwrite,result_digit_led);
+//            PadPassPrint(result_digit_handwrite,result_digit_led);
+////            imshow("frame"+to_string(i),frame);
+////            waitKey(0);
+//            destroyAllWindows();
+//        }
+        cap>>frame;
 //        imwrite("/Users/wzq/Downloads/untitled folder/"+to_string(count++)+".jpg",frame);
 //        continue;
 #else
